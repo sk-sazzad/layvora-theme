@@ -828,8 +828,9 @@
           * السعر شامل ضريبة القيمة المضافة 15% وتكلفة الشحن تحسب عند إتمام الطلب.
         </p>
 
+
         <div style="display:flex; flex-direction:column; gap:10px;">
-          <button class="btn btn-primary" style="width:100%;" onclick="alert('جاري الانتقال لصفحة إتمام الدفع بالريال السعودي!')">
+          <button class="btn btn-primary" style="width:100%;" onclick="LayvoraTheme.closeCartDrawer(); LayvoraCheckout.open();">
             🔒 إتمام الطلب الآن (دفع آمن)
           </button>
           <div style="display:flex; justify-content:center; gap:8px; margin-top:6px;">
@@ -858,7 +859,358 @@
     💬
   </a>
 
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <!-- CHECKOUT POPUP MODAL                                                   -->
+  <!-- ══════════════════════════════════════════════════════════════════════ -->
+  <div class="checkout-overlay" id="checkoutOverlay">
+    <div class="checkout-modal" id="checkoutModal">
+
+      <!-- Modal Header -->
+      <div class="checkout-header">
+        <div class="checkout-logo">
+          <div class="site-logo-icon" style="width:32px;height:32px;font-size:1rem;">L</div>
+          <span style="font-weight:800; font-size:1.1rem;">LAYVORA<span style="color:var(--color-gold);">.SA</span></span>
+        </div>
+        <div class="checkout-secure-badge">🔒 <span data-ar="دفع آمن 100%" data-en="100% Secure">دفع آمن 100%</span></div>
+        <button class="checkout-close-btn" id="checkoutCloseBtn" aria-label="إغلاق">✕</button>
+      </div>
+
+      <!-- Step Progress Bar -->
+      <div class="checkout-progress">
+        <div class="checkout-step-item active" id="step-indicator-1">
+          <div class="step-dot">1</div>
+          <span data-ar="مراجعة الطلب" data-en="Order Review">مراجعة الطلب</span>
+        </div>
+        <div class="checkout-step-line"></div>
+        <div class="checkout-step-item" id="step-indicator-2">
+          <div class="step-dot">2</div>
+          <span data-ar="بيانات الشحن" data-en="Shipping Info">بيانات الشحن</span>
+        </div>
+        <div class="checkout-step-line"></div>
+        <div class="checkout-step-item" id="step-indicator-3">
+          <div class="step-dot">3</div>
+          <span data-ar="طريقة الدفع" data-en="Payment">طريقة الدفع</span>
+        </div>
+        <div class="checkout-step-line"></div>
+        <div class="checkout-step-item" id="step-indicator-4">
+          <div class="step-dot">✓</div>
+          <span data-ar="تأكيد الطلب" data-en="Confirmed">تأكيد الطلب</span>
+        </div>
+      </div>
+
+      <!-- ── STEP 1 : Order Review ── -->
+      <div class="checkout-step" id="checkout-step-1">
+        <h2 class="checkout-section-title" data-ar="🛍️ مراجعة طلبك" data-en="🛍️ Your Order">🛍️ مراجعة طلبك</h2>
+
+        <div class="checkout-items-list" id="checkoutItemsList">
+          <!-- Injected by JS -->
+        </div>
+
+        <div class="checkout-totals">
+          <div class="totals-row">
+            <span data-ar="المجموع الفرعي" data-en="Subtotal">المجموع الفرعي</span>
+            <span id="co-subtotal">0 ر.س</span>
+          </div>
+          <div class="totals-row">
+            <span data-ar="الشحن داخل المملكة" data-en="KSA Shipping">الشحن داخل المملكة</span>
+            <span id="co-shipping" style="color:var(--color-primary);">مجاني</span>
+          </div>
+          <div class="totals-row">
+            <span data-ar="ضريبة القيمة المضافة 15%" data-en="VAT 15%">ضريبة القيمة المضافة 15%</span>
+            <span id="co-vat">0 ر.س</span>
+          </div>
+          <div class="totals-row totals-grand">
+            <span data-ar="الإجمالي الكلي" data-en="Grand Total">الإجمالي الكلي</span>
+            <span id="co-total" style="color:var(--color-primary); font-size:1.3rem;">0 ر.س</span>
+          </div>
+        </div>
+
+        <!-- Trust badges -->
+        <div class="checkout-trust-row">
+          <span>🔄 <span data-ar="إرجاع مجاني 14 يوم" data-en="14-Day Free Returns">إرجاع مجاني 14 يوم</span></span>
+          <span>🛡️ <span data-ar="ضمان الأصالة" data-en="Authenticity Guaranteed">ضمان الأصالة</span></span>
+          <span>🚚 <span data-ar="توصيل سريع 1-3 أيام" data-en="Fast Delivery 1-3 Days">توصيل سريع 1-3 أيام</span></span>
+        </div>
+
+        <button class="btn btn-primary checkout-next-btn" onclick="LayvoraCheckout.goToStep(2)">
+          <span data-ar="التالي — بيانات الشحن ←" data-en="Next — Shipping Info →">التالي — بيانات الشحن ←</span>
+        </button>
+      </div>
+
+      <!-- ── STEP 2 : Shipping Info ── -->
+      <div class="checkout-step hidden" id="checkout-step-2">
+        <h2 class="checkout-section-title" data-ar="📦 بيانات التوصيل" data-en="📦 Delivery Details">📦 بيانات التوصيل</h2>
+
+        <form class="checkout-form" id="checkoutShippingForm" onsubmit="return false;">
+          <div class="form-row">
+            <div class="form-group">
+              <label data-ar="الاسم الكامل" data-en="Full Name">الاسم الكامل</label>
+              <input type="text" id="co-name" placeholder="محمد عبدالله" required autocomplete="name">
+            </div>
+            <div class="form-group">
+              <label data-ar="رقم الجوال (السعودي)" data-en="Mobile Number (Saudi)">رقم الجوال (السعودي)</label>
+              <div class="phone-input-wrap">
+                <span class="phone-prefix">🇸🇦 +966</span>
+                <input type="tel" id="co-phone" placeholder="5xxxxxxxx" required maxlength="9" pattern="[0-9]{9}" autocomplete="tel">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label data-ar="البريد الإلكتروني" data-en="Email Address">البريد الإلكتروني</label>
+            <input type="email" id="co-email" placeholder="example@email.com" autocomplete="email">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label data-ar="المدينة" data-en="City">المدينة</label>
+              <select id="co-city" required>
+                <option value="" disabled selected data-ar="اختر المدينة" data-en="Select City">اختر المدينة</option>
+                <option value="riyadh" data-ar="الرياض" data-en="Riyadh">الرياض</option>
+                <option value="jeddah" data-ar="جدة" data-en="Jeddah">جدة</option>
+                <option value="dammam" data-ar="الدمام" data-en="Dammam">الدمام</option>
+                <option value="makkah" data-ar="مكة المكرمة" data-en="Makkah">مكة المكرمة</option>
+                <option value="madinah" data-ar="المدينة المنورة" data-en="Madinah">المدينة المنورة</option>
+                <option value="khobar" data-ar="الخبر" data-en="Al Khobar">الخبر</option>
+                <option value="abha" data-ar="أبها" data-en="Abha">أبها</option>
+                <option value="taif" data-ar="الطائف" data-en="Taif">الطائف</option>
+                <option value="tabuk" data-ar="تبوك" data-en="Tabuk">تبوك</option>
+                <option value="other" data-ar="مدينة أخرى" data-en="Other City">مدينة أخرى</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label data-ar="الحي / المنطقة" data-en="District / Area">الحي / المنطقة</label>
+              <input type="text" id="co-district" placeholder="حي النزهة" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label data-ar="العنوان التفصيلي" data-en="Detailed Address">العنوان التفصيلي</label>
+            <textarea id="co-address" rows="2" placeholder="شارع الملك فهد، برج الأعمال، الدور 3" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label data-ar="الرمز البريدي (اختياري)" data-en="Postal Code (Optional)">الرمز البريدي (اختياري)</label>
+            <input type="text" id="co-postal" placeholder="12345" maxlength="5">
+          </div>
+
+          <!-- Delivery speed selector -->
+          <div class="delivery-options">
+            <label class="delivery-option-label" data-ar="سرعة التوصيل" data-en="Delivery Speed">سرعة التوصيل</label>
+            <div class="delivery-option-cards">
+              <label class="delivery-card active" id="delivery-standard">
+                <input type="radio" name="delivery" value="standard" checked>
+                <div class="delivery-card-inner">
+                  <span class="delivery-icon">🚚</span>
+                  <div>
+                    <div class="delivery-name" data-ar="توصيل عادي (1-3 أيام)" data-en="Standard (1-3 Days)">توصيل عادي (1-3 أيام)</div>
+                    <div class="delivery-price" style="color:var(--color-primary);" data-ar="مجاني (فوق 200 ر.س)" data-en="Free (over 200 SAR)">مجاني (فوق 200 ر.س)</div>
+                  </div>
+                </div>
+              </label>
+              <label class="delivery-card" id="delivery-express">
+                <input type="radio" name="delivery" value="express">
+                <div class="delivery-card-inner">
+                  <span class="delivery-icon">⚡</span>
+                  <div>
+                    <div class="delivery-name" data-ar="توصيل سريع (خلال 24 ساعة)" data-en="Express (24 Hours)">توصيل سريع (خلال 24 ساعة)</div>
+                    <div class="delivery-price" data-ar="+25 ر.س" data-en="+25 SAR">+25 ر.س</div>
+                  </div>
+                </div>
+              </label>
+            </div>
+          </div>
+        </form>
+
+        <div class="checkout-btn-row">
+          <button class="btn btn-outline checkout-back-btn" onclick="LayvoraCheckout.goToStep(1)">
+            ← <span data-ar="رجوع" data-en="Back">رجوع</span>
+          </button>
+          <button class="btn btn-primary checkout-next-btn" onclick="LayvoraCheckout.validateShipping()">
+            <span data-ar="التالي — طريقة الدفع ←" data-en="Next — Payment →">التالي — طريقة الدفع ←</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- ── STEP 3 : Payment ── -->
+      <div class="checkout-step hidden" id="checkout-step-3">
+        <h2 class="checkout-section-title" data-ar="💳 طريقة الدفع" data-en="💳 Payment Method">💳 طريقة الدفع</h2>
+
+        <!-- Payment Methods -->
+        <div class="payment-methods-grid" id="paymentMethodsGrid">
+
+          <label class="payment-method-card active" data-method="mada">
+            <input type="radio" name="payment" value="mada" checked>
+            <div class="payment-card-inner">
+              <div class="payment-method-logo mada-logo">مدى</div>
+              <div>
+                <div class="payment-method-name" data-ar="بطاقة مدى" data-en="Mada Card">بطاقة مدى</div>
+                <div class="payment-method-desc" data-ar="البطاقة المصرفية السعودية" data-en="Saudi Debit Card">البطاقة المصرفية السعودية</div>
+              </div>
+            </div>
+          </label>
+
+          <label class="payment-method-card" data-method="apple-pay">
+            <input type="radio" name="payment" value="apple-pay">
+            <div class="payment-card-inner">
+              <div class="payment-method-logo apple-logo"> Pay</div>
+              <div>
+                <div class="payment-method-name" data-ar="Apple Pay" data-en="Apple Pay">Apple Pay</div>
+                <div class="payment-method-desc" data-ar="دفع سريع وآمن" data-en="Fast & Secure Payment">دفع سريع وآمن</div>
+              </div>
+            </div>
+          </label>
+
+          <label class="payment-method-card" data-method="tamara">
+            <input type="radio" name="payment" value="tamara">
+            <div class="payment-card-inner">
+              <div class="payment-method-logo tamara-logo">تمارا</div>
+              <div>
+                <div class="payment-method-name" data-ar="تقسيط تمارا (4 دفعات)" data-en="Tamara (4 Payments)">تقسيط تمارا (4 دفعات)</div>
+                <div class="payment-method-desc tamara-installment" id="tamaraInstallmentText">0 ر.س / كل دفعة · بدون فوائد</div>
+              </div>
+            </div>
+          </label>
+
+          <label class="payment-method-card" data-method="tabby">
+            <input type="radio" name="payment" value="tabby">
+            <div class="payment-card-inner">
+              <div class="payment-method-logo tabby-logo">tabby</div>
+              <div>
+                <div class="payment-method-name" data-ar="تقسيط تابي (4 دفعات)" data-en="Tabby (4 Payments)">تقسيط تابي (4 دفعات)</div>
+                <div class="payment-method-desc tabby-installment" id="tabbyInstallmentText">0 ر.س / كل دفعة · بدون فوائد</div>
+              </div>
+            </div>
+          </label>
+
+          <label class="payment-method-card" data-method="visa">
+            <input type="radio" name="payment" value="visa">
+            <div class="payment-card-inner">
+              <div class="payment-method-logo visa-logo">VISA</div>
+              <div>
+                <div class="payment-method-name" data-ar="بطاقة فيزا / ماستركارد" data-en="Visa / Mastercard">بطاقة فيزا / ماستركارد</div>
+                <div class="payment-method-desc" data-ar="دفع ببطاقتك الائتمانية" data-en="Pay with credit card">دفع ببطاقتك الائتمانية</div>
+              </div>
+            </div>
+          </label>
+
+          <label class="payment-method-card" data-method="cod">
+            <input type="radio" name="payment" value="cod">
+            <div class="payment-card-inner">
+              <div class="payment-method-logo cod-logo">💵</div>
+              <div>
+                <div class="payment-method-name" data-ar="الدفع عند الاستلام" data-en="Cash on Delivery">الدفع عند الاستلام</div>
+                <div class="payment-method-desc" data-ar="ادفع نقداً عند وصول الطلب" data-en="Pay cash when delivered">ادفع نقداً عند وصول الطلب</div>
+              </div>
+            </div>
+          </label>
+        </div>
+
+        <!-- Card number fields (visible when mada or visa selected) -->
+        <div class="card-fields" id="cardFields">
+          <div class="form-group">
+            <label data-ar="رقم البطاقة" data-en="Card Number">رقم البطاقة</label>
+            <input type="text" id="co-card-num" placeholder="•••• •••• •••• ••••" maxlength="19" autocomplete="cc-number">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label data-ar="تاريخ الانتهاء" data-en="Expiry Date">تاريخ الانتهاء</label>
+              <input type="text" id="co-card-exp" placeholder="MM/YY" maxlength="5" autocomplete="cc-exp">
+            </div>
+            <div class="form-group">
+              <label>CVV / CVC</label>
+              <input type="text" id="co-card-cvv" placeholder="•••" maxlength="4" autocomplete="cc-csc">
+            </div>
+          </div>
+          <div class="form-group">
+            <label data-ar="اسم حامل البطاقة" data-en="Cardholder Name">اسم حامل البطاقة</label>
+            <input type="text" id="co-card-name" placeholder="MOHAMMED ABDULLAH" autocomplete="cc-name">
+          </div>
+        </div>
+
+        <!-- Order Summary mini -->
+        <div class="payment-summary-mini">
+          <div class="totals-row">
+            <span data-ar="الإجمالي المطلوب دفعه" data-en="Amount Due">الإجمالي المطلوب دفعه</span>
+            <span id="co-total-payment" style="color:var(--color-primary); font-weight:800; font-size:1.2rem;">0 ر.س</span>
+          </div>
+          <div style="font-size:0.75rem; color:var(--color-text-muted); margin-top:6px;" data-ar="* شامل ضريبة القيمة المضافة 15%" data-en="* Includes 15% VAT">* شامل ضريبة القيمة المضافة 15%</div>
+        </div>
+
+        <div class="checkout-btn-row">
+          <button class="btn btn-outline checkout-back-btn" onclick="LayvoraCheckout.goToStep(2)">
+            ← <span data-ar="رجوع" data-en="Back">رجوع</span>
+          </button>
+          <button class="btn btn-primary checkout-next-btn" id="placeOrderBtn" onclick="LayvoraCheckout.placeOrder()">
+            🔒 <span data-ar="تأكيد وإتمام الطلب" data-en="Confirm & Place Order">تأكيد وإتمام الطلب</span>
+          </button>
+        </div>
+
+        <!-- Security row -->
+        <div class="checkout-security-row">
+          <span>🔒 SSL</span>
+          <span>🛡️ PCI DSS</span>
+          <span>✅ 3D Secure</span>
+          <span>🇸🇦 SAMA</span>
+        </div>
+      </div>
+
+      <!-- ── STEP 4 : Confirmation ── -->
+      <div class="checkout-step hidden" id="checkout-step-4">
+        <div class="order-success-anim">
+          <div class="success-circle">
+            <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="40" cy="40" r="38" stroke="var(--color-primary)" stroke-width="3" class="success-ring"/>
+              <path d="M20 40 L34 54 L60 26" stroke="var(--color-primary)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="success-check"/>
+            </svg>
+          </div>
+        </div>
+
+        <h2 class="checkout-section-title" style="text-align:center; margin-top:16px;" data-ar="🎉 تم تأكيد طلبك بنجاح!" data-en="🎉 Order Placed Successfully!">🎉 تم تأكيد طلبك بنجاح!</h2>
+
+        <div class="order-confirmation-card">
+          <div class="order-number-row">
+            <span data-ar="رقم الطلب" data-en="Order Number">رقم الطلب</span>
+            <span id="orderNumberDisplay" style="font-weight:800; color:var(--color-primary); font-size:1.1rem;">#LV-000000</span>
+          </div>
+          <div class="order-number-row">
+            <span data-ar="طريقة الدفع" data-en="Payment Method">طريقة الدفع</span>
+            <span id="confirmPaymentMethod">—</span>
+          </div>
+          <div class="order-number-row">
+            <span data-ar="المبلغ الإجمالي" data-en="Total Paid">المبلغ الإجمالي</span>
+            <span id="confirmTotalPaid" style="font-weight:800;">—</span>
+          </div>
+          <div class="order-number-row">
+            <span data-ar="التوصيل المتوقع" data-en="Expected Delivery">التوصيل المتوقع</span>
+            <span id="confirmDeliveryDate" style="color:var(--color-primary);">—</span>
+          </div>
+        </div>
+
+        <p class="confirm-message" data-ar="سيتم إرسال تأكيد الطلب عبر الرسائل النصية والبريد الإلكتروني. يمكنك تتبع طلبك من خلال تطبيقنا." data-en="Order confirmation will be sent via SMS and email. You can track your order through our app.">
+          سيتم إرسال تأكيد الطلب عبر الرسائل النصية والبريد الإلكتروني. يمكنك تتبع طلبك من خلال تطبيقنا.
+        </p>
+
+        <div class="confirm-actions">
+          <button class="btn btn-primary" onclick="LayvoraCheckout.close()" style="flex:1;" data-ar="🏠 العودة للمتجر" data-en="🏠 Back to Store">
+            🏠 العودة للمتجر
+          </button>
+          <a href="https://wa.me/966500000000" target="_blank" class="btn btn-outline" style="flex:1; text-align:center;" data-ar="💬 تواصل معنا" data-en="💬 Contact Us">
+            💬 تواصل معنا
+          </a>
+        </div>
+      </div>
+
+    </div><!-- /.checkout-modal -->
+  </div><!-- /.checkout-overlay -->
+
+  <!-- Floating Saudi WhatsApp Button -->
+  <a href="https://wa.me/966500000000" target="_blank" class="whatsapp-float-btn" title="تواصل عبر واتساب">
+    💬
+  </a>
+
   <!-- Theme JavaScript -->
   <script src="assets/theme.js"></script>
+  <script src="assets/checkout.js"></script>
 </body>
 </html>

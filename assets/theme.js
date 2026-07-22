@@ -31,14 +31,117 @@ const LayvoraTheme = {
     this.updateCartCount();
     this.initCountdownTimer();
     this.initCategoryTabs();
+    // Apply initial language state visuals
+    this.applyLanguageState(this.state.lang);
   },
+
+  // ─── LANGUAGE / DIRECTION TOGGLE ────────────────────────────────────────────
+
+  toggleLanguage(lang) {
+    if (this.state.lang === lang) return; // Already active — skip
+    this.state.lang = lang;
+    this.state.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    this.applyLanguageState(lang);
+    this.renderCartItems();
+  },
+
+  applyLanguageState(lang) {
+    const dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+    // 1. Set HTML lang + dir attributes
+    document.documentElement.setAttribute('lang', lang);
+    document.documentElement.setAttribute('dir', dir);
+
+    // 2. Swap CSS font-family via body class
+    document.body.classList.toggle('lang-en', lang === 'en');
+    document.body.classList.toggle('lang-ar', lang === 'ar');
+
+    // 3. Translate elements that have data-ar / data-en (text-only, safe)
+    document.querySelectorAll('[data-ar][data-en]').forEach(el => {
+      const arText = el.getAttribute('data-ar');
+      const enText = el.getAttribute('data-en');
+      if (!arText || !enText) return;
+
+      // Only replace textContent if the element has no important child elements
+      const hasChildElements = [...el.children].some(c => !c.classList.contains('tag-hot'));
+      if (!hasChildElements) {
+        el.textContent = lang === 'ar' ? arText : enText;
+        // Preserve tag-hot span if it was stripped
+      } else {
+        // For elements with children (e.g. nav links with .tag-hot badge), 
+        // only update the text node, not child elements
+        el.childNodes.forEach(node => {
+          if (node.nodeType === Node.TEXT_NODE && node.textContent.trim().length > 0) {
+            // Find the plain text part from data attributes
+            const tagHotText = el.querySelector('.tag-hot')?.textContent || '';
+            const fullText = lang === 'ar' ? arText : enText;
+            node.textContent = fullText.replace(tagHotText, '').trim() + ' ';
+          }
+        });
+      }
+    });
+
+    // 4. Translate placeholder attributes
+    document.querySelectorAll('[data-ar-placeholder]').forEach(el => {
+      el.setAttribute('placeholder', lang === 'ar'
+        ? el.getAttribute('data-ar-placeholder')
+        : el.getAttribute('data-en-placeholder'));
+    });
+
+    // 5. Update language button active states
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('lang-active', btn.dataset.lang === lang);
+    });
+
+    // 6. Update current lang display text in all switchers
+    document.querySelectorAll('.current-lang-text').forEach(el => {
+      el.textContent = lang === 'ar' ? 'العربية (ر.س)' : 'English (SAR)';
+    });
+
+    // 7. Flip layout: nav-list direction
+    document.querySelectorAll('.nav-list').forEach(el => {
+      el.style.flexDirection = dir === 'rtl' ? 'row' : 'row-reverse';
+    });
+
+    // 8. Update announcement ticker text directly
+    const ticker = document.querySelector('.announcement-ticker > span:not(.highlight)');
+    if (ticker) {
+      ticker.textContent = lang === 'ar'
+        ? 'شحن مجاني لجميع مدن المملكة (الرياض، جدة، الدمام) عند الشراء بقيمة 200 ر.س'
+        : 'Free delivery across KSA on orders over 200 SAR';
+    }
+
+    // 9. Update search placeholder
+    const searchInput = document.querySelector('.search-input');
+    if (searchInput) {
+      searchInput.setAttribute('placeholder', lang === 'ar'
+        ? 'ابحث عن عطور، أزياء، إلكترونيات...'
+        : 'Search perfumes, fashion, electronics...');
+    }
+
+    // 10. Update page title
+    document.title = lang === 'ar'
+      ? 'متجر لافورا السعودي | Layvora KSA'
+      : 'Layvora KSA | Saudi Arabia Premium Store';
+
+    // 11. Update section headings using data-ar / data-en on h2/h1
+    document.querySelectorAll('h1[data-ar], h2[data-ar], h3[data-ar], p[data-ar], span[data-ar], button[data-ar], a[data-ar]').forEach(el => {
+      const arText = el.getAttribute('data-ar');
+      const enText = el.getAttribute('data-en');
+      if (arText && enText) {
+        el.textContent = lang === 'ar' ? arText : enText;
+      }
+    });
+  },
+
+  // ─── CATEGORY TABS ──────────────────────────────────────────────────────────
 
   initCategoryTabs() {
     document.addEventListener('click', (e) => {
       if (e.target.closest('.tab-pill')) {
         const btn = e.target.closest('.tab-pill');
         const cat = btn.dataset.category;
-        
+
         document.querySelectorAll('.tab-pill').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
 
@@ -54,59 +157,70 @@ const LayvoraTheme = {
     });
   },
 
+  // ─── EVENTS ─────────────────────────────────────────────────────────────────
 
   bindEvents() {
-    // Language / Direction Switcher
-    const langBtns = document.querySelectorAll('.lang-btn');
-    langBtns.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const lang = e.currentTarget.dataset.lang;
-        this.toggleLanguage(lang);
-      });
+    // Language Switcher — use event delegation so all buttons work regardless of position
+    document.addEventListener('click', (e) => {
+      const langBtn = e.target.closest('.lang-btn');
+      if (langBtn) {
+        const lang = langBtn.dataset.lang;
+        if (lang) this.toggleLanguage(lang);
+      }
     });
 
-    // Cart Drawer Controls
-    const cartTriggers = document.querySelectorAll('.cart-drawer-trigger');
-    const closeCartBtns = document.querySelectorAll('.close-drawer-btn, .cart-drawer-overlay');
-    
-    cartTriggers.forEach(btn => btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      this.openCartDrawer();
-    }));
+    // Cart Drawer Open
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('.cart-drawer-trigger')) {
+        e.preventDefault();
+        this.openCartDrawer();
+      }
+    });
 
-    closeCartBtns.forEach(btn => btn.addEventListener('click', (e) => {
-      if (e.target.classList.contains('cart-drawer-overlay') || e.currentTarget.classList.contains('close-drawer-btn')) {
+    // Cart Drawer Close
+    document.addEventListener('click', (e) => {
+      const overlay = e.target.closest('.cart-drawer-overlay');
+      const closeBtn = e.target.closest('.close-drawer-btn');
+      if (overlay && !e.target.closest('.cart-drawer')) {
         this.closeCartDrawer();
       }
-    }));
+      if (closeBtn) {
+        this.closeCartDrawer();
+      }
+    });
 
-    // Add to Cart buttons
+    // Add to Cart
     document.addEventListener('click', (e) => {
       if (e.target.closest('.add-to-cart-btn')) {
         const btn = e.target.closest('.add-to-cart-btn');
-        const productId = parseInt(btn.dataset.id || '1');
-        const title = btn.dataset.title || 'منتج فاخر';
-        const price = parseFloat(btn.dataset.price || '150');
-        const image = btn.dataset.image || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=80';
-        
-        this.addToCart({ id: productId, title, price, image, quantity: 1 });
+        this.addToCart({
+          id: parseInt(btn.dataset.id || '0') || Date.now(),
+          title: btn.dataset.title || 'منتج فاخر',
+          price: parseFloat(btn.dataset.price || '150'),
+          image: btn.dataset.image || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=80',
+          quantity: 1
+        });
       }
+    });
 
-      // Wishlist toggle
+    // Wishlist toggle
+    document.addEventListener('click', (e) => {
       if (e.target.closest('.wishlist-btn')) {
         const btn = e.target.closest('.wishlist-btn');
         btn.classList.toggle('active');
         const countBadge = document.querySelector('.wishlist-badge');
         if (countBadge) {
-          let curr = parseInt(countBadge.textContent || '0');
+          const curr = parseInt(countBadge.textContent || '0');
           countBadge.textContent = btn.classList.contains('active') ? curr + 1 : Math.max(0, curr - 1);
         }
       }
+    });
 
-      // Quick View Modal
+    // Quick View Modal
+    document.addEventListener('click', (e) => {
       if (e.target.closest('.quick-view-btn')) {
         const btn = e.target.closest('.quick-view-btn');
-        const productData = {
+        this.openQuickView({
           id: btn.dataset.id,
           title: btn.dataset.title,
           price: btn.dataset.price,
@@ -114,42 +228,19 @@ const LayvoraTheme = {
           image: btn.dataset.image,
           category: btn.dataset.category,
           desc: btn.dataset.desc
-        };
-        this.openQuickView(productData);
+        });
       }
     });
 
-    // Close Modal
-    const modalOverlay = document.querySelector('.modal-overlay');
-    if (modalOverlay) {
-      modalOverlay.addEventListener('click', (e) => {
-        if (e.target.classList.contains('modal-overlay') || e.target.closest('.close-modal-btn')) {
-          this.closeQuickView();
-        }
-      });
-    }
-  },
-
-  toggleLanguage(lang) {
-    this.state.lang = lang;
-    this.state.dir = lang === 'ar' ? 'rtl' : 'ltr';
-
-    document.documentElement.setAttribute('lang', lang);
-    document.documentElement.setAttribute('dir', this.state.dir);
-
-    // Update switcher UI
-    const activeText = document.querySelector('.current-lang-text');
-    if (activeText) {
-      activeText.textContent = lang === 'ar' ? 'العربية (ر.س)' : 'English (SAR)';
-    }
-
-    // Toggle translations in demo environment
-    document.querySelectorAll('[data-ar]').forEach(el => {
-      el.textContent = lang === 'ar' ? el.getAttribute('data-ar') : el.getAttribute('data-en');
+    // Close Quick View Modal
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('modal-overlay') || e.target.closest('.close-modal-btn')) {
+        this.closeQuickView();
+      }
     });
-
-    this.renderCartItems();
   },
+
+  // ─── CART ────────────────────────────────────────────────────────────────────
 
   openCartDrawer() {
     const overlay = document.querySelector('.cart-drawer-overlay');
@@ -192,9 +283,9 @@ const LayvoraTheme = {
   },
 
   updateCartCount() {
-    const totalItems = this.state.cart.reduce((sum, item) => sum + item.quantity, 0);
+    const total = this.state.cart.reduce((sum, item) => sum + item.quantity, 0);
     document.querySelectorAll('.cart-count-badge').forEach(el => {
-      el.textContent = totalItems;
+      el.textContent = total;
     });
   },
 
@@ -203,17 +294,19 @@ const LayvoraTheme = {
     const subtotalEl = document.querySelector('.cart-subtotal-val');
     const shippingBarFill = document.querySelector('.progress-bar-fill');
     const shippingText = document.querySelector('.free-shipping-text');
+    const lang = this.state.lang;
+    const cur = lang === 'ar' ? 'ر.س' : 'SAR';
 
     if (!container) return;
 
     if (this.state.cart.length === 0) {
       container.innerHTML = `
-        <div style="text-align: center; padding: 40px 20px; color: var(--color-text-muted);">
-          <div style="font-size: 3rem; margin-bottom: 10px;">🛍️</div>
-          <p>${this.state.lang === 'ar' ? 'سلة التسوق فارغة حالياً' : 'Your shopping cart is empty'}</p>
+        <div style="text-align:center; padding:40px 20px; color:var(--color-text-muted);">
+          <div style="font-size:3rem; margin-bottom:10px;">🛍️</div>
+          <p>${lang === 'ar' ? 'سلة التسوق فارغة حالياً' : 'Your shopping cart is empty'}</p>
         </div>
       `;
-      if (subtotalEl) subtotalEl.textContent = `0 ${this.state.lang === 'ar' ? 'ر.س' : 'SAR'}`;
+      if (subtotalEl) subtotalEl.textContent = `0 ${cur}`;
       if (shippingBarFill) shippingBarFill.style.width = '0%';
       return;
     }
@@ -222,17 +315,15 @@ const LayvoraTheme = {
     let html = '';
 
     this.state.cart.forEach(item => {
-      const itemSub = item.price * item.quantity;
-      subtotal += itemSub;
-
+      subtotal += item.price * item.quantity;
       html += `
         <div class="cart-item">
           <img src="${item.image}" class="cart-item-img" alt="${item.title}">
           <div class="cart-item-info">
             <h4 class="cart-item-title">${item.title}</h4>
-            <div class="cart-item-price">${item.price} ${this.state.lang === 'ar' ? 'ر.س' : 'SAR'}</div>
+            <div class="cart-item-price">${item.price} ${cur}</div>
             <div class="cart-item-qty">
-              <button class="qty-btn" onclick="LayvoraTheme.updateQuantity(${item.id}, -1)">-</button>
+              <button class="qty-btn" onclick="LayvoraTheme.updateQuantity(${item.id}, -1)">−</button>
               <span>${item.quantity}</span>
               <button class="qty-btn" onclick="LayvoraTheme.updateQuantity(${item.id}, 1)">+</button>
             </div>
@@ -242,57 +333,60 @@ const LayvoraTheme = {
     });
 
     container.innerHTML = html;
-    if (subtotalEl) subtotalEl.textContent = `${subtotal.toFixed(2)} ${this.state.lang === 'ar' ? 'ر.س' : 'SAR'}`;
+    if (subtotalEl) subtotalEl.textContent = `${subtotal.toFixed(2)} ${cur}`;
 
-    // Calculate free shipping progress for Saudi Arabia
-    const threshold = this.state.freeShippingThreshold;
-    const progressPercent = Math.min(100, (subtotal / threshold) * 100);
+    const progressPercent = Math.min(100, (subtotal / this.state.freeShippingThreshold) * 100);
     if (shippingBarFill) shippingBarFill.style.width = `${progressPercent}%`;
 
     if (shippingText) {
-      if (subtotal >= threshold) {
-        shippingText.textContent = this.state.lang === 'ar' 
-          ? '🎉 تهانينا! حصلت على شحن مجاني داخل السعودية' 
+      if (subtotal >= this.state.freeShippingThreshold) {
+        shippingText.textContent = lang === 'ar'
+          ? '🎉 تهانينا! حصلت على شحن مجاني داخل السعودية'
           : '🎉 Congratulations! You unlocked Free Delivery in KSA';
       } else {
-        const remaining = (threshold - subtotal).toFixed(2);
-        shippingText.textContent = this.state.lang === 'ar'
+        const remaining = (this.state.freeShippingThreshold - subtotal).toFixed(2);
+        shippingText.textContent = lang === 'ar'
           ? `أضف ${remaining} ر.س للحصول على شحن مجاني داخل المملكة`
           : `Add ${remaining} SAR more for Free KSA Shipping`;
       }
     }
   },
 
+  // ─── QUICK VIEW MODAL ────────────────────────────────────────────────────────
+
   openQuickView(p) {
     const modal = document.querySelector('.modal-overlay');
     if (!modal) return;
 
-    const tamaraInstallment = (parseFloat(p.price || 0) / 4).toFixed(2);
+    const lang = this.state.lang;
+    const cur = lang === 'ar' ? 'ر.س' : 'SAR';
+    const installment = (parseFloat(p.price || 0) / 4).toFixed(2);
 
     modal.querySelector('.modal-body').innerHTML = `
       <div class="modal-gallery">
         <img src="${p.image}" style="width:100%; border-radius:12px; aspect-ratio:1; object-fit:cover;" alt="${p.title}">
       </div>
       <div class="modal-info" style="display:flex; flex-direction:column; justify-content:center;">
-        <span class="badge badge-primary" style="align-self:flex-start; margin-bottom:10px;">${p.category || 'جديد'}</span>
+        <span class="badge badge-primary" style="align-self:flex-start; margin-bottom:10px;">${p.category || (lang === 'ar' ? 'جديد' : 'New')}</span>
         <h2 style="font-size:1.5rem; font-weight:800; margin-bottom:10px;">${p.title}</h2>
         <div style="font-size:1.4rem; font-weight:800; color:var(--color-primary); margin-bottom:14px;">
-          ${p.price} ${this.state.lang === 'ar' ? 'ر.س' : 'SAR'}
-          ${p.origPrice ? `<span style="font-size:0.9rem; text-decoration:line-through; color:#94A3B8; margin-inline-start:8px;">${p.origPrice} ${this.state.lang === 'ar' ? 'ر.س' : 'SAR'}</span>` : ''}
+          ${p.price} ${cur}
+          ${p.origPrice ? `<span style="font-size:0.9rem; text-decoration:line-through; color:#94A3B8; margin-inline-start:8px;">${p.origPrice} ${cur}</span>` : ''}
         </div>
-        
-        <!-- Tamara BNPL Calculator -->
+
         <div style="background:var(--color-bg-secondary); padding:12px; border-radius:10px; margin-bottom:20px; font-size:0.85rem;">
-          <span style="background:#37C392; color:#fff; font-weight:700; padding:2px 6px; border-radius:4px;">تمارا</span>
-          قسمها على 4 دفعات بدون فوائد بقيمة <strong>${tamaraInstallment} ر.س</strong> / شهر
+          <span style="background:#37C392; color:#fff; font-weight:700; padding:2px 6px; border-radius:4px;">${lang === 'ar' ? 'تمارا' : 'Tamara'}</span>
+          ${lang === 'ar'
+            ? `قسمها على 4 دفعات بدون فوائد بقيمة <strong>${installment} ر.س</strong> / شهر`
+            : `Split into 4 payments of <strong>${installment} SAR</strong> / month`}
         </div>
 
         <p style="color:var(--color-text-muted); font-size:0.9rem; margin-bottom:24px; line-height:1.6;">
-          ${p.desc || 'منتج عالي الجودة ومصمم خصيصاً ليناسب الذوق السعودي الرفيع بأعلى معايير الفخامة والضمان.'}
+          ${p.desc || (lang === 'ar' ? 'منتج عالي الجودة ومصمم خصيصاً ليناسب الذوق السعودي الرفيع.' : 'High-quality product crafted for the discerning Saudi taste.')}
         </p>
 
         <button class="btn btn-primary add-to-cart-btn" data-id="${p.id}" data-title="${p.title}" data-price="${p.price}" data-image="${p.image}">
-          🛒 ${this.state.lang === 'ar' ? 'إضافة إلى السلة' : 'Add to Cart'}
+          🛒 ${lang === 'ar' ? 'إضافة إلى السلة' : 'Add to Cart'}
         </button>
       </div>
     `;
@@ -309,22 +403,19 @@ const LayvoraTheme = {
     }
   },
 
+  // ─── COUNTDOWN TIMER ─────────────────────────────────────────────────────────
+
   initCountdownTimer() {
     let hours = 14, minutes = 32, seconds = 45;
     setInterval(() => {
       seconds--;
-      if (seconds < 0) {
-        seconds = 59;
-        minutes--;
-        if (minutes < 0) {
-          minutes = 59;
-          hours--;
-        }
-      }
+      if (seconds < 0) { seconds = 59; minutes--; }
+      if (minutes < 0) { minutes = 59; hours--; }
+      if (hours < 0) { hours = 0; minutes = 0; seconds = 0; }
+
       const hEl = document.querySelector('.timer-h');
       const mEl = document.querySelector('.timer-m');
       const sEl = document.querySelector('.timer-s');
-
       if (hEl) hEl.textContent = String(hours).padStart(2, '0');
       if (mEl) mEl.textContent = String(minutes).padStart(2, '0');
       if (sEl) sEl.textContent = String(seconds).padStart(2, '0');
