@@ -30,7 +30,30 @@ const LayvoraTheme = {
     this.bindEvents();
     this.updateCartCount();
     this.initCountdownTimer();
+    this.initCategoryTabs();
   },
+
+  initCategoryTabs() {
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('.tab-pill')) {
+        const btn = e.target.closest('.tab-pill');
+        const cat = btn.dataset.category;
+        
+        document.querySelectorAll('.tab-pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const products = document.querySelectorAll('.tabbed-products-grid .product-card');
+        products.forEach(p => {
+          if (cat === 'all' || p.dataset.cat === cat) {
+            p.style.display = 'flex';
+          } else {
+            p.style.display = 'none';
+          }
+        });
+      }
+    });
+  },
+
 
   bindEvents() {
     // Language / Direction Switcher

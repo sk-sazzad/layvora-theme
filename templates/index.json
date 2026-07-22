@@ -12,8 +12,20 @@
       "type": "categories-grid",
       "settings": {}
     },
+    "shoppable_lookbook": {
+      "type": "shoppable-lookbook",
+      "settings": {}
+    },
+    "tabbed_collection": {
+      "type": "tabbed-collection",
+      "settings": {}
+    },
     "flash_deals": {
       "type": "flash-deals",
+      "settings": {}
+    },
+    "brand_marquee": {
+      "type": "brand-marquee",
       "settings": {}
     },
     "tamara_tabby_promo": {
@@ -23,14 +35,22 @@
     "testimonials": {
       "type": "testimonials",
       "settings": {}
+    },
+    "faq_accordion": {
+      "type": "faq-accordion",
+      "settings": {}
     }
   },
   "order": [
     "hero_banner",
     "ksa_features",
     "categories_grid",
+    "shoppable_lookbook",
+    "tabbed_collection",
     "flash_deals",
+    "brand_marquee",
     "tamara_tabby_promo",
-    "testimonials"
+    "testimonials",
+    "faq_accordion"
   ]
 }

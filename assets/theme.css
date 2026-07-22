@@ -1610,32 +1610,42 @@ ul, ol {
 [dir="rtl"] .close-modal-btn { left: 16px; }
 [dir="ltr"] .close-modal-btn { right: 16px; }
 
-/* Responsive Layout */
-@media (max-width: 1024px) {
-  .hero-grid, .bnpl-banner, .modal-content {
-    grid-template-columns: 1fr;
-  }
-  .products-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .categories-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .trust-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .footer-top {
-    grid-template-columns: 1fr 1fr;
-  }
+/* Tabbed Category Filter Pills */
+.category-tabs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-@media (max-width: 768px) {
-  .announcement-meta { display: none; }
-  .header-inner { height: 68px; }
-  .products-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
-  .categories-grid { grid-template-columns: repeat(2, 1fr); }
-  .testimonials-grid { grid-template-columns: 1fr; }
-  .footer-top { grid-template-columns: 1fr; }
-  .footer-bottom { flex-direction: column; text-align: center; }
-  .search-form { display: none; } /* Mobile toggle search can be triggered */
+.tab-pill {
+  padding: 10px 22px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-secondary);
+  color: var(--color-text-muted);
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: 1px solid var(--color-border);
+  transition: all var(--transition-normal);
+  cursor: pointer;
 }
+
+.tab-pill:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.tab-pill.active {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #008744 100%);
+  color: var(--color-white);
+  border-color: transparent;
+  box-shadow: 0 4px 14px rgba(0, 108, 53, 0.25);
+}
+
+.lookbook-card {
+  transition: transform var(--transition-normal);
+}
+
+.lookbook-card:hover {
+  transform: translateY(-6px);
+}
+
