@@ -1,0 +1,57 @@
+<header class="header">
+  <div class="container header-inner">
+    
+    <!-- Logo -->
+    <a href="/" class="site-logo">
+      <div class="site-logo-icon">L</div>
+      <span>LAYVORA<span class="highlight">.SA</span></span>
+    </a>
+
+    <!-- Live Search Input -->
+    <form action="/search" method="get" class="search-form">
+      <div class="search-input-wrap">
+        <input type="text" name="q" placeholder="{{ 'general.search' | t | default: 'ابحث عن عطور، أزياء، إلكترونيات...' }}" class="search-input" autocomplete="off">
+        <button type="submit" class="search-btn" aria-label="بحث">🔍</button>
+      </div>
+    </form>
+
+    <!-- Header Actions (Wishlist & Cart) -->
+    <div class="header-actions">
+      <a href="/pages/wishlist" class="action-item" title="{{ 'general.wishlist' | t | default: 'المفضلة' }}">
+        <span style="font-size:1.4rem;">❤️</span>
+        <span class="action-badge wishlist-badge">2</span>
+      </a>
+
+      <button class="action-item cart-drawer-trigger" title="{{ 'general.cart' | t | default: 'السلة' }}">
+        <span style="font-size:1.4rem;">🛍️</span>
+        <span class="action-badge cart-count-badge">1</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Navigation Menu -->
+  <nav class="nav-bar">
+    <div class="container">
+      <ul class="nav-list">
+        <li><a href="/" class="nav-link active" data-ar="الرئيسية" data-en="Home">الرئيسية</a></li>
+        <li>
+          <a href="/collections/all" class="nav-link" data-ar="جميع المنتجات" data-en="All Products">
+            جميع المنتجات <span class="tag-hot">خصم</span>
+          </a>
+        </li>
+        <li><a href="/collections/perfumes" class="nav-link" data-ar="العطور والبخور" data-en="Perfumes & Oud">العطور والبخور 🌙</a></li>
+        <li><a href="/collections/fashion" class="nav-link" data-ar="الأزياء الفاخرة" data-en="Luxury Fashion">الأزياء الفاخرة</a></li>
+        <li><a href="/collections/beauty" class="nav-link" data-ar="العناية والجمال" data-en="Beauty & Care">العناية والجمال</a></li>
+        <li><a href="/collections/electronics" class="nav-link" data-ar="الأجهزة الحديثة" data-en="Electronics">الأجهزة الحديثة</a></li>
+        <li><a href="/pages/ksa-offers" class="nav-link" data-ar="عروض المملكة 🇸🇦" data-en="KSA Offers 🇸🇦" style="color:var(--color-primary); font-weight:800;">عروض المملكة 🇸🇦</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+{% schema %}
+{
+  "name": "Header & Nav",
+  "settings": []
+}
+{% endschema %}

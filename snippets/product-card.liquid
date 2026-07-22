@@ -1,0 +1,81 @@
+{% comment %}
+  LAYVORA THEME - Product Card Snippet
+{% endcomment %}
+
+{% assign discount_percent = 0 %}
+{% if product.compare_at_price > product.price %}
+  {% assign discount_percent = product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price %}
+{% endif %}
+
+{% assign tamara_price = product.price | divided_by: 4 %}
+
+<div class="product-card">
+  <div class="product-badge-stack">
+    {% if discount_percent > 0 %}
+      <span class="badge badge-coral">خصم {{ discount_percent }}%</span>
+    {% endif %}
+    {% if product.tags contains 'bestseller' or product.tags contains 'الأكثر_مبيعاً' %}
+      <span class="badge badge-gold">الأكثر مبيعاً ⚡</span>
+    {% endif %}
+  </div>
+
+  <button class="wishlist-btn" aria-label="أضف للمفضلة">
+    ♥
+  </button>
+
+  <div class="product-media">
+    <a href="{{ product.url }}">
+      <img src="{{ product.featured_image | img_url: '400x400', crop: 'center' }}" alt="{{ product.title | escape }}" class="product-image" loading="lazy">
+    </a>
+    
+    <div class="product-quick-actions">
+      <button class="quick-view-btn" 
+        data-id="{{ product.id }}"
+        data-title="{{ product.title | escape }}"
+        data-price="{{ product.price | money_without_currency }}"
+        data-orig-price="{% if product.compare_at_price > product.price %}{{ product.compare_at_price | money_without_currency }}{% endif %}"
+        data-image="{{ product.featured_image | img_url: '600x600' }}"
+        data-category="{{ product.type | default: 'عام' }}"
+        data-desc="{{ product.description | strip_html | truncate: 120 }}">
+        👁️ {{ 'sections.products.quick_view' | t | default: 'نظرة سريعة' }}
+      </button>
+    </div>
+  </div>
+
+  <div class="product-details">
+    <span class="product-category">{{ product.type | default: 'لافورا' }}</span>
+    <h3 class="product-title">
+      <a href="{{ product.url }}">{{ product.title }}</a>
+    </h3>
+
+    <div class="product-rating">
+      ★★★★★ <span class="rating-count">(4.9)</span>
+    </div>
+
+    <div class="product-price-row">
+      <span class="price-current">
+        {{ product.price | money_without_currency }}
+        <span class="price-currency">ر.س</span>
+      </span>
+      {% if product.compare_at_price > product.price %}
+        <span class="price-original">
+          {{ product.compare_at_price | money_without_currency }} ر.س
+        </span>
+      {% endif %}
+    </div>
+
+    <!-- Tamara & Tabby BNPL Breakdown -->
+    <div class="bnpl-badge-wrap">
+      <span>أو 4 دفعات بقيمة <strong>{{ tamara_price | money_without_currency }} ر.س</strong></span>
+      <span class="tamara-tag">تمارا</span>
+    </div>
+
+    <button class="btn btn-primary btn-sm product-card-add-btn add-to-cart-btn" 
+      data-id="{{ product.id }}"
+      data-title="{{ product.title | escape }}"
+      data-price="{{ product.price | money_without_currency }}"
+      data-image="{{ product.featured_image | img_url: '400x400' }}">
+      🛒 {{ 'sections.products.add_to_cart' | t | default: 'إضافة إلى السلة' }}
+    </button>
+  </div>
+</div>

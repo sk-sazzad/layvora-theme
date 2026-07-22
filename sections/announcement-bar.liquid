@@ -1,0 +1,35 @@
+<div class="announcement-bar">
+  <div class="container announcement-content">
+    <div class="announcement-ticker">
+      <span class="highlight">🇸🇦 التوصيل السريع</span>
+      <span data-ar="شحن مجاني لجميع مدن المملكة (الرياض، جدة، الدمام) عند الشراء بقيمة 200 ر.س" data-en="Free delivery across KSA on orders over 200 SAR">
+        شحن مجاني لجميع مدن المملكة (الرياض، جدة، الدمام) عند الشراء بقيمة 200 ر.س
+      </span>
+    </div>
+
+    <div class="announcement-meta">
+      <div class="lang-currency-selector">
+        <button class="selector-btn lang-btn" data-lang="ar">
+          🇸🇦 <span class="current-lang-text">العربية (ر.س)</span>
+        </button>
+        <button class="selector-btn lang-btn" data-lang="en">
+          🌐 <span>English (SAR)</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "settings": [
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement Text",
+      "default": "شحن مجاني لجميع مدن المملكة عند الشراء بقيمة 200 ر.س"
+    }
+  ]
+}
+{% endschema %}

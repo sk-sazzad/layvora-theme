@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "ksa_features": {
+      "type": "ksa-features",
+      "settings": {}
+    }
+  },
+  "order": [
+    "ksa_features"
+  ]
+}

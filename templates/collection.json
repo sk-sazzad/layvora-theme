@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "categories": {
+      "type": "categories-grid",
+      "settings": {}
+    },
+    "products": {
+      "type": "flash-deals",
+      "settings": {}
+    }
+  },
+  "order": [
+    "categories",
+    "products"
+  ]
+}

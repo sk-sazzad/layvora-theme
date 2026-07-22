@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>متجر لافورا السعودي | Layvora KSA Shopify Theme</title>
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="assets/theme.css">
+</head>
+<body>
+
+  <!-- Top Announcement Ticker Bar -->
+  <div class="announcement-bar">
+    <div class="container announcement-content">
+      <div class="announcement-ticker">
+        <span class="highlight">🇸🇦 التوصيل السريع</span>
+        <span data-ar="شحن مجاني لجميع مدن المملكة (الرياض، جدة، الدمام) عند الشراء بقيمة 200 ر.س" data-en="Free delivery across KSA on orders over 200 SAR">
+          شحن مجاني لجميع مدن المملكة (الرياض، جدة، الدمام) عند الشراء بقيمة 200 ر.س
+        </span>
+      </div>
+
+      <div class="announcement-meta">
+        <div class="lang-currency-selector">
+          <button class="selector-btn lang-btn" data-lang="ar">
+            🇸🇦 <span class="current-lang-text">العربية (ر.س)</span>
+          </button>
+          <button class="selector-btn lang-btn" data-lang="en">
+            🌐 <span>English (SAR)</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header Navigation -->
+  <header class="header">
+    <div class="container header-inner">
+      
+      <!-- Site Logo -->
+      <a href="#" class="site-logo">
+        <div class="site-logo-icon">L</div>
+        <span>LAYVORA<span class="highlight">.SA</span></span>
+      </a>
+
+      <!-- Live Search Form -->
+      <form class="search-form" onsubmit="event.preventDefault();">
+        <div class="search-input-wrap">
+          <input type="text" placeholder="ابحث عن عطور، أزياء، إلكترونيات..." class="search-input" data-ar="ابحث عن عطور، أزياء، إلكترونيات..." data-en="Search perfumes, fashion, electronics...">
+          <button type="submit" class="search-btn" aria-label="بحث">🔍</button>
+        </div>
+      </form>
+
+      <!-- Header Action Items -->
+      <div class="header-actions">
+        <button class="action-item" title="المفضلة" style="background:none; border:none; cursor:pointer;">
+          <span style="font-size:1.4rem;">❤️</span>
+          <span class="action-badge wishlist-badge">2</span>
+        </button>
+
+        <button class="action-item cart-drawer-trigger" title="السلة" style="background:none; border:none; cursor:pointer;">
+          <span style="font-size:1.4rem;">🛍️</span>
+          <span class="action-badge cart-count-badge">1</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Category Nav Bar -->
+    <nav class="nav-bar">
+      <div class="container">
+        <ul class="nav-list">
+          <li><a href="#" class="nav-link active" data-ar="الرئيسية" data-en="Home">الرئيسية</a></li>
+          <li>
+            <a href="#" class="nav-link" data-ar="جميع المنتجات" data-en="All Products">
+              جميع المنتجات <span class="tag-hot" data-ar="خصم" data-en="SALE">خصم</span>
+            </a>
+          </li>
+          <li><a href="#" class="nav-link" data-ar="العطور والبخور 🌙" data-en="Perfumes & Oud 🌙">العطور والبخور 🌙</a></li>
+          <li><a href="#" class="nav-link" data-ar="الأزياء الفاخرة" data-en="Luxury Fashion">الأزياء الفاخرة</a></li>
+          <li><a href="#" class="nav-link" data-ar="العناية والجمال" data-en="Beauty & Care">العناية والجمال</a></li>
+          <li><a href="#" class="nav-link" data-ar="الأجهزة الحديثة" data-en="Electronics">الأجهزة الحديثة</a></li>
+          <li><a href="#" class="nav-link" data-ar="عروض المملكة 🇸🇦" data-en="KSA Offers 🇸🇦" style="color:var(--color-primary); font-weight:800;">عروض المملكة 🇸🇦</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Banner Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-grid">
+        
+        <div class="hero-banner-card">
+          <div class="hero-content">
+            <span class="hero-subtitle" data-ar="🇸🇦 تشكيلة الموسم الحصرية 2026" data-en="🇸🇦 Exclusive 2026 Collection">
+              🇸🇦 تشكيلة الموسم الحصرية 2026
+            </span>
+            <h1 class="hero-title" data-ar="تسوق أفضل المنتجات العالمية بملمس فخم وأنيق" data-en="Shop Top Global Brands with Authentic Saudi Luxury">
+              تسوق أفضل المنتجات العالمية بملمس <span class="highlight">فخم وأنيق</span>
+            </h1>
+            <p class="hero-desc" data-ar="استمتع بتجربة تسوق فريدة تشمل التوصيل السريع لجميع مناطق المملكة مع خيارات التقسيط المريح عبر تمارا وتابي." data-en="Enjoy an extraordinary shopping experience with fast delivery across KSA & flexible installments.">
+              استمتع بتجربة تسوق فريدة تشمل التوصيل السريع لجميع مناطق المملكة مع خيارات التقسيط المريح عبر تمارا وتابي.
+            </p>
+            
+            <div class="hero-cta">
+              <button class="btn btn-primary" onclick="document.getElementById('flash-deals').scrollIntoView({behavior: 'smooth'})" data-ar="🛍️ تسوق عروض اليوم" data-en="🛍️ Shop Today's Deals">
+                🛍️ تسوق عروض اليوم
+              </button>
+              <button class="btn btn-outline" style="border-color:rgba(255,255,255,0.4); color:#fff;" onclick="alert('تمارا وتابي متاحة عند الخروج لتقسيط المشتريات على 4 دفعات!')" data-ar="💳 ادفع بالتقسيط (تمارا/تابي)" data-en="💳 Pay in Installments (Tamara/Tabby)">
+                💳 ادفع بالتقسيط (تمارا/تابي)
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="hero-image-wrap">
+            <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?auto=format&fit=crop&w=800&q=80" alt="Layvora Saudi Collection" class="hero-image">
+          </div>
+
+          <div class="floating-card floating-card-1">
+            <div class="floating-icon">🚚</div>
+            <div class="floating-text">
+              <div class="title" data-ar="توصيل سريع للرياض وباقي المدن" data-en="Fast Delivery in Riyadh & KSA">توصيل سريع للرياض وباقي المدن</div>
+              <div class="sub" data-ar="خلال 24 - 48 ساعة فقط" data-en="Within 24-48 Hours">خلال 24 - 48 ساعة فقط</div>
+            </div>
+          </div>
+
+          <div class="floating-card floating-card-2">
+            <div class="floating-icon">✨</div>
+            <div class="floating-text">
+              <div class="title" data-ar="ضمان أصلية 100%" data-en="100% Guaranteed Authentic">ضمان أصلية 100%</div>
+              <div class="sub" data-ar="منتجات موثوقة ومفحوصة" data-en="Certified Quality">منتجات موثوقة ومفحوصة</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- KSA Features / Trust Highlights -->
+  <section class="ksa-trust-bar">
+    <div class="container">
+      <div class="trust-grid">
+        
+        <div class="trust-card">
+          <div class="trust-icon">🚚</div>
+          <div class="trust-info">
+            <h4 data-ar="توصيل سريع لجميع المدن" data-en="Fast KSA Delivery">توصيل سريع لجميع المدن</h4>
+            <p data-ar="شحن مباشر لكافة مناطق المملكة" data-en="Direct shipping across KSA">شحن مباشر لكافة مناطق المملكة</p>
+          </div>
+        </div>
+
+        <div class="trust-card">
+          <div class="trust-icon">💳</div>
+          <div class="trust-info">
+            <h4 data-ar="دفع ميسر وتقسيط" data-en="Flexible BNPL">دفع ميسر وتقسيط</h4>
+            <p data-ar="قسمها على 4 دفعات بدون فوائد" data-en="Split in 4 payments with Tamara & Tabby">قسمها على 4 دفعات بدون فوائد</p>
+          </div>
+        </div>
+
+        <div class="trust-card">
+          <div class="trust-icon">🛡️</div>
+          <div class="trust-info">
+            <h4 data-ar="منتجات أصلية 100%" data-en="100% Authentic">منتجات أصلية 100%</h4>
+            <p data-ar="ضمان الجودة وشهادة الموثوقية" data-en="High quality guaranteed">ضمان الجودة وشهادة الموثوقية</p>
+          </div>
+        </div>
+
+        <div class="trust-card">
+          <div class="trust-icon">🔄</div>
+          <div class="trust-info">
+            <h4 data-ar="إرجاع واستبدال مرن" data-en="Easy Returns">إرجاع واستبدال مرن</h4>
+            <p data-ar="إمكانية الإرجاع خلال 14 يوماً" data-en="14 days hassle-free policy">إمكانية الإرجاع خلال 14 يوماً</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Grid -->
+  <section class="categories-section">
+    <div class="container">
+      
+      <div class="section-header">
+        <div class="section-title-wrap">
+          <h2 data-ar="تسوق حسب الفئة المميزة" data-en="Shop Top Categories">تسوق حسب الفئة المميزة</h2>
+          <p data-ar="اختر القسم المفضل واستكشف أفضل العروض" data-en="Explore top offers per category">اختر القسم المفضل واستكشف أفضل العروض</p>
+        </div>
+        <button class="btn btn-outline btn-sm">عرض الكل ←</button>
+      </div>
+
+      <div class="categories-grid">
+        <div class="category-card">
+          <div class="category-thumb">
+            <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=150&q=80" alt="العطور">
+          </div>
+          <div class="category-name" data-ar="العطور والبخور 🌙" data-en="Perfumes & Oud">العطور والبخور 🌙</div>
+          <div class="category-count">128 منتج</div>
+        </div>
+
+        <div class="category-card">
+          <div class="category-thumb">
+            <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=150&q=80" alt="الأزياء">
+          </div>
+          <div class="category-name" data-ar="الأزياء الفاخرة" data-en="Luxury Fashion">الأزياء الفاخرة</div>
+          <div class="category-count">240 منتج</div>
+        </div>
+
+        <div class="category-card">
+          <div class="category-thumb">
+            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=150&q=80" alt="العناية">
+          </div>
+          <div class="category-name" data-ar="العناية والجمال" data-en="Beauty & Care">العناية والجمال</div>
+          <div class="category-count">94 منتج</div>
+        </div>
+
+        <div class="category-card">
+          <div class="category-thumb">
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=150&q=80" alt="الإلكترونيات">
+          </div>
+          <div class="category-name" data-ar="الأجهزة الحديثة" data-en="Electronics">الأجهزة الحديثة</div>
+          <div class="category-count">85 منتج</div>
+        </div>
+
+        <div class="category-card">
+          <div class="category-thumb">
+            <img src="https://images.unsplash.com/photo-1524805444758-089113d48a6d?auto=format&fit=crop&w=150&q=80" alt="الساعات">
+          </div>
+          <div class="category-name" data-ar="الساعات الفاخرة" data-en="Watches & Jewelry">الساعات الفاخرة</div>
+          <div class="category-count">62 منتج</div>
+        </div>
+
+        <div class="category-card">
+          <div class="category-thumb">
+            <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=150&q=80" alt="المنزل">
+          </div>
+          <div class="category-name" data-ar="ديكور ومستلزمات" data-en="Home Decor">ديكور ومستلزمات</div>
+          <div class="category-count">110 منتج</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Flash Deals Section -->
+  <section class="flash-deals-section" id="flash-deals">
+    <div class="container">
+      
+      <div class="flash-header">
+        <div class="section-title-wrap">
+          <h2 style="color:var(--color-coral); display:flex; align-items:center; gap:8px;" data-ar="⚡ عروض الفلاش اليومية - خصومات حتى 60%" data-en="⚡ Daily Flash Deals - Up to 60% OFF">
+            ⚡ عروض الفلاش اليومية - خصومات حتى 60%
+          </h2>
+          <p data-ar="ينتهي العرض قريباً، سارع بالحصول على الكمية المحدودة!" data-en="Hurry! Limited stock available.">ينتهي العرض قريباً، سارع بالحصول على الكمية المحدودة!</p>
+        </div>
+
+        <div class="countdown-box">
+          <span style="font-weight:700; font-size:0.85rem; color:var(--color-coral);" data-ar="ينتهي خلال:" data-en="Ends in:">ينتهي خلال:</span>
+          <span class="timer-unit timer-h">14</span>
+          <span class="timer-colon">:</span>
+          <span class="timer-unit timer-m">32</span>
+          <span class="timer-colon">:</span>
+          <span class="timer-unit timer-s">45</span>
+        </div>
+      </div>
+
+      <div class="products-grid">
+        
+        <!-- Product 1 -->
+        <div class="product-card">
+          <div class="product-badge-stack">
+            <span class="badge badge-coral">خصم 40% ⚡</span>
+          </div>
+          <button class="wishlist-btn">♥</button>
+          <div class="product-media">
+            <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=400&q=80" class="product-image" alt="عطر العود الملكي">
+            <div class="product-quick-actions">
+              <button class="quick-view-btn" data-id="1" data-title="عطر العود الملكي المعتّق - 100 مل" data-price="299" data-orig-price="499" data-image="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=400&q=80" data-category="عطور فاخرة" data-desc="عطر فخم يجمع بين دهن العود الكلمنتان والورد الطائفي الأصيل، ليعكس أصالة التراث السعودي بلمسة عصرية.">👁️ نظرة سريعة</button>
+            </div>
+          </div>
+          <div class="product-details">
+            <span class="product-category">عطور فاخرة</span>
+            <h3 class="product-title">عطر العود الملكي المعتّق - 100 مل</h3>
+            <div class="product-rating">★★★★★ <span class="rating-count">(124 تقييم)</span></div>
+            <div class="product-price-row">
+              <span class="price-current">299 <span class="price-currency" data-ar="ر.س" data-en="SAR">ر.س</span></span>
+              <span class="price-original">499 ر.س</span>
+            </div>
+            <div class="bnpl-badge-wrap">
+              <span>أو 4 دفعات بقيمة <strong>74.75 ر.س</strong></span>
+              <span class="tamara-tag">تمارا</span>
+            </div>
+            <button class="btn btn-primary btn-sm add-to-cart-btn" data-id="1" data-title="عطر العود الملكي المعتّق - 100 مل" data-price="299" data-image="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=400&q=80">🛒 إضافة إلى السلة</button>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card">
+          <div class="product-badge-stack">
+            <span class="badge badge-coral">خصم 35% ⚡</span>
+          </div>
+          <button class="wishlist-btn">♥</button>
+          <div class="product-media">
+            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=80" class="product-image" alt="ساعة لافورا الذكية">
+            <div class="product-quick-actions">
+              <button class="quick-view-btn" data-id="2" data-title="ساعة لافورا أكتيف الذكية المقاومة للماء" data-price="195" data-orig-price="300" data-image="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=80" data-category="ساعات" data-desc="ساعة أنيقة تدعم تتبع الأنشطة الرياضية وقياس معدل نبضات القلب مع بطارية تدوم حتى 10 أيام.">👁️ نظرة سريعة</button>
+            </div>
+          </div>
+          <div class="product-details">
+            <span class="product-category">ساعات وأجهزة</span>
+            <h3 class="product-title">ساعة لافورا أكتيف الذكية المقاومة للماء</h3>
+            <div class="product-rating">★★★★★ <span class="rating-count">(89 تقييم)</span></div>
+            <div class="product-price-row">
+              <span class="price-current">195 <span class="price-currency" data-ar="ر.س" data-en="SAR">ر.س</span></span>
+              <span class="price-original">300 ر.س</span>
+            </div>
+            <div class="bnpl-badge-wrap">
+              <span>أو 4 دفعات بقيمة <strong>48.75 ر.س</strong></span>
+              <span class="tabby-tag">تابي</span>
+            </div>
+            <button class="btn btn-primary btn-sm add-to-cart-btn" data-id="2" data-title="ساعة لافورا أكتيف الذكية" data-price="195" data-image="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=80">🛒 إضافة إلى السلة</button>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card">
+          <div class="product-badge-stack">
+            <span class="badge badge-coral">خصم 50% ⚡</span>
+          </div>
+          <button class="wishlist-btn">♥</button>
+          <div class="product-media">
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80" class="product-image" alt="سماعات لافورا">
+            <div class="product-quick-actions">
+              <button class="quick-view-btn" data-id="3" data-title="سماعات لافورا اللاسلكية بنظام العزل الفائق" data-price="249" data-orig-price="499" data-image="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80" data-category="إلكترونيات" data-desc="صوت نقي بتقنية العزل النشط للضوضاء وتصميم مريح للأذن للاستخدام الطويل.">👁️ نظرة سريعة</button>
+            </div>
+          </div>
+          <div class="product-details">
+            <span class="product-category">إلكترونيات</span>
+            <h3 class="product-title">سماعات لافورا اللاسلكية بنظام العزل</h3>
+            <div class="product-rating">★★★★★ <span class="rating-count">(210 تقييم)</span></div>
+            <div class="product-price-row">
+              <span class="price-current">249 <span class="price-currency" data-ar="ر.س" data-en="SAR">ر.س</span></span>
+              <span class="price-original">499 ر.س</span>
+            </div>
+            <div class="bnpl-badge-wrap">
+              <span>أو 4 دفعات بقيمة <strong>62.25 ر.س</strong></span>
+              <span class="tamara-tag">تمارا</span>
+            </div>
+            <button class="btn btn-primary btn-sm add-to-cart-btn" data-id="3" data-title="سماعات لافورا اللاسلكية" data-price="249" data-image="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&q=80">🛒 إضافة إلى السلة</button>
+          </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-card">
+          <div class="product-badge-stack">
+            <span class="badge badge-coral">خصم 25% ⚡</span>
+          </div>
+          <button class="wishlist-btn">♥</button>
+          <div class="product-media">
+            <img src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=400&q=80" class="product-image" alt="مجموعة العناية بالبشرة">
+            <div class="product-quick-actions">
+              <button class="quick-view-btn" data-id="4" data-title="مجموعة العناية الطبيعية بالبشرة - سيروم وكريم" data-price="180" data-orig-price="240" data-image="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=400&q=80" data-category="جمال وعناية" data-desc="مجموعة متكاملة ترطب البشرة وتمنحها نضارة وإشراقة طبيعية بمكونات عضوية 100%.">👁️ نظرة سريعة</button>
+            </div>
+          </div>
+          <div class="product-details">
+            <span class="product-category">جمال وعناية</span>
+            <h3 class="product-title">مجموعة العناية الطبيعية بالبشرة</h3>
+            <div class="product-rating">★★★★★ <span class="rating-count">(95 تقييم)</span></div>
+            <div class="product-price-row">
+              <span class="price-current">180 <span class="price-currency" data-ar="ر.س" data-en="SAR">ر.س</span></span>
+              <span class="price-original">240 ر.س</span>
+            </div>
+            <div class="bnpl-badge-wrap">
+              <span>أو 4 دفعات بقيمة <strong>45.00 ر.س</strong></span>
+              <span class="tabby-tag">تابي</span>
+            </div>
+            <button class="btn btn-primary btn-sm add-to-cart-btn" data-id="4" data-title="مجموعة العناية بالبشرة" data-price="180" data-image="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=400&q=80">🛒 إضافة إلى السلة</button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Tamara & Tabby BNPL Showcase Banner -->
+  <section class="bnpl-showcase-section">
+    <div class="container">
+      
+      <div class="bnpl-banner">
+        <div class="bnpl-content">
+          <span class="badge badge-accent" style="margin-bottom:12px;" data-ar="💳 تسوق بلا حدود" data-en="💳 Shop Unlimited">💳 تسوق بلا حدود</span>
+          <h3 data-ar="قسم مشترياتك على 4 دفعات مريحة وبدون فوائد!" data-en="Split your payments in 4 interest-free installments!">
+            قسم مشترياتك على 4 دفعات مريحة وبدون فوائد!
+          </h3>
+          <p data-ar="اختر تمارا أو تابي عند إتمام الدفع واستمتع باستلام طلبك فوراً ودفع قيمته على 4 أشهر بدون أي رسوم إضافية." data-en="Choose Tamara or Tabby at checkout and get your order right away while paying over 4 months with zero extra fees.">
+            اختر تمارا أو تابي عند إتمام الدفع واستمتع باستلام طلبك فوراً ودفع قيمته على 4 أشهر بدون أي رسوم إضافية.
+          </p>
+
+          <div style="display:flex; gap:14px; flex-wrap:wrap;">
+            <button class="btn btn-accent" onclick="alert('خدمة التقسيط متاحة لجميع حاملي البطاقات البنكية في السعودية!')" data-ar="تعرف على كيف تعمل خدمة التقسيط" data-en="Learn How Installments Work">
+              تعرف على كيف تعمل خدمة التقسيط
+            </button>
+          </div>
+        </div>
+
+        <div class="bnpl-partners">
+          <div class="partner-box">
+            <div style="background:#37C392; color:#fff; font-size:1.2rem; font-weight:800; padding:6px 16px; border-radius:8px;">
+              tamara | تمارا
+            </div>
+            <span data-ar="4 دفعات شهرية مريحة" data-en="4 Easy Monthly Payments">4 دفعات شهرية مريحة</span>
+          </div>
+
+          <div class="partner-box">
+            <div style="background:#3BFFC4; color:#000; font-size:1.2rem; font-weight:800; padding:6px 16px; border-radius:8px;">
+              tabby | تابي
+            </div>
+            <span data-ar="قسمها على 4 بدون فوائد" data-en="Split in 4 Zero Interest">قسمها على 4 بدون فوائد</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Saudi Testimonials -->
+  <section class="testimonials-section">
+    <div class="container">
+      
+      <div class="section-header" style="text-align:center; flex-direction:column; align-items:center; margin-bottom:40px;">
+        <span class="badge badge-primary" style="margin-bottom:10px;" data-ar="⭐ آراء العملاء في السعودية" data-en="⭐ Reviews from KSA Buyers">⭐ آراء العملاء في السعودية</span>
+        <h2 data-ar="ماذا يقول عملاؤنا عنا؟" data-en="What Our Saudi Customers Say">ماذا يقول عملاؤنا عنا؟</h2>
+        <p data-ar="أكثر من 15,000 عميل سعيد في الرياض، جدة، الشرقية وكافة مدن المملكة" data-en="Over 15,000 happy shoppers across KSA">أكثر من 15,000 عميل سعيد في الرياض، جدة، الشرقية وكافة مدن المملكة</p>
+      </div>
+
+      <div class="testimonials-grid">
+        
+        <div class="testimonial-card">
+          <div class="testimonial-rating">★★★★★</div>
+          <p class="testimonial-text">
+            "صراحة التجربة ممتازة جداً! عطر العود الملكي ريحته ثبات وثباتها عالي جداً، والتوصيل وصلني للرياض خلال يومين فقط. شكراً متجر لافورا!"
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">م</div>
+            <div class="author-info">
+              <div class="name">محمد العتيبي</div>
+              <div class="location">🇸🇦 الرياض • <span class="verified">مشتري موثّق ✓</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-rating">★★★★★</div>
+          <p class="testimonial-text">
+            "ميزة تقسيط تمارا بالمتجر سهلت علي كثير، المجموع كان كبير وقسمته على 4 دفعات بكل سهولة بدون فوائد. والمنتجات أصلية 100%."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar" style="background:var(--color-accent-light); color:var(--color-accent);">س</div>
+            <div class="author-info">
+              <div class="name">سارة الشهري</div>
+              <div class="location">🇸🇦 جدة • <span class="verified">مشتري موثّق ✓</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="testimonial-rating">★★★★★</div>
+          <p class="testimonial-text">
+            "أول مرة أطلب من المتجر وتفاجأت بجودة التغليف وسرعة الشحن للخبر. ميزة الدفع عبر مدى سريعة وآمنة. أنصح بالتعامل معهم وبقوة."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar" style="background:var(--color-gold-light); color:#B38600;">ف</div>
+            <div class="author-info">
+              <div class="name">فهد الدوسري</div>
+              <div class="location">🇸🇦 الخبر • <span class="verified">مشتري موثّق ✓</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      
+      <div class="footer-top">
+        
+        <div class="footer-about">
+          <div class="footer-logo">
+            <div class="site-logo-icon" style="width:34px; height:34px; font-size:1rem;">L</div>
+            LAYVORA.SA
+          </div>
+          <p data-ar="وجهتك الأولى للتسوق الإلكتروني العصري في المملكة العربية السعودية. نوفر لك أرقى العطور، الأزياء والإلكترونيات بأعلى معايير الجودة والأصالة." data-en="Your primary destination for modern e-commerce in Saudi Arabia.">
+            وجهتك الأولى للتسوق الإلكتروني العصري في المملكة العربية السعودية. نوفر لك أرقى العطور، الأزياء والإلكترونيات بأعلى معايير الجودة والأصالة.
+          </p>
+
+          <div class="maroof-sbc-box">
+            <div class="seal-badge">
+              🇸🇦 <span>موثّق لدى معروف برقم: #284910</span>
+            </div>
+          </div>
+          <div class="vat-number-tag">
+            الرقم الضريبي (VAT): 300098471200003
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <h4 data-ar="روابط سريعة" data-en="Quick Links">روابط سريعة</h4>
+          <div class="footer-links">
+            <a href="#">جميع المنتجات</a>
+            <a href="#">قسم العطور والبخور</a>
+            <a href="#">الأزياء والملابس</a>
+            <a href="#">عروض اليوم المميزة</a>
+            <a href="#">خدمة التقسيط تمارا وتابي</a>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <h4 data-ar="خدمة العملاء" data-en="Customer Care">خدمة العملاء</h4>
+          <div class="footer-links">
+            <a href="#">سياسة الشحن والتوصيل داخل KSA</a>
+            <a href="#">سياسة الإرجاع والاستبدال (14 يوماً)</a>
+            <a href="#">تتبع شحنتك</a>
+            <a href="#">سياسة الخصوصية</a>
+            <a href="#">الشروط والأحكام</a>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <h4 data-ar="النشرة البريدية" data-en="Newsletter">النشرة البريدية</h4>
+          <p style="font-size:0.85rem; margin-bottom:12px;" data-ar="اشترك معنا للحصول على خصم 10% على أول طلب لك!" data-en="Subscribe to get 10% off your first order!">
+            اشترك معنا للحصول على خصم 10% على أول طلب لك وأحدث العروض الحصرية!
+          </p>
+          <form class="newsletter-form" onsubmit="event.preventDefault(); alert('شكراً لاشتراكك في متجر لافورا!');">
+            <input type="email" placeholder="أدخل بريدك الإلكتروني" class="newsletter-input" required>
+            <button type="submit" class="btn btn-primary btn-sm" data-ar="اشتراك" data-en="Subscribe">اشتراك</button>
+          </form>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          © 2026 متجر لافورا (Layvora Theme). جميع الحقوق محفوظة للمملكة العربية السعودية.
+        </div>
+        
+        <div class="payment-icons-row">
+          <span class="payment-icon-tag mada">مدى mada</span>
+          <span class="payment-icon-tag tamara">تمارا tamara</span>
+          <span class="payment-icon-tag tabby">تابي tabby</span>
+          <span class="payment-icon-tag applepay"> Pay</span>
+          <span class="payment-icon-tag stcpay">stc pay</span>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Slide-out Cart Drawer -->
+  <div class="cart-drawer-overlay">
+    <div class="cart-drawer">
+      <div class="cart-drawer-header">
+        <h3>🛍️ السلة (<span class="cart-count-badge">0</span>)</h3>
+        <button class="close-drawer-btn">✕</button>
+      </div>
+
+      <div class="free-shipping-progress">
+        <span class="free-shipping-text">أضف منتجات للحصول على شحن مجاني داخل المملكة!</span>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill"></div>
+        </div>
+      </div>
+
+      <div class="cart-drawer-items">
+        <!-- Dynamic -->
+      </div>
+
+      <div class="cart-drawer-footer">
+        <div class="subtotal-row">
+          <span>المجموع الكلي:</span>
+          <span class="cart-subtotal-val" style="color:var(--color-primary);">0.00 ر.س</span>
+        </div>
+        <p style="font-size:0.75rem; color:var(--color-text-muted); margin-bottom:12px;">
+          * السعر شامل ضريبة القيمة المضافة 15% وتكلفة الشحن تحسب عند إتمام الطلب.
+        </p>
+
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <button class="btn btn-primary" style="width:100%;" onclick="alert('جاري الانتقال لصفحة إتمام الدفع بالريال السعودي!')">
+            🔒 إتمام الطلب الآن (دفع آمن)
+          </button>
+          <div style="display:flex; justify-content:center; gap:8px; margin-top:6px;">
+            <span class="payment-icon-tag mada">مدى</span>
+            <span class="payment-icon-tag tamara">تمارا</span>
+            <span class="payment-icon-tag tabby">تابي</span>
+            <span class="payment-icon-tag applepay">Apple Pay</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick View Modal Popup -->
+  <div class="modal-overlay">
+    <div class="modal-content">
+      <button class="close-modal-btn">✕</button>
+      <div class="modal-body" style="grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+        <!-- Injected via theme.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Saudi WhatsApp Button -->
+  <a href="https://wa.me/966500000000" target="_blank" class="whatsapp-float-btn" title="تواصل عبر واتساب">
+    💬
+  </a>
+
+  <!-- Theme JavaScript -->
+  <script src="assets/theme.js"></script>
+</body>
+</html>

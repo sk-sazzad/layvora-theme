@@ -1,0 +1,36 @@
+{
+  "sections": {
+    "hero_banner": {
+      "type": "hero-banner",
+      "settings": {}
+    },
+    "ksa_features": {
+      "type": "ksa-features",
+      "settings": {}
+    },
+    "categories_grid": {
+      "type": "categories-grid",
+      "settings": {}
+    },
+    "flash_deals": {
+      "type": "flash-deals",
+      "settings": {}
+    },
+    "tamara_tabby_promo": {
+      "type": "tamara-tabby-promo",
+      "settings": {}
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero_banner",
+    "ksa_features",
+    "categories_grid",
+    "flash_deals",
+    "tamara_tabby_promo",
+    "testimonials"
+  ]
+}

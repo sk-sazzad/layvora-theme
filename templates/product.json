@@ -1,0 +1,21 @@
+{
+  "sections": {
+    "main": {
+      "type": "product-template",
+      "settings": {}
+    },
+    "tamara_promo": {
+      "type": "tamara-tabby-promo",
+      "settings": {}
+    },
+    "recommendations": {
+      "type": "flash-deals",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "tamara_promo",
+    "recommendations"
+  ]
+}
