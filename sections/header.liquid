@@ -79,10 +79,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
         </a>
 
-        <!-- Account -->
-        <a href="{{ routes.account_url }}" class="header-action-btn" aria-label="{% if request.locale.iso_code == 'ar' %}حسابي{% else %}Account{% endif %}">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        </a>
+
 
         <!-- Cart -->
         <a href="{{ routes.cart_url }}" class="header-action-btn" id="cartIcon" aria-label="{% if request.locale.iso_code == 'ar' %}السلة ({{ cart.item_count }}){% else %}Cart ({{ cart.item_count }}){% endif %}">
@@ -159,8 +156,8 @@
       </a>
 
       <div style="border-top: 1px solid var(--clr-border); margin-top: 8px; padding-top: 8px;">
-        <a href="{{ routes.account_url }}" class="nav-drawer__link">
-          {% if request.locale.iso_code == 'ar' %}حسابي{% else %}My Account{% endif %}
+        <a href="/pages/wishlist" class="nav-drawer__link">
+          {% if request.locale.iso_code == 'ar' %}المفضلة{% else %}Wishlist{% endif %}
         </a>
         <a href="{{ routes.cart_url }}" class="nav-drawer__link">
           {% if request.locale.iso_code == 'ar' %}سلة التسوق{% else %}Shopping Cart{% endif %}
