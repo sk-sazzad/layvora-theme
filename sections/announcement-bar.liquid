@@ -1,0 +1,109 @@
+{%- if settings.announcement_enabled -%}
+  <div class="announcement-bar" id="announcement-bar" data-section-id="{{ section.id }}">
+    <div class="announcement-bar__slides" id="announcementSlides">
+
+      {%- assign messages = '' | split: '' -%}
+      {%- if section.settings.text_1 != blank -%}
+        {%- assign messages = messages | concat: section.settings.text_1 | split: '|||' -%}
+      {%- endif -%}
+
+      <div class="announcement-bar__slide is-active" id="anno-slide-0">
+        <span>{{ section.settings.text_1 }}</span>
+      </div>
+
+      {%- if section.settings.text_2 != blank -%}
+        <div class="announcement-bar__slide" id="anno-slide-1">
+          <span>{{ section.settings.text_2 }}</span>
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.text_3 != blank -%}
+        <div class="announcement-bar__slide" id="anno-slide-2">
+          <span>{{ section.settings.text_3 }}</span>
+        </div>
+      {%- endif -%}
+
+    </div>
+
+    <button class="announcement-bar__close" id="announcementClose" aria-label="Close announcement">×</button>
+  </div>
+
+  <style>
+    #announcement-bar {
+      background-color: {{ section.settings.bg_color }};
+      color: {{ section.settings.text_color }};
+    }
+  </style>
+
+  <script>
+    (function() {
+      var bar = document.getElementById('announcement-bar');
+      var close = document.getElementById('announcementClose');
+      var slides = bar ? bar.querySelectorAll('.announcement-bar__slide') : [];
+      var currentSlide = 0;
+
+      if (close) {
+        close.addEventListener('click', function() {
+          bar.style.display = 'none';
+          sessionStorage.setItem('layvora_anno_closed', '1');
+        });
+      }
+
+      if (sessionStorage.getItem('layvora_anno_closed')) {
+        if (bar) bar.style.display = 'none';
+      }
+
+      if (slides.length > 1) {
+        setInterval(function() {
+          slides[currentSlide].classList.remove('is-active');
+          currentSlide = (currentSlide + 1) % slides.length;
+          slides[currentSlide].classList.add('is-active');
+        }, 4000);
+      }
+    })();
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "class": "section-announcement-bar",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#1A1A2E"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "text",
+      "id": "text_1",
+      "label": "Message 1",
+      "default": "🚚 شحن مجاني للطلبات فوق 200 ر.س | Free Shipping on orders over 200 SAR"
+    },
+    {
+      "type": "text",
+      "id": "text_2",
+      "label": "Message 2",
+      "default": "💰 الدفع عند الاستلام متاح | Cash on Delivery Available"
+    },
+    {
+      "type": "text",
+      "id": "text_3",
+      "label": "Message 3",
+      "default": "🔥 عروض حصرية يومياً | Exclusive Daily Deals"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement Bar"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,145 @@
+<div class="collection-page" id="CollectionPage">
+
+  <!-- Collection Header -->
+  <div class="collection-header">
+    <div class="container">
+      <h1 class="collection-title">
+        {{ collection.title }}
+      </h1>
+      {%- if collection.description != blank -%}
+        <div class="collection-desc mt-auto" style="margin-top: 8px; color: var(--clr-muted); max-width: 600px;">
+          {{ collection.description }}
+        </div>
+      {%- endif -%}
+      <p class="collection-count">
+        {%- if request.locale.iso_code == 'ar' -%}
+          عرض {{ collection.products_count }} منتج
+        {%- else -%}
+          Showing {{ collection.products_count }} products
+        {%- endif -%}
+      </p>
+    </div>
+  </div>
+
+  <div class="container section-padding-sm">
+
+    <!-- Toolbar: Mobile Filter Toggle + Sort Dropdown -->
+    <div class="collection-toolbar">
+      <button class="filter-btn d-lg-none" id="mobileFilterToggle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+        <span>{% if request.locale.iso_code == 'ar' %}الفلاتر والتصفية{% else %}Filters{% endif %}</span>
+      </button>
+
+      <div class="sort-wrapper d-flex align-center gap-8 ms-auto">
+        <label for="SortBy" class="fs-14 fw-500 d-none d-sm-block">
+          {% if request.locale.iso_code == 'ar' %}ترتيب حسب:{% else %}Sort by:{% endif %}
+        </label>
+        <select name="sort_by" id="SortBy" class="sort-select">
+          <option value="manual">{% if request.locale.iso_code == 'ar' %}المميز{% else %}Featured{% endif %}</option>
+          <option value="best-selling">{% if request.locale.iso_code == 'ar' %}الأكثر مبيعاً{% else %}Best Selling{% endif %}</option>
+          <option value="title-ascending">{% if request.locale.iso_code == 'ar' %}الأبجدي (أ-ي){% else %}Alphabetically (A-Z){% endif %}</option>
+          <option value="title-descending">{% if request.locale.iso_code == 'ar' %}الأبجدي (ي-أ){% else %}Alphabetically (Z-A){% endif %}</option>
+          <option value="price-ascending">{% if request.locale.iso_code == 'ar' %}السعر: من الأقل للأعلى{% else %}Price: Low to High{% endif %}</option>
+          <option value="price-descending">{% if request.locale.iso_code == 'ar' %}السعر: من الأعلى للأقل{% else %}Price: High to Low{% endif %}</option>
+          <option value="created-descending">{% if request.locale.iso_code == 'ar' %}الأحدث{% else %}Newest{% endif %}</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Main Layout: Sidebar + Grid -->
+    <div class="collection-layout">
+
+      <!-- Filter Sidebar -->
+      <aside class="filter-sidebar" id="filterSidebar">
+        <h3 class="fs-16 fw-700 mb-16" style="padding-bottom: 12px; border-bottom: 2px solid var(--clr-primary);">
+          {% if request.locale.iso_code == 'ar' %}تصفية المنتجات{% else %}Filter Products{% endif %}
+        </h3>
+
+        <!-- Availability Filter -->
+        <div class="filter-group">
+          <p class="filter-group__title">{% if request.locale.iso_code == 'ar' %}التوفر{% else %}Availability{% endif %}</p>
+          <label class="filter-option">
+            <input type="checkbox" name="filter.v.availability" value="1">
+            <span>{% if request.locale.iso_code == 'ar' %}متوفر بالمخزون{% else %}In Stock{% endif %}</span>
+          </label>
+        </div>
+
+        <!-- Price Filter -->
+        <div class="filter-group">
+          <p class="filter-group__title">{% if request.locale.iso_code == 'ar' %}السعر (ر.س){% else %}Price (SAR){% endif %}</p>
+          <div class="price-range-inputs">
+            <input type="number" placeholder="{% if request.locale.iso_code == 'ar' %}من{% else %}From{% endif %}" class="price-range-input" min="0">
+            <span>-</span>
+            <input type="number" placeholder="{% if request.locale.iso_code == 'ar' %}إلى{% else %}To{% endif %}" class="price-range-input" min="0">
+          </div>
+        </div>
+
+        <!-- COD Filter Tag -->
+        <div class="filter-group">
+          <p class="filter-group__title">{% if request.locale.iso_code == 'ar' %}طريقة الدفع{% else %}Payment Method{% endif %}</p>
+          <label class="filter-option">
+            <input type="checkbox" name="filter.cod" value="1" checked>
+            <span>💰 {% if request.locale.iso_code == 'ar' %}الدفع عند الاستلام{% else %}Cash on Delivery{% endif %}</span>
+          </label>
+        </div>
+      </aside>
+
+      <!-- Products Grid -->
+      <div class="collection-products">
+        {%- paginate collection.products by 16 -%}
+          {%- if collection.products_count > 0 -%}
+            <div class="product-grid">
+              {%- for product in collection.products -%}
+                {% render 'card-product', card_product: product %}
+              {%- endfor -%}
+            </div>
+
+            <!-- Pagination -->
+            {%- if paginate.pages > 1 -%}
+              <div class="pagination d-flex justify-center align-center gap-12" style="margin-top: 48px;">
+                {%- if paginate.previous -%}
+                  <a href="{{ paginate.previous.url }}" class="btn btn-outline btn-sm">
+                    {% if request.locale.iso_code == 'ar' %}← السابق{% else %}← Previous{% endif %}
+                  </a>
+                {%- endif -%}
+
+                <span class="fs-14 fw-600">
+                  {{ paginate.current_page }} / {{ paginate.pages }}
+                </span>
+
+                {%- if paginate.next -%}
+                  <a href="{{ paginate.next.url }}" class="btn btn-primary btn-sm">
+                    {% if request.locale.iso_code == 'ar' %}التالي →{% else %}Next →{% endif %}
+                  </a>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+
+          {%- else -%}
+            <div class="no-results">
+              <div class="no-results__icon">🛍️</div>
+              <h2 class="no-results__title">
+                {% if request.locale.iso_code == 'ar' %}لا توجد منتجات في هذه الفئة{% else %}No products found in this collection{% endif %}
+              </h2>
+              <p class="no-results__text">
+                {% if request.locale.iso_code == 'ar' %}جرّب تصفح فئات أخرى أو العودة للرئيسية{% else %}Try browsing other categories or back to home{% endif %}
+              </p>
+              <a href="{{ routes.root_url }}" class="btn btn-primary btn-lg">
+                {% if request.locale.iso_code == 'ar' %}العودة للرئيسية{% else %}Back to Home{% endif %}
+              </a>
+            </div>
+          {%- endif -%}
+        {%- endpaginate -%}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Collection Page",
+  "class": "section-main-collection",
+  "settings": []
+}
+{% endschema %}

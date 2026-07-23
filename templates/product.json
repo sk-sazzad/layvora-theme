@@ -1,0 +1,22 @@
+{
+  "sections": {
+    "main_product": {
+      "type": "main-product",
+      "settings": {}
+    },
+    "best_sellers": {
+      "type": "best-sellers",
+      "settings": {
+        "title_ar": "قد يعجبك أيضاً",
+        "title_en": "You May Also Like",
+        "subtitle": "منتجات مشابهة قد تناسب اهتماماتك",
+        "products_to_show": 4,
+        "show_view_all": false
+      }
+    }
+  },
+  "order": [
+    "main_product",
+    "best_sellers"
+  ]
+}

@@ -1,0 +1,137 @@
+<footer class="site-footer" id="SiteFooter" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+
+      <!-- Column 1: Brand & Description -->
+      <div class="footer-col footer-brand">
+        <a href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+          {%- if section.settings.logo != blank -%}
+            <img
+              src="{{ section.settings.logo | image_url: width: 240 }}"
+              alt="{{ shop.name }}"
+              class="footer-brand__logo"
+              loading="lazy"
+            >
+          {%- else -%}
+            <span class="footer-brand__logo-text">ليقورا — Layvora</span>
+          {%- endif -%}
+        </a>
+
+        <div class="footer-brand__desc">
+          {{ section.settings.description | default: '<p>ليقورا — وجهتك الأولى للتسوق في المملكة العربية السعودية. نوفر لك أحدث المنتجات بأسعار تنافسية وتوصيل سريع والدفع عند الاستلام.</p>' }}
+        </div>
+
+        <!-- Social Media -->
+        <div class="social-icons" aria-label="Social links">
+          {%- if settings.social_instagram != blank -%}
+            <a href="{{ settings.social_instagram }}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+          {%- endif -%}
+
+          {%- if settings.social_twitter != blank -%}
+            <a href="{{ settings.social_twitter }}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Twitter / X">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
+            </a>
+          {%- endif -%}
+
+          {%- if settings.social_tiktok != blank -%}
+            <a href="{{ settings.social_tiktok }}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.29 0 .56.04.83.12V9.33a6.33 6.33 0 0 0-1-.08 6.34 6.34 0 1 0 6.34 6.34V8.47a8.27 8.27 0 0 0 4.94 1.67V6.69z"/></svg>
+            </a>
+          {%- endif -%}
+
+          {%- if settings.social_snapchat != blank -%}
+            <a href="{{ settings.social_snapchat }}" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Snapchat">
+              👻
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <!-- Column 2: Quick Links -->
+      <div class="footer-col">
+        <h4 class="footer-col__title">{% if request.locale.iso_code == 'ar' %}روابط سريعة{% else %}Quick Links{% endif %}</h4>
+        <nav class="footer-links" aria-label="Quick links">
+          <a href="{{ routes.root_url }}" class="footer-link">› {% if request.locale.iso_code == 'ar' %}الرئيسية{% else %}Home{% endif %}</a>
+          <a href="{{ routes.all_products_collection_url }}" class="footer-link">› {% if request.locale.iso_code == 'ar' %}جميع المنتجات{% else %}All Products{% endif %}</a>
+          <a href="/collections/electronics" class="footer-link">› {% if request.locale.iso_code == 'ar' %}إلكترونيات{% else %}Electronics{% endif %}</a>
+          <a href="/collections/fashion" class="footer-link">› {% if request.locale.iso_code == 'ar' %}أزياء{% else %}Fashion{% endif %}</a>
+          <a href="/collections/deals" class="footer-link">› {% if request.locale.iso_code == 'ar' %}العروض اليومية 🔥{% else %}Daily Deals 🔥{% endif %}</a>
+        </nav>
+      </div>
+
+      <!-- Column 3: Customer Support -->
+      <div class="footer-col">
+        <h4 class="footer-col__title">{% if request.locale.iso_code == 'ar' %}خدمة العملاء{% else %}Customer Support{% endif %}</h4>
+        <nav class="footer-links" aria-label="Customer support">
+          <a href="/pages/contact" class="footer-link">› {% if request.locale.iso_code == 'ar' %}اتصل بنا{% else %}Contact Us{% endif %}</a>
+          <a href="/pages/shipping-policy" class="footer-link">› {% if request.locale.iso_code == 'ar' %}سياسة الشحن والتوصيل{% else %}Shipping Policy{% endif %}</a>
+          <a href="/pages/refund-policy" class="footer-link">› {% if request.locale.iso_code == 'ar' %}سياسة الإرجاع والاستبدال{% else %}Refund Policy{% endif %}</a>
+          <a href="/pages/faq" class="footer-link">› {% if request.locale.iso_code == 'ar' %}الأسئلة الشائعة{% else %}FAQ{% endif %}</a>
+          <a href="/pages/terms" class="footer-link">› {% if request.locale.iso_code == 'ar' %}الشروط والأحكام{% else %}Terms & Conditions{% endif %}</a>
+        </nav>
+      </div>
+
+      <!-- Column 4: Contact & Payment -->
+      <div class="footer-col">
+        <h4 class="footer-col__title">{% if request.locale.iso_code == 'ar' %}تواصل معنا{% else %}Contact Us{% endif %}</h4>
+
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>{{ settings.footer_address | default: 'الرياض، المملكة العربية السعودية' }}</span>
+        </div>
+
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span dir="ltr">{{ settings.footer_phone | default: '+966 50 000 0000' }}</span>
+        </div>
+
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>{{ settings.footer_email | default: 'support@layvora.com' }}</span>
+        </div>
+
+        <!-- Payment Badges -->
+        <p style="font-size: 13px; font-weight: 700; color: white; margin-top: 20px; margin-bottom: 8px;">
+          {% if request.locale.iso_code == 'ar' %}طرق الدفع المتاحة:{% else %}Payment Methods:{% endif %}
+        </p>
+        <div class="payment-methods">
+          <span class="payment-badge"><span class="payment-badge-icon">💰</span> COD</span>
+          <span class="payment-badge"><span class="payment-badge-icon">💳</span> Visa</span>
+          <span class="payment-badge"><span class="payment-badge-icon">💳</span> Mada</span>
+          <span class="payment-badge"><span class="payment-badge-icon">💳</span> Mastercard</span>
+          <span class="payment-badge"><span class="payment-badge-icon"></span> Apple Pay</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Copyright -->
+    <div class="footer-bottom">
+      <p>{{ settings.footer_copyright | default: '© 2025 Layvora | ليقورا. جميع الحقوق محفوظة.' }}</p>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "class": "section-footer",
+  "tag": "footer",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Footer logo"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Store description",
+      "default": "<p>ليقورا — وجهتك الأولى للتسوق في المملكة العربية السعودية. منتجات أصيلة بأسعار تنافسية وتوصيل سريع.</p>"
+    }
+  ]
+}
+{% endschema %}

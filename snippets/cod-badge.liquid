@@ -1,0 +1,27 @@
+{%- comment -%}
+  Renders COD Badge
+  Accepts:
+  - style: 'inline' | 'card' | 'compact'
+{%- endcomment -%}
+
+<div class="cod-badge {% if style == 'compact' %}cod-badge--compact{% endif %}" role="status">
+  <span class="cod-badge__icon">💰</span>
+  <div class="cod-badge__text">
+    <span class="cod-badge__title">
+      {%- if request.locale.iso_code == 'ar' -%}
+        {{ settings.cod_label_ar | default: 'الدفع عند الاستلام متاح' }}
+      {%- else -%}
+        {{ settings.cod_label_en | default: 'Cash on Delivery Available' }}
+      {%- endif -%}
+    </span>
+    {%- unless style == 'compact' -%}
+      <span class="cod-badge__sub">
+        {%- if request.locale.iso_code == 'ar' -%}
+          ادفع نقداً عند وصول طلبك ل باب منزلك
+        {%- else -%}
+          Pay cash when your order arrives at your doorstep
+        {%- endif -%}
+      </span>
+    {%- endunless -%}
+  </div>
+</div>

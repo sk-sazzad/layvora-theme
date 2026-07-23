@@ -1,0 +1,20 @@
+<div class="page-standard section-padding" id="StandardPage">
+  <div class="container" style="max-width: 900px;">
+    <h1 class="section-title text-center mb-32" style="margin-bottom:32px;">
+      <span class="title-ar">{{ page.title }}</span>
+      <span class="accent-line"></span>
+    </h1>
+
+    <div class="page-content rte" style="font-size: 16px; line-height: 1.8; color: var(--clr-text);">
+      {{ page.content }}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Page Content",
+  "class": "section-main-page",
+  "settings": []
+}
+{% endschema %}

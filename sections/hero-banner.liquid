@@ -1,0 +1,369 @@
+<section class="hero-banner" id="HeroBanner" aria-label="Hero Banner">
+  <div class="hero-slides-wrapper" id="heroSlides">
+
+    {%- for block in section.blocks -%}
+      <div
+        class="hero-slide {% if forloop.first %}is-active{% endif %}"
+        id="hero-slide-{{ forloop.index0 }}"
+        {{ block.shopify_attributes }}
+      >
+        <!-- Background -->
+        {%- if block.settings.video_url != blank -%}
+          <video
+            class="hero-slide__bg"
+            src="{{ block.settings.video_url }}"
+            autoplay muted loop playsinline
+            preload="metadata"
+          ></video>
+        {%- elsif block.settings.image != blank -%}
+          <img
+            src="{{ block.settings.image | image_url: width: 1800 }}"
+            srcset="
+              {{ block.settings.image | image_url: width: 800  }} 800w,
+              {{ block.settings.image | image_url: width: 1200 }} 1200w,
+              {{ block.settings.image | image_url: width: 1800 }} 1800w
+            "
+            sizes="100vw"
+            alt="{{ block.settings.image.alt | default: block.settings.heading_ar }}"
+            class="hero-slide__bg"
+            loading="{% if forloop.first %}eager{% else %}lazy{% endif %}"
+            fetchpriority="{% if forloop.first %}high{% else %}auto{% endif %}"
+          >
+        {%- else -%}
+          <div class="hero-slide__bg" style="background: linear-gradient(135deg, {{ block.settings.bg_color_start }}, {{ block.settings.bg_color_end }});"></div>
+        {%- endif -%}
+
+        <!-- Overlay -->
+        <div class="hero-slide__overlay" style="background: {{ block.settings.overlay_color }};"></div>
+
+        <!-- Content -->
+        <div class="container">
+          <div class="hero-slide__content">
+
+            {%- if block.settings.badge != blank -%}
+              <span class="hero-badge">{{ block.settings.badge }}</span>
+            {%- endif -%}
+
+            {%- if block.settings.heading_ar != blank -%}
+              <h2 class="hero-title">{{ block.settings.heading_ar }}</h2>
+            {%- endif -%}
+
+            {%- if block.settings.heading_en != blank -%}
+              <p class="hero-title-en">{{ block.settings.heading_en }}</p>
+            {%- endif -%}
+
+            {%- if block.settings.subtitle != blank -%}
+              <p class="hero-subtitle">{{ block.settings.subtitle }}</p>
+            {%- endif -%}
+
+            <div class="hero-actions">
+              {%- if block.settings.btn1_text != blank -%}
+                <a
+                  href="{{ block.settings.btn1_url | default: routes.all_products_collection_url }}"
+                  class="btn btn-primary btn-lg"
+                  id="hero-btn1-{{ forloop.index }}"
+                >
+                  {{ block.settings.btn1_text }}
+                </a>
+              {%- endif -%}
+
+              {%- if block.settings.btn2_text != blank -%}
+                <a
+                  href="{{ block.settings.btn2_url | default: '/collections/deals' }}"
+                  class="btn btn-outline-white btn-lg"
+                  id="hero-btn2-{{ forloop.index }}"
+                >
+                  {{ block.settings.btn2_text }}
+                </a>
+              {%- endif -%}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    {%- else -%}
+
+      <!-- Default slide when no blocks configured -->
+      <div class="hero-slide is-active">
+        <div class="hero-slide__bg" style="background: linear-gradient(135deg, #1A1A2E 0%, #16213E 50%, #0F3460 100%);"></div>
+        <div class="hero-slide__overlay" style="background: rgba(0,0,0,0.2);"></div>
+        <div class="container">
+          <div class="hero-slide__content">
+            <span class="hero-badge">🔥 العروض الحصرية | Exclusive Deals</span>
+            <h1 class="hero-title">تسوق بأفضل الأسعار</h1>
+            <p class="hero-title-en">Shop the Best Deals in Saudi Arabia</p>
+            <p class="hero-subtitle">منتجات أصيلة بأسعار تنافسية | Authentic products at competitive prices</p>
+            <div class="hero-actions">
+              <a href="{{ routes.all_products_collection_url }}" class="btn btn-primary btn-lg" id="hero-default-btn1">
+                {% if request.locale.iso_code == 'ar' %}تسوق الآن{% else %}Shop Now{% endif %}
+              </a>
+              <a href="/collections/deals" class="btn btn-outline-white btn-lg" id="hero-default-btn2">
+                {% if request.locale.iso_code == 'ar' %}عروض اليوم{% else %}Today's Deals{% endif %}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    {%- endfor -%}
+  </div>
+
+  <!-- Navigation dots -->
+  {%- if section.blocks.size > 1 -%}
+    <div class="hero-dots" role="tablist" aria-label="Hero slides">
+      {%- for block in section.blocks -%}
+        <button
+          class="hero-dot {% if forloop.first %}is-active{% endif %}"
+          data-slide="{{ forloop.index0 }}"
+          role="tab"
+          aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+          aria-label="Slide {{ forloop.index }}"
+          id="hero-dot-{{ forloop.index0 }}"
+        ></button>
+      {%- endfor -%}
+    </div>
+
+    <!-- Arrows -->
+    <button class="hero-arrow hero-arrow--prev" id="heroPrev" aria-label="Previous slide">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </button>
+    <button class="hero-arrow hero-arrow--next" id="heroNext" aria-label="Next slide">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+    </button>
+  {%- endif -%}
+</section>
+
+<style>
+  #HeroBanner {
+    min-height: {{ section.settings.min_height }}px;
+  }
+  .hero-slides-wrapper {
+    position: relative;
+    min-height: inherit;
+  }
+  .hero-slide {
+    min-height: {{ section.settings.min_height }}px;
+  }
+  .hero-slide__content {
+    padding-block: 60px;
+  }
+  @media (max-width: 768px) {
+    #HeroBanner, .hero-slide {
+      min-height: {{ section.settings.min_height | times: 0.6 | round }}px;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    var slides = document.querySelectorAll('#HeroBanner .hero-slide');
+    var dots   = document.querySelectorAll('#HeroBanner .hero-dot');
+    var prev   = document.getElementById('heroPrev');
+    var next   = document.getElementById('heroNext');
+    var current = 0;
+    var autoplayInterval;
+    var autoplayDelay = {{ section.settings.autoplay_speed | times: 1000 | default: 5000 }};
+
+    if (slides.length <= 1) return;
+
+    function goTo(index) {
+      slides[current].classList.remove('is-active');
+      if (dots[current]) { dots[current].classList.remove('is-active'); dots[current].setAttribute('aria-selected', 'false'); }
+      current = (index + slides.length) % slides.length;
+      slides[current].classList.add('is-active');
+      if (dots[current]) { dots[current].classList.add('is-active'); dots[current].setAttribute('aria-selected', 'true'); }
+    }
+
+    function startAutoplay() {
+      if (!{{ section.settings.autoplay | json }}) return;
+      autoplayInterval = setInterval(function() { goTo(current + 1); }, autoplayDelay);
+    }
+
+    function stopAutoplay() {
+      clearInterval(autoplayInterval);
+    }
+
+    dots.forEach(function(dot, i) {
+      dot.addEventListener('click', function() { stopAutoplay(); goTo(i); startAutoplay(); });
+    });
+
+    if (prev) prev.addEventListener('click', function() { stopAutoplay(); goTo(current - 1); startAutoplay(); });
+    if (next) next.addEventListener('click', function() { stopAutoplay(); goTo(current + 1); startAutoplay(); });
+
+    // Touch/swipe support
+    var touchStartX = 0;
+    var heroEl = document.getElementById('HeroBanner');
+    if (heroEl) {
+      heroEl.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; }, { passive: true });
+      heroEl.addEventListener('touchend', function(e) {
+        var delta = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(delta) > 50) {
+          stopAutoplay();
+          goTo(delta > 0 ? current - 1 : current + 1);
+          startAutoplay();
+        }
+      }, { passive: true });
+    }
+
+    startAutoplay();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "class": "section-hero-banner",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "min_height",
+      "label": "Minimum height",
+      "min": 300,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "default": 560
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto-rotate slides",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Auto-rotate speed (seconds)",
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "default": 5
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Background image"
+        },
+        {
+          "type": "text",
+          "id": "video_url",
+          "label": "Background video URL (mp4)"
+        },
+        {
+          "type": "color",
+          "id": "bg_color_start",
+          "label": "Gradient start color",
+          "default": "#1A1A2E"
+        },
+        {
+          "type": "color",
+          "id": "bg_color_end",
+          "label": "Gradient end color",
+          "default": "#0F3460"
+        },
+        {
+          "type": "color",
+          "id": "overlay_color",
+          "label": "Overlay color",
+          "info": "Use rgba values like rgba(0,0,0,0.4)",
+          "default": "#00000066"
+        },
+        {
+          "type": "text",
+          "id": "badge",
+          "label": "Badge text",
+          "default": "🔥 عروض حصرية | Exclusive Deals"
+        },
+        {
+          "type": "text",
+          "id": "heading_ar",
+          "label": "Heading (Arabic)",
+          "default": "تسوق بأفضل الأسعار"
+        },
+        {
+          "type": "text",
+          "id": "heading_en",
+          "label": "Heading (English)",
+          "default": "Shop the Best Deals"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "منتجات أصيلة بأسعار تنافسية في المملكة العربية السعودية"
+        },
+        {
+          "type": "text",
+          "id": "btn1_text",
+          "label": "Button 1 text",
+          "default": "تسوق الآن | Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "btn1_url",
+          "label": "Button 1 URL"
+        },
+        {
+          "type": "text",
+          "id": "btn2_text",
+          "label": "Button 2 text",
+          "default": "عروض اليوم | View Deals"
+        },
+        {
+          "type": "url",
+          "id": "btn2_url",
+          "label": "Button 2 URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner",
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "heading_ar": "تسوق بأفضل الأسعار",
+            "heading_en": "Shop the Best Deals in Saudi Arabia",
+            "badge": "🔥 عروض حصرية | Exclusive Deals",
+            "btn1_text": "تسوق الآن | Shop Now",
+            "btn2_text": "عروض اليوم | View Deals"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "heading_ar": "إلكترونيات بأسعار لا تُصدق",
+            "heading_en": "Electronics at Unbeatable Prices",
+            "badge": "📱 جديد | New Arrivals",
+            "btn1_text": "تسوق الإلكترونيات | Shop Electronics",
+            "btn2_text": "اكتشف المزيد | Discover More"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "heading_ar": "أزياء راقية لكل المناسبات",
+            "heading_en": "Premium Fashion for Every Occasion",
+            "badge": "👗 أزياء | Fashion",
+            "btn1_text": "تسوق الأزياء | Shop Fashion",
+            "btn2_text": "عروض اليوم | Today's Deals"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,136 @@
+<div class="cart-page section-padding" id="CartPage">
+  <div class="container">
+    <div class="section-header text-start mb-24" style="margin-bottom: 24px;">
+      <h1 class="section-title">
+        <span class="title-ar">{% if request.locale.iso_code == 'ar' %}سلة التسوق{% else %}Shopping Cart{% endif %}</span>
+      </h1>
+      <p class="text-muted fs-14">
+        {%- if cart.item_count > 0 -%}
+          {% if request.locale.iso_code == 'ar' %}لديك {{ cart.item_count }} منتجات في سلتك{% else %}You have {{ cart.item_count }} items in your cart{% endif %}
+        {%- endif -%}
+      </p>
+    </div>
+
+    {%- if cart.item_count > 0 -%}
+      <form action="{{ routes.cart_url }}" method="post" id="cartForm">
+        <div class="cart-layout">
+
+          <!-- Item List -->
+          <div class="cart-items">
+            {%- for item in cart.items -%}
+              <div class="cart-item" data-line="{{ forloop.index }}">
+                <!-- Image -->
+                <a href="{{ item.url }}">
+                  {%- if item.image != blank -%}
+                    <img src="{{ item.image | image_url: width: 200 }}" alt="{{ item.title }}" class="cart-item__img" loading="lazy" width="90" height="90">
+                  {%- else -%}
+                    <div class="cart-item__img d-flex align-center justify-center bg-light">🛒</div>
+                  {%- endif -%}
+                </a>
+
+                <!-- Details -->
+                <div class="cart-item__info">
+                  <h3 class="cart-item__title">
+                    <a href="{{ item.url }}">{{ item.product.title }}</a>
+                  </h3>
+                  {%- unless item.product.has_only_default_variant -%}
+                    <p class="cart-item__variant">{{ item.variant.title }}</p>
+                  {%- endunless -%}
+
+                  <div class="fs-15 fw-700 text-primary mb-8" style="margin-bottom:8px;">
+                    {{ item.final_price | money_without_trailing_zeros }}
+                  </div>
+
+                  <div class="d-flex align-center gap-12">
+                    <div class="quantity-input" style="height: 36px;">
+                      <button type="button" class="quantity-btn js-cart-qty" data-line="{{ forloop.index }}" data-qty="{{ item.quantity | minus: 1 }}" aria-label="Decrease quantity">-</button>
+                      <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" class="quantity-value" aria-label="Quantity" style="height:34px;width:44px;font-size:14px;">
+                      <button type="button" class="quantity-btn js-cart-qty" data-line="{{ forloop.index }}" data-qty="{{ item.quantity | plus: 1 }}" aria-label="Increase quantity">+</button>
+                    </div>
+
+                    <a href="{{ item.url_to_remove }}" class="cart-item__remove">
+                      {% if request.locale.iso_code == 'ar' %}إزالة{% else %}Remove{% endif %}
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Price Col -->
+                <div class="cart-item__price-col">
+                  <span class="cart-item__price">{{ item.final_line_price | money_without_trailing_zeros }}</span>
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+
+          <!-- Order Summary Sidebar -->
+          <div class="order-summary">
+            <h2 class="order-summary__title">
+              {% if request.locale.iso_code == 'ar' %}ملخص الطلب{% else %}Order Summary{% endif %}
+            </h2>
+
+            <div class="order-summary__row">
+              <span class="order-summary__label">{% if request.locale.iso_code == 'ar' %}المجموع الفرعي{% else %}Subtotal{% endif %}</span>
+              <span class="order-summary__value">{{ cart.total_price | money_without_trailing_zeros }}</span>
+            </div>
+
+            <div class="order-summary__row">
+              <span class="order-summary__label">{% if request.locale.iso_code == 'ar' %}الشحن والتوصيل{% else %}Shipping{% endif %}</span>
+              <span class="order-summary__free">
+                {% if request.locale.iso_code == 'ar' %}شحن مجاني 🚚{% else %}Free Shipping 🚚{% endif %}
+              </span>
+            </div>
+
+            <div class="order-summary__row order-summary__row--total">
+              <span class="order-summary__label">{% if request.locale.iso_code == 'ar' %}الإجمالي النهائي{% else %}Total{% endif %}</span>
+              <span class="order-summary__value">{{ cart.total_price | money_without_trailing_zeros }}</span>
+            </div>
+
+            <!-- COD Note -->
+            <div class="cod-badge" style="margin-block: 16px; width: 100%;">
+              <span class="cod-badge__icon">💰</span>
+              <div class="cod-badge__text">
+                <span class="cod-badge__title">{% if request.locale.iso_code == 'ar' %}الدفع عند الاستلام متاح{% else %}Cash on Delivery Available{% endif %}</span>
+                <span class="cod-badge__sub">{% if request.locale.iso_code == 'ar' %}ادفع ل مندوب التوصيل عند استلام الطلب{% else %}Pay the courier upon delivery{% endif %}</span>
+              </div>
+            </div>
+
+            <!-- Checkout Button -->
+            <button type="submit" name="checkout" class="btn btn-primary btn-full btn-lg mb-12" style="margin-bottom: 12px;" id="checkoutBtn">
+              🔒 {% if request.locale.iso_code == 'ar' %}إتمام الشراء والدفع{% else %}Proceed to Checkout{% endif %}
+            </button>
+
+            <!-- Continue Shopping Link -->
+            <a href="{{ routes.all_products_collection_url }}" class="d-block text-center fs-14 text-muted text-decoration-underline mt-12">
+              {% if request.locale.iso_code == 'ar' %}مواصلة التسوق ←{% else %}Continue Shopping →{% endif %}
+            </a>
+          </div>
+
+        </div>
+      </form>
+    {%- else -%}
+
+      <!-- Empty Cart State -->
+      <div class="no-results" style="padding: 100px 20px;">
+        <div class="no-results__icon">🛒</div>
+        <h2 class="no-results__title">
+          {% if request.locale.iso_code == 'ar' %}سلة التسوق فارغة حالياً{% else %}Your shopping cart is empty{% endif %}
+        </h2>
+        <p class="no-results__text">
+          {% if request.locale.iso_code == 'ar' %}استكشف أفضل العروض والمنتجات المتاحة واكتشف خياراتنا الواسعة{% else %}Explore our best deals and products{% endif %}
+        </p>
+        <a href="{{ routes.all_products_collection_url }}" class="btn btn-primary btn-lg">
+          🛍️ {% if request.locale.iso_code == 'ar' %}تصفح جميع المنتجات{% else %}Start Shopping{% endif %}
+        </a>
+      </div>
+
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Cart Page",
+  "class": "section-main-cart",
+  "settings": []
+}
+{% endschema %}

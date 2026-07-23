@@ -1,0 +1,17 @@
+{%- if predictive_search.performed -%}
+  {%- if predictive_search.resources.products.size > 0 -%}
+    {%- for product in predictive_search.resources.products -%}
+      <a href="{{ product.url }}" class="predictive-search-item predictive-result">
+        {%- if product.featured_media != blank -%}
+          <img src="{{ product.featured_media | image_url: width: 96 }}" alt="{{ product.title }}" class="predictive-search-img" width="48" height="48" loading="lazy">
+        {%- else -%}
+          <div class="predictive-search-img d-flex align-center justify-center bg-light">🛍️</div>
+        {%- endif -%}
+        <div>
+          <div class="predictive-search-title">{{ product.title }}</div>
+          <div class="predictive-search-price">{{ product.price | money_without_trailing_zeros }}</div>
+        </div>
+      </a>
+    {%- endfor -%}
+  {%- endif -%}
+{%- endif -%}

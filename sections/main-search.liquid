@@ -1,0 +1,89 @@
+<div class="search-page section-padding" id="SearchPage">
+  <div class="container">
+
+    <!-- Search Hero -->
+    <div class="search-hero rounded mb-32" style="margin-bottom:32px;">
+      <h1 class="section-title text-center">
+        {%- if search.performed -%}
+          {% if request.locale.iso_code == 'ar' %}نتائج البحث عن: "{{ search.terms }}"{% else %}Search Results for: "{{ search.terms }}"{% endif %}
+        {%- else -%}
+          {% if request.locale.iso_code == 'ar' %}البحث في متجر ليقورا{% else %}Search Layvora Store{% endif %}
+        {%- endif -%}
+      </h1>
+
+      <form action="{{ routes.search_url }}" method="get" class="search-hero__form" role="search">
+        <input
+          type="search"
+          name="q"
+          value="{{ search.terms | escape }}"
+          placeholder="{% if request.locale.iso_code == 'ar' %}ابحث عن إلكترونيات، أزياء، مستحضرات جمال...{% else %}Search for electronics, fashion, beauty...{% endif %}"
+          class="search-hero__input"
+          aria-label="Search"
+        >
+        <input type="hidden" name="type" value="product">
+        <button type="submit" class="search-hero__btn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:18px;height:18px;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          {% if request.locale.iso_code == 'ar' %}بحث{% else %}Search{% endif %}
+        </button>
+      </form>
+    </div>
+
+    <!-- Results Grid -->
+    {%- if search.performed -%}
+      {%- paginate search.results by 16 -%}
+        {%- if search.results_count > 0 -%}
+          <p class="fs-14 text-muted mb-20" style="margin-bottom:20px;">
+            {% if request.locale.iso_code == 'ar' %}تم العثور على {{ search.results_count }} منتج{% else %}Found {{ search.results_count }} products{% endif %}
+          </p>
+
+          <div class="product-grid">
+            {%- for item in search.results -%}
+              {%- if item.object_type == 'product' -%}
+                {% render 'card-product', card_product: item %}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+
+          {%- if paginate.pages > 1 -%}
+            <div class="pagination d-flex justify-center align-center gap-12" style="margin-top: 48px;">
+              {%- if paginate.previous -%}
+                <a href="{{ paginate.previous.url }}" class="btn btn-outline btn-sm">
+                  {% if request.locale.iso_code == 'ar' %}← السابق{% else %}← Previous{% endif %}
+                </a>
+              {%- endif -%}
+              <span class="fs-14 fw-600">{{ paginate.current_page }} / {{ paginate.pages }}</span>
+              {%- if paginate.next -%}
+                <a href="{{ paginate.next.url }}" class="btn btn-primary btn-sm">
+                  {% if request.locale.iso_code == 'ar' %}التالي →{% else %}Next →{% endif %}
+                </a>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+
+        {%- else -%}
+          <div class="no-results">
+            <div class="no-results__icon">🔍</div>
+            <h2 class="no-results__title">
+              {% if request.locale.iso_code == 'ar' %}عذراً، لم نجد أي نتائج لـ "{{ search.terms }}"{% else %}No results found for "{{ search.terms }}"{% endif %}
+            </h2>
+            <p class="no-results__text">
+              {% if request.locale.iso_code == 'ar' %}تأكد من كتابة الكلمات بشكل صحيح أو جرب كلمات بحث أخرى{% else %}Try checking spelling or using different keywords{% endif %}
+            </p>
+            <a href="{{ routes.all_products_collection_url }}" class="btn btn-primary btn-lg">
+              🛍️ {% if request.locale.iso_code == 'ar' %}تصفح جميع المنتجات{% else %}Browse All Products{% endif %}
+            </a>
+          </div>
+        {%- endif -%}
+      {%- endpaginate -%}
+    {%- endif -%}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Search Results",
+  "class": "section-main-search",
+  "settings": []
+}
+{% endschema %}

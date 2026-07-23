@@ -1,0 +1,416 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Layvora",
+    "theme_version": "1.0.0",
+    "theme_author": "Layvora Team",
+    "theme_documentation_url": "https://layvora.com",
+    "theme_support_url": "https://layvora.com/support"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primary color (Orange)",
+        "default": "#FF6B35"
+      },
+      {
+        "type": "color",
+        "id": "color_secondary",
+        "label": "Secondary color (Navy)",
+        "default": "#1A1A2E"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent color (Gold)",
+        "default": "#FFD700"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Background color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_light_bg",
+        "label": "Light background color",
+        "default": "#FFF8F5"
+      },
+      {
+        "type": "color",
+        "id": "color_success",
+        "label": "Success / COD color (Green)",
+        "default": "#27AE60"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Body text color",
+        "default": "#1A1A2E"
+      },
+      {
+        "type": "color",
+        "id": "color_text_muted",
+        "label": "Muted text color",
+        "default": "#777799"
+      },
+      {
+        "type": "color",
+        "id": "color_border",
+        "label": "Border color",
+        "default": "#E8E8F0"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "select",
+        "id": "font_arabic",
+        "label": "Arabic font",
+        "options": [
+          { "value": "Tajawal", "label": "Tajawal (Recommended)" },
+          { "value": "Cairo", "label": "Cairo" },
+          { "value": "Almarai", "label": "Almarai" },
+          { "value": "Noto Sans Arabic", "label": "Noto Sans Arabic" }
+        ],
+        "default": "Tajawal"
+      },
+      {
+        "type": "select",
+        "id": "font_english",
+        "label": "English font",
+        "options": [
+          { "value": "Inter", "label": "Inter (Recommended)" },
+          { "value": "Poppins", "label": "Poppins" },
+          { "value": "Outfit", "label": "Outfit" },
+          { "value": "Nunito", "label": "Nunito" }
+        ],
+        "default": "Inter"
+      },
+      {
+        "type": "range",
+        "id": "font_size_base",
+        "label": "Base font size",
+        "min": 14,
+        "max": 20,
+        "step": 1,
+        "unit": "px",
+        "default": 16
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "label": "Page width",
+        "min": 1200,
+        "max": 1600,
+        "step": 40,
+        "unit": "px",
+        "default": 1400
+      },
+      {
+        "type": "range",
+        "id": "grid_gap",
+        "label": "Product grid gap",
+        "min": 8,
+        "max": 32,
+        "step": 4,
+        "unit": "px",
+        "default": 16
+      },
+      {
+        "type": "range",
+        "id": "card_border_radius",
+        "label": "Card border radius",
+        "min": 0,
+        "max": 24,
+        "step": 2,
+        "unit": "px",
+        "default": 12
+      },
+      {
+        "type": "range",
+        "id": "button_border_radius",
+        "label": "Button border radius",
+        "min": 0,
+        "max": 50,
+        "step": 2,
+        "unit": "px",
+        "default": 8
+      }
+    ]
+  },
+  {
+    "name": "Announcement Bar",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "announcement_enabled",
+        "label": "Show announcement bar",
+        "default": true
+      },
+      {
+        "type": "color",
+        "id": "announcement_bg_color",
+        "label": "Background color",
+        "default": "#1A1A2E"
+      },
+      {
+        "type": "color",
+        "id": "announcement_text_color",
+        "label": "Text color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "text",
+        "id": "announcement_text_1",
+        "label": "Announcement message 1",
+        "default": "🚚 شحن مجاني للطلبات فوق 200 ر.س | Free Shipping on orders over 200 SAR"
+      },
+      {
+        "type": "text",
+        "id": "announcement_text_2",
+        "label": "Announcement message 2",
+        "default": "💰 الدفع عند الاستلام متاح | Cash on Delivery Available"
+      },
+      {
+        "type": "text",
+        "id": "announcement_text_3",
+        "label": "Announcement message 3",
+        "default": "🔥 عروض حصرية يومياً | Exclusive Daily Deals"
+      }
+    ]
+  },
+  {
+    "name": "Header",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo (Arabic / main logo)"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_icon",
+        "label": "Logo icon (L symbol for favicon/mobile)"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "label": "Logo width",
+        "min": 80,
+        "max": 280,
+        "step": 10,
+        "unit": "px",
+        "default": 160
+      },
+      {
+        "type": "checkbox",
+        "id": "header_sticky",
+        "label": "Sticky header",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "header_phone",
+        "label": "Phone number in header",
+        "default": "+966 50 000 0000"
+      }
+    ]
+  },
+  {
+    "name": "Navigation",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "main_menu",
+        "label": "Main menu",
+        "default": "main-menu"
+      },
+      {
+        "type": "link_list",
+        "id": "category_bar_menu",
+        "label": "Category bar menu",
+        "default": "main-menu"
+      }
+    ]
+  },
+  {
+    "name": "WhatsApp Button",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "whatsapp_enabled",
+        "label": "Show WhatsApp button",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_number",
+        "label": "WhatsApp number (with country code)",
+        "placeholder": "966501234567",
+        "default": "966501234567"
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_message_ar",
+        "label": "WhatsApp message (Arabic)",
+        "default": "مرحباً، كيف يمكنني مساعدتك؟"
+      },
+      {
+        "type": "text",
+        "id": "whatsapp_message_en",
+        "label": "WhatsApp message (English)",
+        "default": "Hello, how can I help you?"
+      }
+    ]
+  },
+  {
+    "name": "COD Settings",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "cod_enabled",
+        "label": "Show COD badge throughout store",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "cod_label_ar",
+        "label": "COD label Arabic",
+        "default": "الدفع عند الاستلام"
+      },
+      {
+        "type": "text",
+        "id": "cod_label_en",
+        "label": "COD label English",
+        "default": "Cash on Delivery"
+      },
+      {
+        "type": "text",
+        "id": "delivery_estimate_ar",
+        "label": "Delivery estimate Arabic",
+        "default": "توصيل خلال 2-5 أيام"
+      },
+      {
+        "type": "text",
+        "id": "delivery_estimate_en",
+        "label": "Delivery estimate English",
+        "default": "Delivery in 2-5 Days"
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_threshold",
+        "label": "Free shipping threshold (SAR)",
+        "default": "200"
+      }
+    ]
+  },
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "footer_logo",
+        "label": "Footer logo"
+      },
+      {
+        "type": "richtext",
+        "id": "footer_description",
+        "label": "Store description",
+        "default": "<p>ليقورا — وجهتك الأولى للتسوق في المملكة العربية السعودية. منتجات أصيلة بأسعار تنافسية وتوصيل سريع.</p>"
+      },
+      {
+        "type": "link_list",
+        "id": "footer_quick_links",
+        "label": "Quick links menu",
+        "default": "footer"
+      },
+      {
+        "type": "link_list",
+        "id": "footer_support_links",
+        "label": "Support links menu",
+        "default": "footer"
+      },
+      {
+        "type": "text",
+        "id": "footer_email",
+        "label": "Support email",
+        "default": "support@layvora.com"
+      },
+      {
+        "type": "text",
+        "id": "footer_phone",
+        "label": "Support phone",
+        "default": "+966 50 000 0000"
+      },
+      {
+        "type": "text",
+        "id": "footer_address",
+        "label": "Address",
+        "default": "الرياض، المملكة العربية السعودية"
+      },
+      {
+        "type": "text",
+        "id": "footer_copyright",
+        "label": "Copyright text",
+        "default": "© 2025 Layvora | ليقورا. All rights reserved."
+      }
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "url",
+        "id": "social_instagram",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "url",
+        "id": "social_twitter",
+        "label": "Twitter / X URL"
+      },
+      {
+        "type": "url",
+        "id": "social_facebook",
+        "label": "Facebook URL"
+      },
+      {
+        "type": "url",
+        "id": "social_tiktok",
+        "label": "TikTok URL"
+      },
+      {
+        "type": "url",
+        "id": "social_youtube",
+        "label": "YouTube URL"
+      },
+      {
+        "type": "url",
+        "id": "social_snapchat",
+        "label": "Snapchat URL"
+      }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon image"
+      }
+    ]
+  }
+]

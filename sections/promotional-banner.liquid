@@ -1,0 +1,181 @@
+<section class="section-padding-sm" aria-label="Promotional Offer">
+  <div class="container">
+    <div
+      class="promo-banner"
+      style="background: linear-gradient(135deg, {{ section.settings.bg_color_start }}, {{ section.settings.bg_color_end }}); color: {{ section.settings.text_color }};"
+    >
+      {%- if section.settings.bg_image != blank -%}
+        <img
+          src="{{ section.settings.bg_image | image_url: width: 1400 }}"
+          alt=""
+          class="promo-banner__bg"
+          loading="lazy"
+        >
+      {%- endif -%}
+
+      <div class="promo-banner__content">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="promo-banner__eyebrow" style="color: {{ section.settings.accent_color }};">
+            {{ section.settings.eyebrow }}
+          </p>
+        {%- endif -%}
+
+        <h2 class="promo-banner__title">
+          {{ section.settings.title_ar }}
+        </h2>
+        {%- if section.settings.title_en != blank -%}
+          <p style="font-size: 18px; font-weight: 500; opacity: 0.9; margin-bottom: 8px;">{{ section.settings.title_en }}</p>
+        {%- endif -%}
+
+        <p class="promo-banner__subtitle">
+          {{ section.settings.subtitle }}
+        </p>
+
+        <!-- Countdown Timer -->
+        {%- if section.settings.enable_countdown -%}
+          <div class="countdown" id="promoCountdown" data-end-date="{{ section.settings.countdown_end }}">
+            <div class="countdown-unit">
+              <span class="countdown-value" id="cdHours">12</span>
+              <span class="countdown-label">{% if request.locale.iso_code == 'ar' %}ساعة{% else %}Hours{% endif %}</span>
+            </div>
+            <div class="countdown-unit">
+              <span class="countdown-value" id="cdMinutes">45</span>
+              <span class="countdown-label">{% if request.locale.iso_code == 'ar' %}دقيقة{% else %}Mins{% endif %}</span>
+            </div>
+            <div class="countdown-unit">
+              <span class="countdown-value" id="cdSeconds">30</span>
+              <span class="countdown-label">{% if request.locale.iso_code == 'ar' %}ثانية{% else %}Secs{% endif %}</span>
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="promo-banner__action">
+        <a
+          href="{{ section.settings.btn_url | default: '/collections/deals' }}"
+          class="btn btn-gold btn-lg"
+          id="promoBtn"
+        >
+          {{ section.settings.btn_text | default: 'احصل على العرض الآن ⚡' }}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function() {
+    var cdEl = document.getElementById('promoCountdown');
+    if (!cdEl) return;
+
+    var hEl = document.getElementById('cdHours');
+    var mEl = document.getElementById('cdMinutes');
+    var sEl = document.getElementById('cdSeconds');
+
+    // Default: 18 hours countdown loop
+    var target = new Date().getTime() + (18 * 60 * 60 * 1000);
+
+    function updateCd() {
+      var now = new Date().getTime();
+      var diff = target - now;
+      if (diff <= 0) {
+        target = new Date().getTime() + (18 * 60 * 60 * 1000);
+        diff = target - now;
+      }
+      var h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      var s = Math.floor((diff % (1000 * 60)) / 1000);
+
+      if (hEl) hEl.textContent = String(h).padStart(2, '0');
+      if (mEl) mEl.textContent = String(m).padStart(2, '0');
+      if (sEl) sEl.textContent = String(s).padStart(2, '0');
+    }
+    updateCd();
+    setInterval(updateCd, 1000);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Promotional Banner",
+  "class": "section-promotional-banner",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color_start",
+      "label": "Gradient start color",
+      "default": "#1A1A2E"
+    },
+    {
+      "type": "color",
+      "id": "bg_color_end",
+      "label": "Gradient end color",
+      "default": "#FF6B35"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Eyebrow / Accent color",
+      "default": "#FFD700"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg_image",
+      "label": "Background image (optional)"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "⚡ عرض مفرقع لفترة محدودة | Flash Sale Limited Time"
+    },
+    {
+      "type": "text",
+      "id": "title_ar",
+      "label": "Title (Arabic)",
+      "default": "خصومات حتى 60% على منتجات مختارة"
+    },
+    {
+      "type": "text",
+      "id": "title_en",
+      "label": "Title (English)",
+      "default": "Up to 60% OFF on Selected Items"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "استفد من أفضل العروض اليومية مع شحن مجاني للطلبات فوق 200 ر.س"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_countdown",
+      "label": "Show countdown timer",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button text",
+      "default": "احصل على العرض الآن ⚡"
+    },
+    {
+      "type": "url",
+      "id": "btn_url",
+      "label": "Button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promotional Banner"
+    }
+  ]
+}
+{% endschema %}

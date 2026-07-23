@@ -1,0 +1,351 @@
+<header class="site-header {% if section.settings.sticky %}is-sticky{% endif %}" id="SiteHeader" role="banner">
+  <div class="container">
+    <div class="header-inner">
+
+      <!-- Mobile Hamburger -->
+      <button class="header-hamburger" id="hamburgerBtn" aria-label="{% if request.locale.iso_code == 'ar' %}فتح القائمة{% else %}Open menu{% endif %}" aria-expanded="false" aria-controls="navDrawer">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <!-- Logo -->
+      <div class="header-logo">
+        <a href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+          {%- if section.settings.logo != blank -%}
+            <img
+              src="{{ section.settings.logo | image_url: width: 320 }}"
+              alt="{{ section.settings.logo.alt | default: shop.name }}"
+              width="{{ section.settings.logo_width }}"
+              height="auto"
+              loading="eager"
+              fetchpriority="high"
+            >
+          {%- else -%}
+            <span class="header-logo-text">ليقورا</span>
+          {%- endif -%}
+        </a>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="header-search" id="headerSearch">
+        <form action="{{ routes.search_url }}" method="get" role="search" class="header-search-form" id="headerSearchForm">
+          <input
+            type="search"
+            name="q"
+            id="headerSearchInput"
+            class="header-search-input"
+            placeholder="{% if request.locale.iso_code == 'ar' %}ابحث عن منتجاتك...{% else %}Search for products...{% endif %}"
+            value="{{ search.terms | escape }}"
+            autocomplete="off"
+            aria-label="Search"
+          >
+          <input type="hidden" name="type" value="product">
+          <button type="submit" class="header-search-btn" aria-label="Search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </button>
+        </form>
+
+        <!-- Predictive Search Results -->
+        <div class="predictive-search" id="predictiveSearch" role="listbox" aria-label="Search suggestions"></div>
+      </div>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+
+        <!-- Mobile Search Toggle -->
+        <button class="header-action-btn mobile-search-toggle" id="mobileSearchToggle" aria-label="Search" style="display:none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+
+        <!-- Language Switcher -->
+        <div class="lang-switcher" aria-label="Language selector">
+          {%- for locale in shop.published_locales -%}
+            <a
+              href="{{ locale.root_url }}"
+              class="lang-btn {% if locale.iso_code == request.locale.iso_code %}is-active{% endif %}"
+              hreflang="{{ locale.iso_code }}"
+              aria-label="Switch to {{ locale.name }}"
+            >
+              {{ locale.iso_code | upcase }}
+            </a>
+          {%- endfor -%}
+          {%- if shop.published_locales.size <= 1 -%}
+            <button class="lang-btn is-active" aria-current="true">عر</button>
+            <a href="#" class="lang-btn" lang="en">EN</a>
+          {%- endif -%}
+        </div>
+
+        <!-- Wishlist -->
+        <a href="/pages/wishlist" class="header-action-btn" aria-label="{% if request.locale.iso_code == 'ar' %}المفضلة{% else %}Wishlist{% endif %}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </a>
+
+        <!-- Account -->
+        <a href="{{ routes.account_url }}" class="header-action-btn" aria-label="{% if request.locale.iso_code == 'ar' %}حسابي{% else %}Account{% endif %}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </a>
+
+        <!-- Cart -->
+        <a href="{{ routes.cart_url }}" class="header-action-btn" id="cartIcon" aria-label="{% if request.locale.iso_code == 'ar' %}السلة ({{ cart.item_count }}){% else %}Cart ({{ cart.item_count }}){% endif %}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          {%- if cart.item_count > 0 -%}
+            <span class="header-cart-count" id="cartCount">{{ cart.item_count }}</span>
+          {%- else -%}
+            <span class="header-cart-count" id="cartCount" style="display:none;">0</span>
+          {%- endif -%}
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Category Navigation Bar -->
+  <nav class="category-bar" aria-label="{% if request.locale.iso_code == 'ar' %}الفئات{% else %}Categories{% endif %}">
+    <div class="category-bar__inner">
+
+      <a href="{{ routes.root_url }}" class="category-bar__item {% if template.name == 'index' %}is-active{% endif %}">
+        {% if request.locale.iso_code == 'ar' %}الرئيسية{% else %}Home{% endif %}
+      </a>
+
+      <a href="{{ routes.all_products_collection_url }}" class="category-bar__item {% if request.path == routes.all_products_collection_url %}is-active{% endif %}">
+        {% if request.locale.iso_code == 'ar' %}جميع المنتجات{% else %}All Products{% endif %}
+      </a>
+
+      {%- for link in section.settings.category_menu.links -%}
+        <a href="{{ link.url }}" class="category-bar__item {% if link.active %}is-active{% endif %}">
+          {{ link.title }}
+        </a>
+      {%- else -%}
+        <a href="/collections/electronics" class="category-bar__item">{% if request.locale.iso_code == 'ar' %}إلكترونيات{% else %}Electronics{% endif %}</a>
+        <a href="/collections/fashion" class="category-bar__item">{% if request.locale.iso_code == 'ar' %}أزياء{% else %}Fashion{% endif %}</a>
+        <a href="/collections/beauty" class="category-bar__item">{% if request.locale.iso_code == 'ar' %}جمال{% else %}Beauty{% endif %}</a>
+        <a href="/collections/home-kitchen" class="category-bar__item">{% if request.locale.iso_code == 'ar' %}المنزل والمطبخ{% else %}Home & Kitchen{% endif %}</a>
+        <a href="/collections/deals" class="category-bar__item deals-item">
+          {% if request.locale.iso_code == 'ar' %}العروض 🔥{% else %}Deals 🔥{% endif %}
+        </a>
+      {%- endfor -%}
+
+    </div>
+  </nav>
+</header>
+
+<!-- Mobile Nav Drawer -->
+<div class="nav-drawer" id="navDrawer" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <div class="nav-drawer__overlay" id="navOverlay"></div>
+  <div class="nav-drawer__panel" id="navPanel">
+    <div class="nav-drawer__header">
+      <span class="fw-700 fs-16">{% if request.locale.iso_code == 'ar' %}القائمة{% else %}Menu{% endif %}</span>
+      <button class="nav-drawer__close" id="drawerClose" aria-label="Close menu">✕</button>
+    </div>
+
+    <nav class="nav-drawer__nav">
+      <a href="{{ routes.root_url }}" class="nav-drawer__link">
+        🏠 {% if request.locale.iso_code == 'ar' %}الرئيسية{% else %}Home{% endif %}
+      </a>
+      <a href="{{ routes.all_products_collection_url }}" class="nav-drawer__link">
+        🛍️ {% if request.locale.iso_code == 'ar' %}جميع المنتجات{% else %}All Products{% endif %}
+      </a>
+      <a href="/collections/electronics" class="nav-drawer__link">
+        📱 {% if request.locale.iso_code == 'ar' %}إلكترونيات{% else %}Electronics{% endif %}
+      </a>
+      <a href="/collections/fashion" class="nav-drawer__link">
+        👗 {% if request.locale.iso_code == 'ar' %}أزياء{% else %}Fashion{% endif %}
+      </a>
+      <a href="/collections/beauty" class="nav-drawer__link">
+        💄 {% if request.locale.iso_code == 'ar' %}جمال وعناية{% else %}Beauty{% endif %}
+      </a>
+      <a href="/collections/home-kitchen" class="nav-drawer__link">
+        🏡 {% if request.locale.iso_code == 'ar' %}المنزل والمطبخ{% else %}Home & Kitchen{% endif %}
+      </a>
+      <a href="/collections/deals" class="nav-drawer__link" style="color: var(--clr-primary); font-weight: 700;">
+        🔥 {% if request.locale.iso_code == 'ar' %}العروض والتخفيضات{% else %}Deals & Discounts{% endif %}
+      </a>
+
+      <div style="border-top: 1px solid var(--clr-border); margin-top: 8px; padding-top: 8px;">
+        <a href="{{ routes.account_url }}" class="nav-drawer__link">
+          👤 {% if request.locale.iso_code == 'ar' %}حسابي{% else %}My Account{% endif %}
+        </a>
+        <a href="{{ routes.cart_url }}" class="nav-drawer__link">
+          🛒 {% if request.locale.iso_code == 'ar' %}سلة التسوق{% else %}Shopping Cart{% endif %}
+          {%- if cart.item_count > 0 -%}
+            <span class="badge badge-primary" style="margin-inline-start: auto; background: var(--clr-primary); color: white; font-size: 11px; padding: 2px 8px; border-radius: 20px;">{{ cart.item_count }}</span>
+          {%- endif -%}
+        </a>
+        <a href="{{ routes.search_url }}" class="nav-drawer__link">
+          🔍 {% if request.locale.iso_code == 'ar' %}البحث{% else %}Search{% endif %}
+        </a>
+      </div>
+    </nav>
+
+    <div class="nav-drawer__footer">
+      <div class="cod-badge" style="margin-bottom: 12px;">
+        <span class="cod-badge__icon">💰</span>
+        <div class="cod-badge__text">
+          <span class="cod-badge__title">{% if request.locale.iso_code == 'ar' %}الدفع عند الاستلام{% else %}Cash on Delivery{% endif %}</span>
+          <span class="cod-badge__sub">{% if request.locale.iso_code == 'ar' %}متاح لجميع الطلبات{% else %}Available for all orders{% endif %}</span>
+        </div>
+      </div>
+      {%- if settings.whatsapp_enabled -%}
+        {%- assign wa_msg = settings.whatsapp_message_ar | url_encode -%}
+        <a href="https://wa.me/{{ settings.whatsapp_number }}?text={{ wa_msg }}" target="_blank" class="btn btn-success btn-full" style="border-radius: 10px;">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+          {% if request.locale.iso_code == 'ar' %}تواصل عبر واتساب{% else %}WhatsApp Support{% endif %}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    var header = document.getElementById('SiteHeader');
+    var hamburger = document.getElementById('hamburgerBtn');
+    var drawer = document.getElementById('navDrawer');
+    var overlay = document.getElementById('navOverlay');
+    var drawerClose = document.getElementById('drawerClose');
+    var mobileToggle = document.getElementById('mobileSearchToggle');
+    var headerSearch = document.getElementById('headerSearch');
+
+    // Sticky on scroll
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 10) {
+        header && header.classList.add('is-scrolled');
+      } else {
+        header && header.classList.remove('is-scrolled');
+      }
+    }, { passive: true });
+
+    // Mobile: show search toggle, hide search input in header
+    function checkMobile() {
+      if (window.innerWidth <= 768) {
+        if (mobileToggle) mobileToggle.style.display = 'flex';
+        if (headerSearch && !headerSearch.classList.contains('is-open')) {
+          headerSearch.style.display = 'none';
+        }
+      } else {
+        if (mobileToggle) mobileToggle.style.display = 'none';
+        if (headerSearch) headerSearch.style.display = 'block';
+      }
+    }
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    // Mobile search toggle
+    if (mobileToggle) {
+      mobileToggle.addEventListener('click', function() {
+        if (headerSearch) {
+          headerSearch.style.display = headerSearch.style.display === 'none' ? 'block' : 'none';
+          headerSearch.classList.toggle('is-open');
+          if (headerSearch.classList.contains('is-open')) {
+            headerSearch.querySelector('input') && headerSearch.querySelector('input').focus();
+          }
+        }
+      });
+    }
+
+    // Hamburger / drawer
+    function openDrawer() {
+      drawer && drawer.classList.add('is-open');
+      drawer && drawer.setAttribute('aria-hidden', 'false');
+      hamburger && hamburger.classList.add('is-active');
+      hamburger && hamburger.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDrawer() {
+      drawer && drawer.classList.remove('is-open');
+      drawer && drawer.setAttribute('aria-hidden', 'true');
+      hamburger && hamburger.classList.remove('is-active');
+      hamburger && hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    if (hamburger) hamburger.addEventListener('click', openDrawer);
+    if (overlay) overlay.addEventListener('click', closeDrawer);
+    if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
+
+    // Close drawer on Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeDrawer();
+    });
+
+    // Predictive search
+    var searchInput = document.getElementById('headerSearchInput');
+    var predictiveSearch = document.getElementById('predictiveSearch');
+    var searchTimeout;
+
+    if (searchInput && predictiveSearch) {
+      searchInput.addEventListener('input', function() {
+        clearTimeout(searchTimeout);
+        var query = this.value.trim();
+        if (query.length < 2) {
+          predictiveSearch.classList.remove('is-visible');
+          return;
+        }
+        searchTimeout = setTimeout(function() {
+          fetch(window.Layvora.predictiveSearchUrl + '?q=' + encodeURIComponent(query) + '&resources[type]=product&resources[limit]=6&section_id=predictive-search')
+            .then(function(r) { return r.text(); })
+            .then(function(html) {
+              var parser = new DOMParser();
+              var doc = parser.parseFromString(html, 'text/html');
+              var results = doc.querySelectorAll('.predictive-result');
+              predictiveSearch.innerHTML = '';
+              if (results.length) {
+                results.forEach(function(r) { predictiveSearch.appendChild(r.cloneNode(true)); });
+                predictiveSearch.classList.add('is-visible');
+              } else {
+                predictiveSearch.classList.remove('is-visible');
+              }
+            })
+            .catch(function() {
+              // Fallback: just submit
+              predictiveSearch.classList.remove('is-visible');
+            });
+        }, 300);
+      });
+
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('#headerSearch')) {
+          predictiveSearch.classList.remove('is-visible');
+        }
+      });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Header",
+  "class": "section-header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Logo width",
+      "min": 80,
+      "max": 280,
+      "step": 10,
+      "unit": "px",
+      "default": 160
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky",
+      "label": "Sticky header",
+      "default": true
+    },
+    {
+      "type": "link_list",
+      "id": "category_menu",
+      "label": "Category navigation menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

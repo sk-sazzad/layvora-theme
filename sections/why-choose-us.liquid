@@ -1,0 +1,150 @@
+<section class="section-padding bg-white" aria-label="Why Choose Us">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">
+        <span class="title-ar">{{ section.settings.title_ar | default: 'لماذا تختار ليقورا؟' }}</span>
+        <span class="title-en">{{ section.settings.title_en | default: 'Why Choose Layvora?' }}</span>
+        <span class="accent-line"></span>
+      </h2>
+    </div>
+
+    <div class="why-us-grid" id="whyUsGrid">
+      {%- for block in section.blocks -%}
+        <div class="why-us-card" {{ block.shopify_attributes }}>
+          <div class="why-us-card__icon">
+            {{ block.settings.emoji }}
+          </div>
+          <h3 class="why-us-card__title">
+            <span class="title-ar">{{ block.settings.title_ar }}</span>
+            <span class="title-en">{{ block.settings.title_en }}</span>
+          </h3>
+          <p class="why-us-card__desc">
+            {%- if request.locale.iso_code == 'ar' -%}
+              {{ block.settings.desc_ar }}
+            {%- else -%}
+              {{ block.settings.desc_en }}
+            {%- endif -%}
+          </p>
+        </div>
+      {%- else -%}
+
+        <!-- Default Why Us blocks -->
+        <div class="why-us-card">
+          <div class="why-us-card__icon">🚀</div>
+          <h3 class="why-us-card__title">
+            <span class="title-ar">توصيل سريع للغاية</span>
+            <span class="title-en">Fast Delivery</span>
+          </h3>
+          <p class="why-us-card__desc">
+            {% if request.locale.iso_code == 'ar' %}توصيل مباشر إلى باب منزلك في كافة مدن المملكة خلال 2 إلى 5 أيام عمل فقط.{% else %}Direct delivery to your doorstep across all Saudi cities in 2 to 5 business days.{% endif %}
+          </p>
+        </div>
+
+        <div class="why-us-card">
+          <div class="why-us-card__icon">✨</div>
+          <h3 class="why-us-card__title">
+            <span class="title-ar">منتجات أصيلة 100%</span>
+            <span class="title-en">100% Authentic Products</span>
+          </h3>
+          <p class="why-us-card__desc">
+            {% if request.locale.iso_code == 'ar' %}نضمن لك الجودة والأصالة العالية لجميع منتجاتنا مع ضمان الشراء الآمن.{% else %}We guarantee high quality and authenticity for all our products with purchase safety.{% endif %}
+          </p>
+        </div>
+
+        <div class="why-us-card">
+          <div class="why-us-card__icon">💰</div>
+          <h3 class="why-us-card__title">
+            <span class="title-ar">الدفع عند الاستلام</span>
+            <span class="title-en">Cash on Delivery</span>
+          </h3>
+          <p class="why-us-card__desc">
+            {% if request.locale.iso_code == 'ar' %}ادفع بسهولة وأمان عند وصول شحنتك بيدك دون الحاجة لبطاقة ائتمان.{% else %}Pay easily and securely upon arrival of your package without needing a credit card.{% endif %}
+          </p>
+        </div>
+
+        <div class="why-us-card">
+          <div class="why-us-card__icon">↩️</div>
+          <h3 class="why-us-card__title">
+            <span class="title-ar">إرجاع واستبدال مرن</span>
+            <span class="title-en">Easy Returns</span>
+          </h3>
+          <p class="why-us-card__desc">
+            {% if request.locale.iso_code == 'ar' %}خدمة إرجاع واستبدال بسيطة خلال 7 أيام من استلام المنتج لراحتك التامة.{% else %}Simple return and exchange service within 7 days of receiving the item for your peace of mind.{% endif %}
+          </p>
+        </div>
+
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Why Choose Us",
+  "class": "section-why-us",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title_ar",
+      "label": "Title (Arabic)",
+      "default": "لماذا تختار ليقورا؟"
+    },
+    {
+      "type": "text",
+      "id": "title_en",
+      "label": "Title (English)",
+      "default": "Why Choose Layvora?"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "emoji",
+          "label": "Emoji icon",
+          "default": "🚀"
+        },
+        {
+          "type": "text",
+          "id": "title_ar",
+          "label": "Title (Arabic)",
+          "default": "توصيل سريع"
+        },
+        {
+          "type": "text",
+          "id": "title_en",
+          "label": "Title (English)",
+          "default": "Fast Delivery"
+        },
+        {
+          "type": "textarea",
+          "id": "desc_ar",
+          "label": "Description (Arabic)",
+          "default": "توصيل في 2-5 أيام لجميع مدن المملكة"
+        },
+        {
+          "type": "textarea",
+          "id": "desc_en",
+          "label": "Description (English)",
+          "default": "Delivery in 2-5 days across KSA"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Why Choose Us",
+      "blocks": [
+        { "type": "feature", "settings": { "emoji": "🚀", "title_ar": "توصيل سريع للغاية", "title_en": "Fast Delivery", "desc_ar": "توصيل مباشر إلى باب منزلك في كافة مدن المملكة خلال 2 إلى 5 أيام عمل.", "desc_en": "Direct delivery to your doorstep across KSA in 2-5 business days." } },
+        { "type": "feature", "settings": { "emoji": "✨", "title_ar": "منتجات أصيلة 100%", "title_en": "100% Authentic Products", "desc_ar": "نضمن لك الجودة والأصالة العالية لجميع المنتجات مع ضمان الشراء الآمن.", "desc_en": "We guarantee authenticity and premium quality for all products." } },
+        { "type": "feature", "settings": { "emoji": "💰", "title_ar": "الدفع عند الاستلام", "title_en": "Cash on Delivery", "desc_ar": "ادفع بسهولة وأمان عند وصول شحنتك دون الحاجة لبطاقة ائتمان.", "desc_en": "Pay easily and securely upon arrival without needing a credit card." } },
+        { "type": "feature", "settings": { "emoji": "↩️", "title_ar": "إرجاع واستبدال مرن", "title_en": "Easy Returns", "desc_ar": "خدمة إرجاع بسيطة خلال 7 أيام من استلام المنتج لراحتك التامة.", "desc_en": "Simple return service within 7 days of delivery for your peace of mind." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

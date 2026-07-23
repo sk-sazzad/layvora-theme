@@ -1,0 +1,109 @@
+<section class="section-padding bg-white" aria-label="Featured Products">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">
+        <span class="title-ar">{{ section.settings.title_ar | default: 'أفضل المنتجات' }}</span>
+        <span class="title-en">{{ section.settings.title_en | default: 'Top Products' }}</span>
+        <span class="accent-line"></span>
+      </h2>
+      {%- if section.settings.subtitle != blank -%}
+        <p class="section-subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- assign collection = section.settings.collection -%}
+
+    <div class="product-grid" id="featuredProductGrid">
+      {%- if collection != blank and collection.products_count > 0 -%}
+        {%- for product in collection.products limit: section.settings.products_to_show -%}
+          {% render 'card-product', card_product: product %}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..section.settings.products_to_show) -%}
+          {% render 'card-product', card_product: nil %}
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.show_view_all -%}
+      <div class="section-action">
+        <a
+          href="{{ collection.url | default: routes.all_products_collection_url }}"
+          class="btn btn-outline btn-lg"
+          id="featuredViewAll"
+        >
+          {%- if request.locale.iso_code == 'ar' -%}
+            {{ section.settings.view_all_text_ar | default: 'عرض جميع المنتجات ←' }}
+          {%- else -%}
+            {{ section.settings.view_all_text_en | default: 'View All Products →' }}
+          {%- endif -%}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Products",
+  "class": "section-featured-products",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title_ar",
+      "label": "Title (Arabic)",
+      "default": "أفضل المنتجات"
+    },
+    {
+      "type": "text",
+      "id": "title_en",
+      "label": "Title (English)",
+      "default": "Top Products"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "تصفح تشكيلتنا المختارة بعناية لأجلك"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to show",
+      "min": 4,
+      "max": 16,
+      "step": 4,
+      "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show 'View All' button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "view_all_text_ar",
+      "label": "View All text (Arabic)",
+      "default": "عرض جميع المنتجات ←"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text_en",
+      "label": "View All text (English)",
+      "default": "View All Products →"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Products"
+    }
+  ]
+}
+{% endschema %}

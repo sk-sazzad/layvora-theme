@@ -1,0 +1,186 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_content": "تخطي إلى المحتوى"
+    },
+    "navigation": {
+      "home": "الرئيسية",
+      "search": "بحث",
+      "cart": "السلة",
+      "account": "حسابي",
+      "menu": "القائمة",
+      "close_menu": "إغلاق القائمة",
+      "open_search": "فتح البحث",
+      "close_search": "إغلاق البحث"
+    },
+    "currency": {
+      "symbol": "ر.س",
+      "code": "SAR"
+    },
+    "errors": {
+      "required_field": "هذا الحقل مطلوب",
+      "invalid_email": "بريد إلكتروني غير صالح"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "أضف إلى السلة",
+      "sold_out": "نفذت الكمية",
+      "unavailable": "غير متاح",
+      "sale": "خصم",
+      "new": "جديد",
+      "hot": "رائج",
+      "featured": "مميز",
+      "sku": "رمز المنتج",
+      "vendor": "الماركة",
+      "quantity": "الكمية",
+      "description": "الوصف",
+      "details": "التفاصيل",
+      "shipping": "الشحن",
+      "returns": "الإرجاع",
+      "size_guide": "دليل المقاسات",
+      "share": "مشاركة",
+      "wishlist_add": "أضف إلى المفضلة",
+      "wishlist_remove": "إزالة من المفضلة",
+      "reviews": "التقييمات",
+      "no_reviews": "لا توجد تقييمات بعد",
+      "write_review": "اكتب تقييماً",
+      "view_all": "عرض الكل",
+      "related_products": "منتجات ذات صلة",
+      "you_may_like": "قد يعجبك أيضاً",
+      "choose_option": "اختر",
+      "zoom_image": "تكبير الصورة"
+    },
+    "grid": {
+      "view_all": "عرض جميع المنتجات",
+      "no_products": "لا توجد منتجات متاحة",
+      "loading": "جاري التحميل...",
+      "sort_by": "ترتيب حسب",
+      "filter": "تصفية",
+      "filters": "الفلاتر",
+      "clear_filters": "مسح الفلاتر",
+      "showing_results": "عرض {{ count }} نتيجة",
+      "price_range": "نطاق السعر",
+      "availability": "التوفر",
+      "in_stock": "متوفر",
+      "out_of_stock": "غير متوفر",
+      "newest": "الأحدث",
+      "price_asc": "السعر: من الأقل إلى الأعلى",
+      "price_desc": "السعر: من الأعلى إلى الأقل",
+      "best_selling": "الأكثر مبيعاً",
+      "title_asc": "الاسم: أ-ي",
+      "title_desc": "الاسم: ي-أ"
+    }
+  },
+  "cart": {
+    "title": "سلة التسوق",
+    "empty": "سلتك فارغة",
+    "empty_continue": "تابع التسوق",
+    "item_count": {
+      "one": "منتج واحد",
+      "other": "{{ count }} منتجات"
+    },
+    "subtotal": "المجموع الفرعي",
+    "shipping": "الشحن",
+    "shipping_calculated": "يتم احتساب الشحن عند الدفع",
+    "free_shipping": "شحن مجاني",
+    "total": "الإجمالي",
+    "checkout": "إتمام الشراء",
+    "continue_shopping": "مواصلة التسوق",
+    "remove": "إزالة",
+    "update": "تحديث",
+    "quantity": "الكمية",
+    "note": "ملاحظة للطلب",
+    "note_placeholder": "أضف ملاحظتك هنا...",
+    "cod_note": "💰 الدفع عند الاستلام متاح | ادفع عند وصول طلبك",
+    "order_summary": "ملخص الطلب"
+  },
+  "search": {
+    "placeholder": "ابحث عن منتجاتك...",
+    "search_placeholder_en": "Search for products...",
+    "results_with_count": {
+      "one": "نتيجة واحدة لـ \"{{ terms }}\"",
+      "other": "{{ count }} نتيجة لـ \"{{ terms }}\""
+    },
+    "no_results": "لا توجد نتائج لـ",
+    "no_results_description": "جرّب كلمات مختلفة أو تصفح منتجاتنا",
+    "search_for": "البحث عن",
+    "clear": "مسح",
+    "all_results": "عرض جميع النتائج",
+    "products": "المنتجات",
+    "pages": "الصفحات",
+    "articles": "المقالات"
+  },
+  "sections": {
+    "featured_products": {
+      "title_ar": "أفضل المنتجات",
+      "title_en": "Top Products"
+    },
+    "best_sellers": {
+      "title_ar": "الأكثر مبيعاً",
+      "title_en": "Best Sellers"
+    },
+    "categories": {
+      "title_ar": "تسوق حسب الفئة",
+      "title_en": "Shop by Category"
+    },
+    "trust_bar": {
+      "fast_delivery_ar": "توصيل سريع",
+      "fast_delivery_en": "Fast Delivery",
+      "fast_delivery_sub_ar": "خلال 2-5 أيام",
+      "fast_delivery_sub_en": "In 2-5 Days",
+      "cod_ar": "الدفع عند الاستلام",
+      "cod_en": "Cash on Delivery",
+      "cod_sub_ar": "متاح لجميع الطلبات",
+      "cod_sub_en": "Available for all orders",
+      "returns_ar": "إرجاع سهل",
+      "returns_en": "Easy Returns",
+      "returns_sub_ar": "خلال 7 أيام",
+      "returns_sub_en": "Within 7 days",
+      "secure_ar": "تسوق آمن",
+      "secure_en": "Secure Shopping",
+      "secure_sub_ar": "100% مضمون",
+      "secure_sub_en": "100% Guaranteed"
+    }
+  },
+  "customer": {
+    "login": {
+      "title": "تسجيل الدخول",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "submit": "دخول",
+      "forgot_password": "نسيت كلمة المرور؟",
+      "create_account": "إنشاء حساب جديد",
+      "guest_title": "متابعة كضيف"
+    },
+    "register": {
+      "title": "إنشاء حساب",
+      "first_name": "الاسم الأول",
+      "last_name": "اسم العائلة",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "submit": "إنشاء الحساب",
+      "login": "لديك حساب بالفعل؟ سجل دخولك"
+    },
+    "account": {
+      "title": "حسابي",
+      "orders": "طلباتي",
+      "addresses": "العناوين",
+      "logout": "تسجيل الخروج"
+    },
+    "order": {
+      "title": "الطلب",
+      "date": "التاريخ",
+      "status": "الحالة",
+      "items": "المنتجات",
+      "total": "الإجمالي",
+      "fulfilled": "تم التوصيل",
+      "pending": "قيد المعالجة",
+      "cancelled": "ملغي"
+    }
+  },
+  "paginate": {
+    "previous": "السابق",
+    "next": "التالي"
+  }
+}

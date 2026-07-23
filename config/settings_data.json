@@ -1,0 +1,50 @@
+{
+  "current": {
+    "colors": {
+      "color_primary": "#FF6B35",
+      "color_secondary": "#1A1A2E",
+      "color_accent": "#FFD700",
+      "color_background": "#FFFFFF",
+      "color_light_bg": "#FFF8F5",
+      "color_success": "#27AE60",
+      "color_text": "#1A1A2E",
+      "color_text_muted": "#777799",
+      "color_border": "#E8E8F0"
+    },
+    "typography": {
+      "font_arabic": "Tajawal",
+      "font_english": "Inter",
+      "font_size_base": 16
+    },
+    "layout": {
+      "page_width": 1400,
+      "grid_gap": 16,
+      "card_border_radius": 12,
+      "button_border_radius": 8
+    },
+    "announcement_enabled": true,
+    "announcement_bg_color": "#1A1A2E",
+    "announcement_text_color": "#FFFFFF",
+    "announcement_text_1": "🚚 شحن مجاني للطلبات فوق 200 ر.س | Free Shipping on orders over 200 SAR",
+    "announcement_text_2": "💰 الدفع عند الاستلام متاح | Cash on Delivery Available",
+    "announcement_text_3": "🔥 عروض حصرية يومياً | Exclusive Daily Deals",
+    "header_sticky": true,
+    "header_phone": "+966 50 000 0000",
+    "logo_width": 160,
+    "whatsapp_enabled": true,
+    "whatsapp_number": "966501234567",
+    "whatsapp_message_ar": "مرحباً، كيف يمكنني مساعدتك؟",
+    "whatsapp_message_en": "Hello, how can I help you?",
+    "cod_enabled": true,
+    "cod_label_ar": "الدفع عند الاستلام",
+    "cod_label_en": "Cash on Delivery",
+    "delivery_estimate_ar": "توصيل خلال 2-5 أيام",
+    "delivery_estimate_en": "Delivery in 2-5 Days",
+    "free_shipping_threshold": "200",
+    "footer_description": "<p>ليقورا — وجهتك الأولى للتسوق في المملكة العربية السعودية. منتجات أصيلة بأسعار تنافسية وتوصيل سريع.</p>",
+    "footer_email": "support@layvora.com",
+    "footer_phone": "+966 50 000 0000",
+    "footer_address": "الرياض، المملكة العربية السعودية",
+    "footer_copyright": "© 2025 Layvora | ليقورا. All rights reserved."
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_content": "Skip to content"
+    },
+    "navigation": {
+      "home": "Home",
+      "search": "Search",
+      "cart": "Cart",
+      "account": "Account",
+      "menu": "Menu",
+      "close_menu": "Close menu",
+      "open_search": "Open search",
+      "close_search": "Close search"
+    },
+    "currency": {
+      "symbol": "SAR",
+      "code": "SAR"
+    },
+    "errors": {
+      "required_field": "This field is required",
+      "invalid_email": "Invalid email address"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to Cart",
+      "sold_out": "Sold Out",
+      "unavailable": "Unavailable",
+      "sale": "Sale",
+      "new": "New",
+      "hot": "Hot",
+      "featured": "Featured",
+      "sku": "SKU",
+      "vendor": "Brand",
+      "quantity": "Quantity",
+      "description": "Description",
+      "details": "Details",
+      "shipping": "Shipping",
+      "returns": "Returns",
+      "size_guide": "Size Guide",
+      "share": "Share",
+      "wishlist_add": "Add to Wishlist",
+      "wishlist_remove": "Remove from Wishlist",
+      "reviews": "Reviews",
+      "no_reviews": "No reviews yet",
+      "write_review": "Write a review",
+      "view_all": "View All",
+      "related_products": "Related Products",
+      "you_may_like": "You May Also Like",
+      "choose_option": "Choose",
+      "zoom_image": "Zoom image"
+    },
+    "grid": {
+      "view_all": "View All Products",
+      "no_products": "No products available",
+      "loading": "Loading...",
+      "sort_by": "Sort by",
+      "filter": "Filter",
+      "filters": "Filters",
+      "clear_filters": "Clear Filters",
+      "showing_results": "Showing {{ count }} results",
+      "price_range": "Price Range",
+      "availability": "Availability",
+      "in_stock": "In Stock",
+      "out_of_stock": "Out of Stock",
+      "newest": "Newest",
+      "price_asc": "Price: Low to High",
+      "price_desc": "Price: High to Low",
+      "best_selling": "Best Selling",
+      "title_asc": "Name: A-Z",
+      "title_desc": "Name: Z-A"
+    }
+  },
+  "cart": {
+    "title": "Shopping Cart",
+    "empty": "Your cart is empty",
+    "empty_continue": "Continue Shopping",
+    "item_count": {
+      "one": "1 item",
+      "other": "{{ count }} items"
+    },
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "shipping_calculated": "Shipping calculated at checkout",
+    "free_shipping": "Free Shipping",
+    "total": "Total",
+    "checkout": "Proceed to Checkout",
+    "continue_shopping": "Continue Shopping",
+    "remove": "Remove",
+    "update": "Update",
+    "quantity": "Quantity",
+    "note": "Order note",
+    "note_placeholder": "Add your note here...",
+    "cod_note": "💰 Cash on Delivery available | Pay when your order arrives",
+    "order_summary": "Order Summary"
+  },
+  "search": {
+    "placeholder": "Search for products...",
+    "search_placeholder_en": "Search for products...",
+    "results_with_count": {
+      "one": "1 result for \"{{ terms }}\"",
+      "other": "{{ count }} results for \"{{ terms }}\""
+    },
+    "no_results": "No results for",
+    "no_results_description": "Try different keywords or browse our products",
+    "search_for": "Search for",
+    "clear": "Clear",
+    "all_results": "View all results",
+    "products": "Products",
+    "pages": "Pages",
+    "articles": "Articles"
+  },
+  "sections": {
+    "featured_products": {
+      "title_ar": "أفضل المنتجات",
+      "title_en": "Top Products"
+    },
+    "best_sellers": {
+      "title_ar": "الأكثر مبيعاً",
+      "title_en": "Best Sellers"
+    },
+    "categories": {
+      "title_ar": "تسوق حسب الفئة",
+      "title_en": "Shop by Category"
+    }
+  },
+  "customer": {
+    "login": {
+      "title": "Log In",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign In",
+      "forgot_password": "Forgot your password?",
+      "create_account": "Create an account",
+      "guest_title": "Continue as Guest"
+    },
+    "register": {
+      "title": "Create Account",
+      "first_name": "First Name",
+      "last_name": "Last Name",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Create Account",
+      "login": "Already have an account? Log in"
+    },
+    "account": {
+      "title": "My Account",
+      "orders": "My Orders",
+      "addresses": "Addresses",
+      "logout": "Log Out"
+    },
+    "order": {
+      "title": "Order",
+      "date": "Date",
+      "status": "Status",
+      "items": "Items",
+      "total": "Total",
+      "fulfilled": "Delivered",
+      "pending": "Processing",
+      "cancelled": "Cancelled"
+    }
+  },
+  "paginate": {
+    "previous": "Previous",
+    "next": "Next"
+  }
+}

@@ -1,0 +1,140 @@
+{%- comment -%}
+  Renders a product card
+  Accepts:
+  - card_product: {Object} Product Liquid object
+  - show_vendor: {Boolean} Show vendor (optional)
+  - show_rating: {Boolean} Show rating (optional)
+  - show_quick_add: {Boolean} Show quick add button (optional)
+  - badge_text: {String} Override badge text (optional)
+{%- endcomment -%}
+
+{%- assign product = card_product -%}
+{%- if product != blank -%}
+  <div class="product-card" data-product-id="{{ product.id }}">
+    
+    <!-- Image & Badges Container -->
+    <div class="product-card__img-wrap">
+      <a href="{{ product.url }}" class="product-card__link" aria-label="{{ product.title | escape }}">
+        {%- if product.featured_media != blank -%}
+          <img
+            src="{{ product.featured_media | image_url: width: 600 }}"
+            srcset="
+              {{ product.featured_media | image_url: width: 300 }} 300w,
+              {{ product.featured_media | image_url: width: 450 }} 450w,
+              {{ product.featured_media | image_url: width: 600 }} 600w
+            "
+            sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+            alt="{{ product.featured_media.alt | default: product.title | escape }}"
+            class="product-card__img"
+            loading="lazy"
+            width="300"
+            height="300"
+          >
+        {%- else -%}
+          <div class="product-card__placeholder d-flex align-center justify-center bg-light" style="width:100%; height:100%; min-height:200px;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="width:48px;height:48px;color:var(--clr-muted);"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          </div>
+        {%- endif -%}
+      </a>
+
+      <!-- Badges -->
+      <div class="product-card__badges">
+        {%- if product.compare_at_price > product.price -%}
+          {%- assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
+          <span class="badge badge-sale">-{{ discount }}%</span>
+        {%- elsif product.tags contains 'NEW' or product.tags contains 'جديد' -%}
+          <span class="badge badge-new">{% if request.locale.iso_code == 'ar' %}جديد{% else %}NEW{% endif %}</span>
+        {%- elsif product.tags contains 'HOT' or product.tags contains 'رائج' -%}
+          <span class="badge badge-hot">{% if request.locale.iso_code == 'ar' %}رائج🔥{% else %}HOT🔥{% endif %}</span>
+        {%- endif -%}
+      </div>
+
+      <!-- Wishlist Heart Button -->
+      <button class="product-card__wishlist js-wishlist-btn" data-product-id="{{ product.id }}" aria-label="Add to Wishlist">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+      </button>
+
+      <!-- Desktop Hover Add To Cart Button -->
+      {%- if product.available -%}
+        <button
+          class="product-card__quick-add js-add-to-cart"
+          data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+          aria-label="{% if request.locale.iso_code == 'ar' %}أضف إلى السلة{% else %}Add to Cart{% endif %}"
+        >
+          🛒 {% if request.locale.iso_code == 'ar' %}أضف إلى السلة{% else %}Add to Cart{% endif %}
+        </button>
+      {%- endif -%}
+    </div>
+
+    <!-- Body -->
+    <div class="product-card__body">
+      {%- if product.collections.first -%}
+        <span class="product-card__category">{{ product.collections.first.title }}</span>
+      {%- else -%}
+        <span class="product-card__category">Layvora</span>
+      {%- endif -%}
+
+      <h3 class="product-card__title">
+        <a href="{{ product.url }}">{{ product.title }}</a>
+      </h3>
+
+      <!-- Rating -->
+      <div class="product-card__rating">
+        <div class="stars">
+          <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+        </div>
+        <span class="rating-count">(4.8)</span>
+      </div>
+
+      <!-- Price -->
+      <div class="product-card__price">
+        <span class="price-current">{{ product.price | money_without_trailing_zeros }}</span>
+        {%- if product.compare_at_price > product.price -%}
+          <span class="price-compare">{{ product.compare_at_price | money_without_trailing_zeros }}</span>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <!-- Mobile Button -->
+    <div class="product-card__add-mobile">
+      {%- if product.available -%}
+        <button
+          class="btn btn-primary btn-sm btn-full js-add-to-cart"
+          data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+        >
+          🛒 {% if request.locale.iso_code == 'ar' %}أضف إلى السلة{% else %}Add to Cart{% endif %}
+        </button>
+      {%- else -%}
+        <button class="btn btn-secondary btn-sm btn-full" disabled>
+          {% if request.locale.iso_code == 'ar' %}نفذت الكمية{% else %}Sold Out{% endif %}
+        </button>
+      {%- endif -%}
+    </div>
+  </div>
+{%- else -%}
+  <!-- Placeholder Product Card for Theme Customizer / Empty State -->
+  <div class="product-card">
+    <div class="product-card__img-wrap d-flex align-center justify-center bg-light">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="width:48px;height:48px;color:var(--clr-muted);"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      <span class="badge badge-sale" style="position:absolute;top:10px;left:10px;">-25%</span>
+    </div>
+    <div class="product-card__body">
+      <span class="product-card__category">Layvora</span>
+      <h3 class="product-card__title">منتج نموذجي راقي | Premium Sample Product</h3>
+      <div class="product-card__rating">
+        <div class="stars">★★★★★</div>
+        <span class="rating-count">(4.9)</span>
+      </div>
+      <div class="product-card__price">
+        <span class="price-current">199 ر.س</span>
+        <span class="price-compare">265 ر.س</span>
+      </div>
+    </div>
+  </div>
+{%- endif -%}

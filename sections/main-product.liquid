@@ -1,0 +1,288 @@
+<div class="product-page section-padding" id="ProductSection-{{ section.id }}" data-section-id="{{ section.id }}">
+  <div class="container">
+    <div class="product-layout">
+
+      <!-- Left Column: Gallery -->
+      <div class="product-gallery">
+        <div class="product-gallery__main" id="productMainGallery">
+          {%- if product.featured_media != blank -%}
+            <img
+              src="{{ product.featured_media | image_url: width: 1000 }}"
+              alt="{{ product.featured_media.alt | default: product.title }}"
+              class="product-gallery__main-img"
+              id="productMainImg"
+              width="600"
+              height="600"
+              loading="eager"
+            >
+          {%- else -%}
+            <div class="d-flex align-center justify-center bg-light" style="width:100%;height:100%;min-height:360px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="width:64px;height:64px;color:var(--clr-muted);"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </div>
+          {%- endif -%}
+
+          {%- if product.compare_at_price > product.price -%}
+            {%- assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
+            <span class="badge badge-sale" style="position:absolute;top:16px;inset-inline-start:16px;padding:6px 14px;font-size:13px;z-index:2;">
+              -{{ discount }}% OFF
+            </span>
+          {%- endif -%}
+        </div>
+
+        <!-- Thumbnails -->
+        {%- if product.media.size > 1 -%}
+          <div class="product-gallery__thumbs" id="productThumbs">
+            {%- for media in product.media -%}
+              <button
+                class="product-gallery__thumb {% if forloop.first %}is-active{% endif %}"
+                data-img-src="{{ media | image_url: width: 1000 }}"
+                aria-label="View media {{ forloop.index }}"
+              >
+                <img src="{{ media | image_url: width: 140 }}" alt="{{ media.alt | default: product.title }}" loading="lazy" width="70" height="70">
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      <!-- Right Column: Product Info -->
+      <div class="product-info">
+
+        {%- if product.vendor != blank -%}
+          <p class="product-info__vendor">{{ product.vendor }}</p>
+        {%- endif -%}
+
+        <h1 class="product-info__title">{{ product.title }}</h1>
+
+        <!-- Rating -->
+        <div class="product-info__rating">
+          <div class="stars">
+            <svg fill="currentColor" viewBox="0 0 20 20" style="width:18px;height:18px;color:var(--clr-accent);"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg fill="currentColor" viewBox="0 0 20 20" style="width:18px;height:18px;color:var(--clr-accent);"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg fill="currentColor" viewBox="0 0 20 20" style="width:18px;height:18px;color:var(--clr-accent);"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg fill="currentColor" viewBox="0 0 20 20" style="width:18px;height:18px;color:var(--clr-accent);"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            <svg fill="currentColor" viewBox="0 0 20 20" style="width:18px;height:18px;color:var(--clr-accent);"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+          </div>
+          <span class="rating-score">4.9</span>
+          <span class="rating-text">({% if request.locale.iso_code == 'ar' %}128 تقييم ممتاز{% else %}128 reviews{% endif %})</span>
+        </div>
+
+        <!-- Price -->
+        <div class="product-info__price">
+          <span class="product-price-current" id="productPriceCurrent">{{ product.selected_or_first_available_variant.price | money_without_currency }}</span>
+          <span class="product-price-currency">ر.س</span>
+          {%- if product.selected_or_first_available_variant.compare_at_price > product.selected_or_first_available_variant.price -%}
+            <span class="product-price-compare" id="productPriceCompare">{{ product.selected_or_first_available_variant.compare_at_price | money_without_currency }} ر.س</span>
+            <span class="product-price-badge">خصم خاص</span>
+          {%- endif -%}
+        </div>
+
+        <!-- Product Form -->
+        {%- form 'product', product, id: 'productForm', class: 'product-form' -%}
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" id="selectedVariantId">
+
+          <!-- Variants Selector -->
+          {%- unless product.has_only_default_variant -%}
+            {%- for option in product.options_with_values -%}
+              <div class="variant-selector">
+                <label class="variant-label">
+                  {{ option.name }}: <span id="selectedOptionVal-{{ forloop.index }}">{{ option.selected_value }}</span>
+                </label>
+                <div class="variant-buttons">
+                  {%- for value in option.values -%}
+                    <button
+                      type="button"
+                      class="variant-btn {% if option.selected_value == value %}is-active{% endif %}"
+                      data-option-index="{{ forloop.parentloop.index0 }}"
+                      data-value="{{ value | escape }}"
+                    >
+                      {{ value }}
+                    </button>
+                  {%- endfor -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          {%- endunless -%}
+
+          <!-- Quantity + Add to Cart Row -->
+          <div class="product-atc-row">
+            <div class="quantity-input">
+              <button type="button" class="quantity-btn" id="qtyMinus" aria-label="Decrease quantity">-</button>
+              <input type="number" name="quantity" value="1" min="1" max="99" id="qtyInput" class="quantity-value" aria-label="Quantity">
+              <button type="button" class="quantity-btn" id="qtyPlus" aria-label="Increase quantity">+</button>
+            </div>
+
+            <button
+              type="submit"
+              name="add"
+              class="product-atc-btn"
+              id="atcBtn"
+              {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}
+            >
+              <span>🛒</span>
+              <span id="atcBtnText">
+                {%- if product.selected_or_first_available_variant.available -%}
+                  {% if request.locale.iso_code == 'ar' %}أضف إلى السلة{% else %}Add to Cart{% endif %}
+                {%- else -%}
+                  {% if request.locale.iso_code == 'ar' %}نفذت الكمية{% else %}Sold Out{% endif %}
+                {%- endif -%}
+              </span>
+            </button>
+          </div>
+        {%- endform -%}
+
+        <!-- COD & Delivery Badges -->
+        <div class="d-flex flex-column gap-12 mb-24" style="margin-bottom: 24px;">
+          <div class="cod-badge">
+            <span class="cod-badge__icon">💰</span>
+            <div class="cod-badge__text">
+              <span class="cod-badge__title">{% if request.locale.iso_code == 'ar' %}الدفع عند الاستلام متاح{% else %}Cash on Delivery Available{% endif %}</span>
+              <span class="cod-badge__sub">{% if request.locale.iso_code == 'ar' %}ادفع نقداً عند استلام طلبك ل باب منزلك{% else %}Pay cash when your order arrives{% endif %}</span>
+            </div>
+          </div>
+
+          <div class="delivery-badge">
+            <span style="font-size:20px;">🚚</span>
+            <div>
+              <span style="font-size:14px;font-weight:700;display:block;">{% if request.locale.iso_code == 'ar' %}توصيل سريع خلال 2-5 أيام عمل{% else %}Fast Delivery in 2-5 Days{% endif %}</span>
+              <span style="font-size:12px;opacity:0.8;display:block;">{% if request.locale.iso_code == 'ar' %}شحن مجاني للطلبات فوق 200 ر.س{% else %}Free shipping on orders over 200 SAR{% endif %}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trust Chips -->
+        <div class="trust-chips">
+          <span class="trust-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            {% if request.locale.iso_code == 'ar' %}منتج أصلي 100%{% else %}100% Authentic{% endif %}
+          </span>
+          <span class="trust-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            {% if request.locale.iso_code == 'ar' %}إرجاع مجاني خلال 7 أيام{% else %}Easy 7-Day Return{% endif %}
+          </span>
+          <span class="trust-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            {% if request.locale.iso_code == 'ar' %}تغليف آمن ومحمي{% else %}Secure Packaging{% endif %}
+          </span>
+          <span class="trust-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            {% if request.locale.iso_code == 'ar' %}توصيل لكافة مدن المملكة{% else %}KSA Wide Delivery{% endif %}
+          </span>
+        </div>
+
+        <!-- Collapsible Description Tabs -->
+        <div class="product-tabs" id="productTabs">
+          <div class="product-tab is-open">
+            <div class="product-tab__header" js-tab-toggle>
+              <span>📋 {% if request.locale.iso_code == 'ar' %}وصف المنتج والتفاصيل{% else %}Description & Details{% endif %}</span>
+              <span class="product-tab__icon">▼</span>
+            </div>
+            <div class="product-tab__content">
+              <div class="product-tab__body">
+                {{ product.description | default: '<p>منتج عالي الجودة مصمم بعناية ملبية لتطلعاتكم. خامات ممتازة وضمان الجودة 100%.</p>' }}
+              </div>
+            </div>
+          </div>
+
+          <div class="product-tab">
+            <div class="product-tab__header" js-tab-toggle>
+              <span>🚚 {% if request.locale.iso_code == 'ar' %}سياسة الشحن والتوصيل{% else %}Shipping & Delivery Policy{% endif %}</span>
+              <span class="product-tab__icon">▼</span>
+            </div>
+            <div class="product-tab__content">
+              <div class="product-tab__body">
+                <p>{% if request.locale.iso_code == 'ar' %}نوصل طلبك إلى جميع مدن ومحافظات المملكة العربية السعودية خلال 2 إلى 5 أيام عمل. الدفع عند الاستلام متاح لجميع الطلبات.{% else %}We deliver your order to all KSA cities in 2 to 5 business days. Cash on delivery is available.{% endif %}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="product-tab">
+            <div class="product-tab__header" js-tab-toggle>
+              <span>↩️ {% if request.locale.iso_code == 'ar' %}سياسة الإرجاع والاستبدال{% else %}Returns & Exchange Policy{% endif %}</span>
+              <span class="product-tab__icon">▼</span>
+            </div>
+            <div class="product-tab__content">
+              <div class="product-tab__body">
+                <p>{% if request.locale.iso_code == 'ar' %}يمكنك استبدال أو إرجاع المنتج خلال 7 أيام من تاريخ استلامه بشرط أن يكون بحالته الأصلية وفي غلافه الأولي.{% else %}You can return or exchange the product within 7 days of receiving it provided it is in original condition.{% endif %}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Mobile Sticky Add to Cart -->
+  <div class="sticky-atc" id="stickyAtc">
+    <div style="flex:1; min-width:0;">
+      <p style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ product.title }}</p>
+      <p style="font-size:14px;font-weight:800;color:var(--clr-primary);font-family:var(--font-en);">{{ product.selected_or_first_available_variant.price | money_without_trailing_zeros }}</p>
+    </div>
+    <button class="btn btn-primary btn-sm js-add-to-cart" data-variant-id="{{ product.selected_or_first_available_variant.id }}" style="padding:12px 20px;">
+      🛒 {% if request.locale.iso_code == 'ar' %}أضف إلى السلة{% else %}Add to Cart{% endif %}
+    </button>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // Gallery Thumbnails
+    var mainImg = document.getElementById('productMainImg');
+    var thumbs  = document.querySelectorAll('.product-gallery__thumb');
+
+    thumbs.forEach(function(thumb) {
+      thumb.addEventListener('click', function() {
+        thumbs.forEach(function(t) { t.classList.remove('is-active'); });
+        this.classList.add('is-active');
+        if (mainImg) mainImg.src = this.getAttribute('data-img-src');
+      });
+    });
+
+    // Quantity Input
+    var qtyMinus = document.getElementById('qtyMinus');
+    var qtyPlus  = document.getElementById('qtyPlus');
+    var qtyInput = document.getElementById('qtyInput');
+
+    if (qtyMinus && qtyInput) {
+      qtyMinus.addEventListener('click', function() {
+        var v = parseInt(qtyInput.value) || 1;
+        if (v > 1) qtyInput.value = v - 1;
+      });
+    }
+    if (qtyPlus && qtyInput) {
+      qtyPlus.addEventListener('click', function() {
+        var v = parseInt(qtyInput.value) || 1;
+        qtyInput.value = v + 1;
+      });
+    }
+
+    // Tabs Toggle
+    var tabHeaders = document.querySelectorAll('[js-tab-toggle]');
+    tabHeaders.forEach(function(h) {
+      h.addEventListener('click', function() {
+        var tab = this.closest('.product-tab');
+        tab.classList.toggle('is-open');
+      });
+    });
+
+    // Variant Selectors
+    var variantBtns = document.querySelectorAll('.variant-btn');
+    variantBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var parent = this.closest('.variant-buttons');
+        parent.querySelectorAll('.variant-btn').forEach(function(b) { b.classList.remove('is-active'); });
+        this.classList.add('is-active');
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Product Details",
+  "class": "section-main-product",
+  "settings": []
+}
+{% endschema %}

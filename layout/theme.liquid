@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html
+  lang="{{ request.locale.iso_code }}"
+  dir="{% if request.locale.iso_code == 'ar' %}rtl{% else %}ltr{% endif %}"
+  class="{% if request.locale.iso_code == 'ar' %}dir-rtl{% else %}dir-ltr{% endif %}"
+>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta name="theme-color" content="#FF6B35">
+
+  {%- if settings.favicon != blank -%}
+    <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+  {%- else -%}
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231A1A2E'/><text y='.9em' font-size='70' x='15' fill='%23FFD700'>L</text></svg>">
+  {%- endif -%}
+
+  <title>
+    {{ page_title }}
+    {%- if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif -%}
+    {%- if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page_number: current_page }}{% endif -%}
+    {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+  </title>
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  <!-- Open Graph -->
+  <meta property="og:site_name" content="{{ shop.name }}">
+  <meta property="og:url" content="{{ canonical_url }}">
+  <meta property="og:title" content="{{ page_title | escape }}">
+  {% if page_description %}
+    <meta property="og:description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  <!-- Google Fonts: Tajawal (Arabic) + Inter (English) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Cairo:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  {{ content_for_header }}
+
+  <!-- Theme CSS Variables -->
+  <style>
+    :root {
+      --clr-primary:        {{ settings.color_primary      | default: '#FF6B35' }};
+      --clr-primary-dark:   color-mix(in srgb, {{ settings.color_primary | default: '#FF6B35' }} 80%, black);
+      --clr-primary-light:  color-mix(in srgb, {{ settings.color_primary | default: '#FF6B35' }} 15%, white);
+      --clr-secondary:      {{ settings.color_secondary    | default: '#1A1A2E' }};
+      --clr-accent:         {{ settings.color_accent       | default: '#FFD700' }};
+      --clr-bg:             {{ settings.color_background   | default: '#FFFFFF' }};
+      --clr-light-bg:       {{ settings.color_light_bg     | default: '#FFF8F5' }};
+      --clr-success:        {{ settings.color_success      | default: '#27AE60' }};
+      --clr-text:           {{ settings.color_text         | default: '#1A1A2E' }};
+      --clr-muted:          {{ settings.color_text_muted   | default: '#777799' }};
+      --clr-border:         {{ settings.color_border       | default: '#E8E8F0' }};
+      --clr-white:          #FFFFFF;
+      --clr-black:          #000000;
+      --clr-error:          #E74C3C;
+      --clr-whatsapp:       #25D366;
+
+      --page-width:         {{ settings.page_width         | default: 1400 }}px;
+      --grid-gap:           {{ settings.grid_gap           | default: 16 }}px;
+      --card-radius:        {{ settings.card_border_radius | default: 12 }}px;
+      --btn-radius:         {{ settings.button_border_radius | default: 8 }}px;
+
+      --font-ar:            '{{ settings.font_arabic | default: 'Tajawal' }}', 'Cairo', sans-serif;
+      --font-en:            '{{ settings.font_english | default: 'Inter' }}', 'Poppins', sans-serif;
+      --font-size-base:     {{ settings.font_size_base | default: 16 }}px;
+
+      --header-height:      70px;
+      --announcement-height: 40px;
+      --mobile-nav-height:  60px;
+
+      --shadow-sm:          0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md:          0 4px 16px rgba(0,0,0,0.10);
+      --shadow-lg:          0 10px 40px rgba(0,0,0,0.14);
+      --shadow-primary:     0 4px 20px rgba(255,107,53,0.30);
+
+      --transition:         0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-fast:    0.15s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-slow:    0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  </style>
+
+  {{ 'base.css' | asset_url | stylesheet_tag }}
+</head>
+
+<body
+  id="{{ page_title | handle }}"
+  class="template-{{ template.name }}{% if template.suffix %}-{{ template.suffix }}{% endif %} {% if request.locale.iso_code == 'ar' %}is-rtl{% else %}is-ltr{% endif %}"
+>
+
+  <a class="skip-link" href="#MainContent">
+    {% if request.locale.iso_code == 'ar' %}تخطي إلى المحتوى{% else %}Skip to content{% endif %}
+  </a>
+
+  <!-- Announcement Bar -->
+  {%- if settings.announcement_enabled -%}
+    {%- section 'announcement-bar' -%}
+  {%- endif -%}
+
+  <!-- Header -->
+  {%- section 'header' -%}
+
+  <!-- Main Content -->
+  <main id="MainContent" class="main-content" role="main" tabindex="-1">
+    {{ content_for_layout }}
+  </main>
+
+  <!-- Footer -->
+  {%- section 'footer' -%}
+
+  <!-- Mobile Bottom Navigation -->
+  <nav class="mobile-bottom-nav" role="navigation" aria-label="{% if request.locale.iso_code == 'ar' %}التنقل السريع{% else %}Quick navigation{% endif %}">
+    <a href="{{ routes.root_url }}" class="mobile-nav-item {% if template.name == 'index' %}is-active{% endif %}" id="mnav-home">
+      <svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>{% if request.locale.iso_code == 'ar' %}الرئيسية{% else %}Home{% endif %}</span>
+    </a>
+
+    <a href="{{ routes.search_url }}" class="mobile-nav-item {% if template.name == 'search' %}is-active{% endif %}" id="mnav-search">
+      <svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <span>{% if request.locale.iso_code == 'ar' %}بحث{% else %}Search{% endif %}</span>
+    </a>
+
+    <a href="{{ routes.cart_url }}" class="mobile-nav-item {% if template.name == 'cart' %}is-active{% endif %}" id="mnav-cart">
+      <span class="mobile-cart-wrapper">
+        <svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        {%- if cart.item_count > 0 -%}
+          <span class="mobile-cart-badge">{{ cart.item_count }}</span>
+        {%- endif -%}
+      </span>
+      <span>{% if request.locale.iso_code == 'ar' %}السلة{% else %}Cart{% endif %}</span>
+    </a>
+
+    <a href="{{ routes.account_url }}" class="mobile-nav-item {% if template.name contains 'customers' %}is-active{% endif %}" id="mnav-account">
+      <svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>{% if request.locale.iso_code == 'ar' %}حسابي{% else %}Account{% endif %}</span>
+    </a>
+  </nav>
+
+  <!-- WhatsApp Floating Button -->
+  {%- if settings.whatsapp_enabled -%}
+    {%- assign wa_msg = settings.whatsapp_message_ar | append: ' | ' | append: settings.whatsapp_message_en | url_encode -%}
+    {%- assign wa_num = settings.whatsapp_number | remove: '+' | remove: ' ' | remove: '-' -%}
+    <a
+      href="https://wa.me/{{ wa_num }}?text={{ wa_msg }}"
+      class="whatsapp-fab"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="WhatsApp Support"
+      id="whatsapp-fab"
+    >
+      <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+      </svg>
+      <span class="whatsapp-pulse"></span>
+    </a>
+  {%- endif -%}
+
+  <!-- Scripts -->
+  <script>
+    // Theme globals
+    window.Layvora = window.Layvora || {};
+    window.Layvora.locale = '{{ request.locale.iso_code }}';
+    window.Layvora.isRtl = {{ request.locale.iso_code == 'ar' | json }};
+    window.Layvora.currency = 'SAR';
+    window.Layvora.moneyFormat = '{{ shop.money_format }}';
+    window.Layvora.cartUrl = '{{ routes.cart_url }}';
+    window.Layvora.cartAddUrl = '{{ routes.cart_add_url }}';
+    window.Layvora.cartChangeUrl = '{{ routes.cart_change_url }}';
+    window.Layvora.searchUrl = '{{ routes.search_url }}';
+    window.Layvora.rootUrl = '{{ routes.root_url }}';
+    window.Layvora.predictiveSearchUrl = '{{ routes.predictive_search_url }}';
+    window.Layvora.itemCount = {{ cart.item_count }};
+  </script>
+  <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+
+</body>
+</html>
