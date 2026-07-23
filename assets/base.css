@@ -734,13 +734,14 @@ select.form-control {
   border-bottom: 1px solid var(--clr-border);
   position: sticky;
   top: 0;
-  z-index: 90;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  z-index: 990;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   transition: box-shadow var(--transition);
+  width: 100%;
 }
 
 .site-header.is-scrolled {
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
 }
 
 .header-inner {
