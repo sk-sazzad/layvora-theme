@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero_banner": {
@@ -6,10 +15,10 @@
         "slide_1": {
           "type": "slide",
           "settings": {
+            "badge": "🔥 عروض مفرقعة | Flash Sale",
             "heading_ar": "تسوق بأفضل الأسعار في السعودية",
             "heading_en": "Shop the Best Deals in Saudi Arabia",
             "subtitle": "إلكترونيات، أزياء، مستحضرات جمال، ومستلزمات منزلية بأسعار تنافسية",
-            "badge": "🔥 عروض مفرقعة | Flash Sale",
             "btn1_text": "تسوق الآن | Shop Now",
             "btn2_text": "عروض اليوم | View Deals"
           }
@@ -17,10 +26,10 @@
         "slide_2": {
           "type": "slide",
           "settings": {
+            "badge": "📱 جديد | New Arrivals",
             "heading_ar": "أحدث الأجهزة والإلكترونيات",
             "heading_en": "Latest Electronics & Gadgets",
             "subtitle": "تألق بأحدث المنتجات الذكية والإكسسوارات الأصلية مع ضمان شامل",
-            "badge": "📱 جديد | New Arrivals",
             "btn1_text": "تسوق الإلكترونيات",
             "btn2_text": "شاهد المنتجات"
           }
@@ -28,10 +37,10 @@
         "slide_3": {
           "type": "slide",
           "settings": {
+            "badge": "👗 الموضة | Fashion",
             "heading_ar": "تشكيلة أزياء راقية ومتنوعة",
             "heading_en": "Premium Fashion Collection",
             "subtitle": "أرقى صيحات الموضة والأزياء لجميع أفراد العائلة بأنسب الأسعار",
-            "badge": "👗 الموضة | Fashion",
             "btn1_text": "تصفح الأزياء",
             "btn2_text": "اكتشف المزيد"
           }
@@ -101,17 +110,60 @@
         "trust_2",
         "trust_3",
         "trust_4"
-      ]
+      ],
+      "settings": {}
     },
     "categories_grid": {
       "type": "categories-grid",
       "blocks": {
-        "cat_1": { "type": "category", "settings": { "emoji": "📱", "name_ar": "إلكترونيات", "name_en": "Electronics" } },
-        "cat_2": { "type": "category", "settings": { "emoji": "👗", "name_ar": "أزياء", "name_en": "Fashion" } },
-        "cat_3": { "type": "category", "settings": { "emoji": "💄", "name_ar": "جمال وعناية", "name_en": "Beauty" } },
-        "cat_4": { "type": "category", "settings": { "emoji": "🏡", "name_ar": "المنزل والمطبخ", "name_en": "Home & Kitchen" } },
-        "cat_5": { "type": "category", "settings": { "emoji": "⌚", "name_ar": "إكسسوارات", "name_en": "Accessories" } },
-        "cat_6": { "type": "category", "settings": { "emoji": "🔥", "name_ar": "عروض وتخفيضات", "name_en": "Deals" } }
+        "cat_1": {
+          "type": "category",
+          "settings": {
+            "emoji": "📱",
+            "name_ar": "إلكترونيات",
+            "name_en": "Electronics"
+          }
+        },
+        "cat_2": {
+          "type": "category",
+          "settings": {
+            "emoji": "👗",
+            "name_ar": "أزياء",
+            "name_en": "Fashion"
+          }
+        },
+        "cat_3": {
+          "type": "category",
+          "settings": {
+            "emoji": "💄",
+            "name_ar": "جمال وعناية",
+            "name_en": "Beauty"
+          }
+        },
+        "cat_4": {
+          "type": "category",
+          "settings": {
+            "emoji": "🏡",
+            "name_ar": "المنزل والمطبخ",
+            "name_en": "Home & Kitchen"
+          }
+        },
+        "cat_5": {
+          "type": "category",
+          "settings": {
+            "emoji": "⌚",
+            "name_ar": "إكسسوارات",
+            "name_en": "Accessories"
+          }
+        },
+        "cat_6": {
+          "type": "category",
+          "settings": {
+            "emoji": "🔥",
+            "name_ar": "عروض وتخفيضات",
+            "name_en": "Deals"
+          }
+        }
       },
       "block_order": [
         "cat_1",
@@ -171,10 +223,46 @@
     "why_choose_us": {
       "type": "why-choose-us",
       "blocks": {
-        "why_1": { "type": "feature", "settings": { "emoji": "🚀", "title_ar": "توصيل سريع للغاية", "title_en": "Fast Delivery", "desc_ar": "توصيل مباشر إلى باب منزلك في كافة مدن المملكة خلال 2 إلى 5 أيام عمل.", "desc_en": "Direct delivery to your doorstep across KSA in 2-5 business days." } },
-        "why_2": { "type": "feature", "settings": { "emoji": "✨", "title_ar": "منتجات أصيلة 100%", "title_en": "100% Authentic Products", "desc_ar": "نضمن لك الجودة والأصالة العالية لجميع المنتجات مع ضمان الشراء الآمن.", "desc_en": "We guarantee authenticity and premium quality for all products." } },
-        "why_3": { "type": "feature", "settings": { "emoji": "💰", "title_ar": "الدفع عند الاستلام", "title_en": "Cash on Delivery", "desc_ar": "ادفع بسهولة وأمان عند وصول شحنتك دون الحاجة لبطاقة ائتمان.", "desc_en": "Pay easily and securely upon arrival without needing a credit card." } },
-        "why_4": { "type": "feature", "settings": { "emoji": "↩️", "title_ar": "إرجاع واستبدال مرن", "title_en": "Easy Returns", "desc_ar": "خدمة إرجاع بسيطة خلال 7 أيام من استلام المنتج لراحتك التامة.", "desc_en": "Simple return service within 7 days of delivery for your peace of mind." } }
+        "why_1": {
+          "type": "feature",
+          "settings": {
+            "emoji": "🚀",
+            "title_ar": "توصيل سريع للغاية",
+            "title_en": "Fast Delivery",
+            "desc_ar": "توصيل مباشر إلى باب منزلك في كافة مدن المملكة خلال 2 إلى 5 أيام عمل.",
+            "desc_en": "Direct delivery to your doorstep across KSA in 2-5 business days."
+          }
+        },
+        "why_2": {
+          "type": "feature",
+          "settings": {
+            "emoji": "✨",
+            "title_ar": "منتجات أصيلة 100%",
+            "title_en": "100% Authentic Products",
+            "desc_ar": "نضمن لك الجودة والأصالة العالية لجميع المنتجات مع ضمان الشراء الآمن.",
+            "desc_en": "We guarantee authenticity and premium quality for all products."
+          }
+        },
+        "why_3": {
+          "type": "feature",
+          "settings": {
+            "emoji": "💰",
+            "title_ar": "الدفع عند الاستلام",
+            "title_en": "Cash on Delivery",
+            "desc_ar": "ادفع بسهولة وأمان عند وصول شحنتك دون الحاجة لبطاقة ائتمان.",
+            "desc_en": "Pay easily and securely upon arrival without needing a credit card."
+          }
+        },
+        "why_4": {
+          "type": "feature",
+          "settings": {
+            "emoji": "↩️",
+            "title_ar": "إرجاع واستبدال مرن",
+            "title_en": "Easy Returns",
+            "desc_ar": "خدمة إرجاع بسيطة خلال 7 أيام من استلام المنتج لراحتك التامة.",
+            "desc_en": "Simple return service within 7 days of delivery for your peace of mind."
+          }
+        }
       },
       "block_order": [
         "why_1",
