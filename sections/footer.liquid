@@ -18,7 +18,11 @@
         </a>
 
         <div class="footer-brand__desc">
-          {{ section.settings.description | default: '<p>ليقورا — وجهتك الأولى للتسوق في المملكة العربية السعودية. نوفر لك أحدث المنتجات بأسعار تنافسية وتوصيل سريع والدفع عند الاستلام.</p>' }}
+          {%- if request.locale.iso_code == 'ar' -%}
+            {{ section.settings.description_ar | default: '<p>ليقورا — وجهتك الأولى للتسوق في المملكة العربية السعودية. نوفر لك أحدث المنتجات بأسعار تنافسية وتوصيل سريع والدفع عند الاستلام.</p>' }}
+          {%- else -%}
+            {{ section.settings.description_en | default: '<p>Layvora — Your premier shopping destination in KSA. We provide authentic products at competitive prices with fast delivery and cash on delivery.</p>' }}
+          {%- endif -%}
         </div>
 
         <!-- Social Media -->
@@ -92,15 +96,19 @@
           <span>{{ settings.footer_email | default: 'support@layvora.com' }}</span>
         </div>
 
-
-
       </div>
 
     </div>
 
     <!-- Copyright -->
     <div class="footer-bottom">
-      <p>{{ settings.footer_copyright | default: '© 2025 Layvora | ليقورا. جميع الحقوق محفوظة.' }}</p>
+      <p>
+        {%- if request.locale.iso_code == 'ar' -%}
+          {{ section.settings.copyright_ar | default: '© 2026 ليقورا. جميع الحقوق محفوظة.' }}
+        {%- else -%}
+          {{ section.settings.copyright_en | default: '© 2026 Layvora. All rights reserved.' }}
+        {%- endif -%}
+      </p>
     </div>
   </div>
 </footer>
@@ -118,9 +126,27 @@
     },
     {
       "type": "richtext",
-      "id": "description",
-      "label": "Store description",
+      "id": "description_ar",
+      "label": "Store description (Arabic)",
       "default": "<p>ليقورا — وجهتك الأولى للتسوق في المملكة العربية السعودية. منتجات أصيلة بأسعار تنافسية وتوصيل سريع.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "description_en",
+      "label": "Store description (English)",
+      "default": "<p>Layvora — Your premier shopping destination in Saudi Arabia. Authentic products, competitive prices, and fast delivery.</p>"
+    },
+    {
+      "type": "text",
+      "id": "copyright_ar",
+      "label": "Copyright text (Arabic)",
+      "default": "© 2026 ليقورا. جميع الحقوق محفوظة."
+    },
+    {
+      "type": "text",
+      "id": "copyright_en",
+      "label": "Copyright text (English)",
+      "default": "© 2026 Layvora. All rights reserved."
     }
   ]
 }

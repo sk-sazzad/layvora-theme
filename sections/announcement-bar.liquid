@@ -2,24 +2,36 @@
   <div class="announcement-bar" id="announcement-bar" data-section-id="{{ section.id }}">
     <div class="announcement-bar__slides" id="announcementSlides">
 
-      {%- assign messages = '' | split: '' -%}
-      {%- if section.settings.text_1 != blank -%}
-        {%- assign messages = messages | concat: section.settings.text_1 | split: '|||' -%}
+      {%- assign text_1 = section.settings.text_1_en -%}
+      {%- if request.locale.iso_code == 'ar' -%}
+        {%- assign text_1 = section.settings.text_1_ar -%}
       {%- endif -%}
 
-      <div class="announcement-bar__slide is-active" id="anno-slide-0">
-        <span>{{ section.settings.text_1 }}</span>
-      </div>
-
-      {%- if section.settings.text_2 != blank -%}
-        <div class="announcement-bar__slide" id="anno-slide-1">
-          <span>{{ section.settings.text_2 }}</span>
+      {%- if text_1 != blank -%}
+        <div class="announcement-bar__slide is-active" id="anno-slide-0">
+          <span>{{ text_1 }}</span>
         </div>
       {%- endif -%}
 
-      {%- if section.settings.text_3 != blank -%}
+      {%- assign text_2 = section.settings.text_2_en -%}
+      {%- if request.locale.iso_code == 'ar' -%}
+        {%- assign text_2 = section.settings.text_2_ar -%}
+      {%- endif -%}
+
+      {%- if text_2 != blank -%}
+        <div class="announcement-bar__slide" id="anno-slide-1">
+          <span>{{ text_2 }}</span>
+        </div>
+      {%- endif -%}
+
+      {%- assign text_3 = section.settings.text_3_en -%}
+      {%- if request.locale.iso_code == 'ar' -%}
+        {%- assign text_3 = section.settings.text_3_ar -%}
+      {%- endif -%}
+
+      {%- if text_3 != blank -%}
         <div class="announcement-bar__slide" id="anno-slide-2">
-          <span>{{ section.settings.text_3 }}</span>
+          <span>{{ text_3 }}</span>
         </div>
       {%- endif -%}
 
@@ -83,21 +95,39 @@
     },
     {
       "type": "text",
-      "id": "text_1",
-      "label": "Message 1",
-      "default": "🚚 شحن مجاني للطلبات فوق 200 ر.س | Free Shipping on orders over 200 SAR"
+      "id": "text_1_ar",
+      "label": "Message 1 (Arabic)",
+      "default": "🚚 شحن مجاني للطلبات فوق 350 ر.س"
     },
     {
       "type": "text",
-      "id": "text_2",
-      "label": "Message 2",
-      "default": "💰 الدفع عند الاستلام متاح | Cash on Delivery Available"
+      "id": "text_1_en",
+      "label": "Message 1 (English)",
+      "default": "Free Shipping on orders over 350 SAR"
     },
     {
       "type": "text",
-      "id": "text_3",
-      "label": "Message 3",
-      "default": "🔥 عروض حصرية يومياً | Exclusive Daily Deals"
+      "id": "text_2_ar",
+      "label": "Message 2 (Arabic)",
+      "default": "💰 الدفع عند الاستلام متاح لجميع الطلبات"
+    },
+    {
+      "type": "text",
+      "id": "text_2_en",
+      "label": "Message 2 (English)",
+      "default": "Cash on Delivery Available on all orders"
+    },
+    {
+      "type": "text",
+      "id": "text_3_ar",
+      "label": "Message 3 (Arabic)",
+      "default": "🔥 عروض حصرية يومية لعملائنا في السعودية"
+    },
+    {
+      "type": "text",
+      "id": "text_3_en",
+      "label": "Message 3 (English)",
+      "default": "Exclusive Daily Deals for our customers in KSA"
     }
   ],
   "presets": [
