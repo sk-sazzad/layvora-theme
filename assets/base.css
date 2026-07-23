@@ -491,15 +491,37 @@ select.form-control {
   transform: scale(1.06);
 }
 
-/* Badges on image */
-.product-card__badges {
+/* Left Badge: HOT 🔥 */
+.product-card__badge-left {
   position: absolute;
   top: 10px;
   inset-inline-start: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  background: var(--clr-primary);
+  color: var(--clr-white);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
   z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Right Badge: NEW (Red) */
+.product-card__badge-right {
+  position: absolute;
+  top: 54px;
+  inset-inline-end: 10px;
+  background: #E74C3C;
+  color: var(--clr-white);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  z-index: 2;
+  box-shadow: var(--shadow-sm);
 }
 
 /* Wishlist button */
@@ -533,27 +555,27 @@ select.form-control {
   height: 18px;
 }
 
-/* Quick Add on hover (desktop) */
-.product-card__quick-add {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: var(--clr-primary);
-  color: var(--clr-white);
-  text-align: center;
-  padding: 12px;
-  font-weight: 600;
-  font-size: 14px;
-  transform: translateY(100%);
-  transition: transform var(--transition);
-  cursor: pointer;
-  border: none;
-  z-index: 3;
+/* Color swatches container */
+.product-card__colors {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 14px 0;
 }
 
-.product-card:hover .product-card__quick-add {
-  transform: translateY(0);
+.color-swatch-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1.5px solid var(--clr-white);
+  outline: 1px solid rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+}
+
+.color-swatch-dot:hover {
+  transform: scale(1.3);
 }
 
 /* Card body */
@@ -643,10 +665,58 @@ select.form-control {
   font-weight: 600;
 }
 
-/* Mobile always-visible Add to Cart */
-.product-card__add-mobile {
-  display: none;
-  padding: 0 14px 14px;
+/* Product Card Actions: Side-by-side pill buttons */
+.product-card__actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 10px 14px 14px;
+  margin-top: auto;
+}
+
+.product-card__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 30px; /* Pill style */
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  border: 1.5px solid transparent;
+}
+
+.product-card__action-btn--cart {
+  background: var(--clr-light-bg);
+  color: var(--clr-primary);
+  border-color: var(--clr-primary);
+}
+
+.product-card__action-btn--cart:hover {
+  background: var(--clr-primary);
+  color: var(--clr-white);
+}
+
+.product-card__action-btn--buy {
+  background: var(--clr-primary);
+  color: var(--clr-white);
+  border-color: var(--clr-primary);
+}
+
+.product-card__action-btn--buy:hover {
+  background: var(--clr-primary-dark);
+  border-color: var(--clr-primary-dark);
+}
+
+.product-card__action-btn--disabled {
+  background: var(--clr-border);
+  color: var(--clr-muted);
+  border-color: var(--clr-border);
+  cursor: not-allowed;
 }
 
 /* ── 9. ANNOUNCEMENT BAR ──────────────────────────────────── */
@@ -3031,6 +3101,129 @@ select.form-control {
   .cod-drawer__panel {
     width: 100vw;
     height: 100vh;
+  }
+}
+
+/* ── 32. CUSTOMER REVIEWS SECTION ───────────────────────── */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 32px;
+}
+
+.reviews-summary-card {
+  background: var(--clr-white);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--card-radius);
+  padding: 24px;
+  align-self: start;
+  text-align: center;
+}
+
+.summary-score-box {
+  margin-bottom: 20px;
+}
+
+.summary-score {
+  display: block;
+  font-size: 48px;
+  font-weight: 800;
+  color: var(--clr-secondary);
+  line-height: 1;
+}
+
+.summary-stars {
+  font-size: 20px;
+  color: var(--clr-accent);
+  margin: 6px 0;
+}
+
+.summary-count {
+  font-size: 13px;
+  color: var(--clr-muted);
+}
+
+.summary-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.summary-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--clr-muted);
+}
+
+.bar-label {
+  width: 24px;
+  font-weight: 600;
+  text-align: start;
+}
+
+.bar-track {
+  flex: 1;
+  height: 6px;
+  background: var(--clr-border);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  background: var(--clr-accent);
+  border-radius: 3px;
+}
+
+.bar-percent {
+  width: 32px;
+  text-align: end;
+}
+
+/* Reviews List */
+.review-item {
+  background: var(--clr-white);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--card-radius);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.review-item__header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+.review-item__stars {
+  color: var(--clr-accent);
+}
+
+.review-item__author {
+  font-weight: 700;
+  color: var(--clr-secondary);
+}
+
+.review-item__date {
+  color: var(--clr-muted);
+  margin-inline-start: auto;
+}
+
+.review-item__text {
+  font-size: 14px;
+  color: var(--clr-text);
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .reviews-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
 }
 

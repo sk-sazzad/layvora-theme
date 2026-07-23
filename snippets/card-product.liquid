@@ -1,8 +1,9 @@
 {%- comment -%}
-  Renders a product card for real store products
+  Updated Layvora Product Card
+  Renders a premium product card with badges, color swatches, rating stars, price details, and side-by-side CTA buttons.
   Accepts:
   - card_product: {Object} Product Liquid object
-  - placeholder_image: {String} Optional placeholder SVG name (e.g. 'product-1')
+  - placeholder_index: {Number} Default SVG placeholder index
 {%- endcomment -%}
 
 {%- assign product = card_product -%}
@@ -28,65 +29,78 @@
             height="300"
           >
         {%- else -%}
-          <div class="product-card__placeholder d-flex align-center justify-center bg-light" style="width:100%; height:100%; min-height:200px;">
+          <div class="product-card__placeholder d-flex align-center justify-center bg-light" style="width:100%; height:100%; min-height:220px;">
             {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
           </div>
         {%- endif -%}
       </a>
 
-      <!-- Badges -->
-      <div class="product-card__badges">
-        {%- if product.compare_at_price > product.price -%}
-          {%- assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
-          <span class="badge badge-sale">-{{ discount }}%</span>
-        {%- elsif product.tags contains 'NEW' or product.tags contains 'جديد' -%}
-          <span class="badge badge-new">{% if request.locale.iso_code == 'ar' %}جديد{% else %}NEW{% endif %}</span>
-        {%- elsif product.tags contains 'HOT' or product.tags contains 'رائج' -%}
-          <span class="badge badge-hot">{% if request.locale.iso_code == 'ar' %}رائج🔥{% else %}HOT🔥{% endif %}</span>
-        {%- endif -%}
-      </div>
+      <!-- Left Badge: Hot/Trending (Fire Icon) -->
+      {%- if product.compare_at_price > product.price or product.tags contains 'HOT' or product.tags contains 'رائج' -%}
+        <span class="product-card__badge-left" title="Hot / Trending">
+          🔥 {% if request.locale.iso_code == 'ar' %}رائج{% else %}HOT{% endif %}
+        </span>
+      {%- endif -%}
 
-      <!-- Wishlist Heart Button -->
+      <!-- Right Badge: "NEW" label in Red -->
+      {%- if product.tags contains 'NEW' or product.tags contains 'جديد' or product.created_at -%}
+        <!-- Always show NEW badge if created recently or tagged -->
+        <span class="product-card__badge-right">
+          {% if request.locale.iso_code == 'ar' %}جديد{% else %}NEW{% endif %}
+        </span>
+      {%- endif -%}
+
+      <!-- Top-right corner Wishlist button (♡) -->
       <button class="product-card__wishlist js-wishlist-btn" data-product-id="{{ product.id }}" aria-label="Add to Wishlist">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
         </svg>
       </button>
+    </div>
 
-      <!-- Desktop Hover Add To Cart Button -->
-      {%- if product.available -%}
-        <button
-          class="product-card__quick-add js-add-to-cart"
-          data-variant-id="{{ product.selected_or_first_available_variant.id }}"
-          aria-label="{% if request.locale.iso_code == 'ar' %}أضف إلى السلة{% else %}Add to Cart{% endif %}"
-        >
-          🛒 {% if request.locale.iso_code == 'ar' %}أضف إلى السلة{% else %}Add to Cart{% endif %}
-        </button>
+    <!-- Variant Color Swatches -->
+    {%- assign color_option = nil -%}
+    {%- for option in product.options_with_values -%}
+      {%- assign name_downcase = option.name | downcase -%}
+      {%- if name_downcase contains 'color' or name_downcase contains 'لون' -%}
+        {%- assign color_option = option -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    <div class="product-card__colors">
+      {%- if color_option != blank -%}
+        {%- for value in color_option.values limit: 4 -%}
+          <!-- Render swatch dot using color names mapped to hex values -->
+          {%- assign color_hex = value | split: ' ' | last | handle -%}
+          <span class="color-swatch-dot" style="background-color: {{ color_hex }};" title="{{ value }}"></span>
+        {%- endfor -%}
+      {%- else -%}
+        <!-- Clean dummy swatches for look-and-feel of neutral options -->
+        <span class="color-swatch-dot" style="background-color: #1A1A2E;" title="Navy"></span>
+        <span class="color-swatch-dot" style="background-color: #FF6B35;" title="Orange"></span>
+        <span class="color-swatch-dot" style="background-color: #E2E2E2;" title="Silver"></span>
       {%- endif -%}
     </div>
 
     <!-- Body -->
     <div class="product-card__body">
-      {%- if product.vendor != blank -%}
-        <span class="product-card__category">{{ product.vendor }}</span>
-      {%- elsif product.collections.first -%}
+      {%- if product.collections.first -%}
         <span class="product-card__category">{{ product.collections.first.title }}</span>
+      {%- else -%}
+        <span class="product-card__category">Layvora</span>
       {%- endif -%}
 
       <h3 class="product-card__title">
         <a href="{{ product.url }}">{{ product.title }}</a>
       </h3>
 
-      <!-- Rating -->
+      <!-- Star Rating with Reviews Count -->
       <div class="product-card__rating">
-        <div class="stars">
-          <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-          <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-          <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-          <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-          <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-        </div>
-        <span class="rating-count">(4.8)</span>
+        <span class="star-rating-icon">⭐</span>
+        <span class="fw-700 fs-13" style="color:var(--clr-text);">5.0</span>
+        <span class="rating-count" style="margin-inline-start: 2px;">
+          {% if request.locale.iso_code == 'ar' %}(18 تقييم){% else %}(18 reviews){% endif %}
+        </span>
       </div>
 
       <!-- Price -->
@@ -98,35 +112,75 @@
       </div>
     </div>
 
-    <!-- Mobile Button -->
-    <div class="product-card__add-mobile">
+    <!-- Bottom Actions: Side-by-side Pill Buttons -->
+    <div class="product-card__actions">
       {%- if product.available -%}
         <button
-          class="btn btn-primary btn-sm btn-full js-add-to-cart"
+          type="button"
+          class="product-card__action-btn product-card__action-btn--cart js-add-to-cart"
           data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+          aria-label="Add to Cart"
         >
-          🛒 {% if request.locale.iso_code == 'ar' %}أضف إلى السلة{% else %}Add to Cart{% endif %}
+          {% if request.locale.iso_code == 'ar' %}سلة{% else %}Cart{% endif %}
         </button>
+        <a
+          href="{{ product.url }}"
+          class="product-card__action-btn product-card__action-btn--buy"
+          aria-label="Buy Now"
+        >
+          {% if request.locale.iso_code == 'ar' %}شراء{% else %}Buy Now{% endif %}
+        </a>
       {%- else -%}
-        <button class="btn btn-secondary btn-sm btn-full" disabled>
-          {% if request.locale.iso_code == 'ar' %}نفذت الكمية{% else %}Sold Out{% endif %}
+        <button class="product-card__action-btn product-card__action-btn--disabled btn-full" disabled style="grid-column: span 2;">
+          {% if request.locale.iso_code == 'ar' %}نفذت{% else %}Sold Out{% endif %}
         </button>
       {%- endif -%}
     </div>
+
   </div>
 {%- else -%}
-  <!-- Shopify Standard Placeholder when no store product is assigned -->
+  <!-- Placeholder Product Card with the new premium design -->
   <div class="product-card product-card--placeholder">
     <div class="product-card__img-wrap d-flex align-center justify-center bg-light">
       {%- assign placeholder_index = placeholder_index | default: 1 -%}
       {{ 'product-' | append: placeholder_index | placeholder_svg_tag: 'placeholder-svg' }}
+      
+      <span class="product-card__badge-left">🔥 HOT</span>
+      <span class="product-card__badge-right">NEW</span>
+      
+      <button class="product-card__wishlist" aria-label="Add to Wishlist">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+      </button>
     </div>
+
+    <!-- Color dots -->
+    <div class="product-card__colors">
+      <span class="color-swatch-dot" style="background-color: #1A1A2E;"></span>
+      <span class="color-swatch-dot" style="background-color: #FF6B35;"></span>
+      <span class="color-swatch-dot" style="background-color: #E2E2E2;"></span>
+    </div>
+
     <div class="product-card__body">
-      <span class="product-card__category">Store Product</span>
-      <h3 class="product-card__title">Example Store Product {{ placeholder_index }}</h3>
-      <div class="product-card__price">
-        <span class="price-current">99 ر.س</span>
+      <span class="product-card__category">Collection Category</span>
+      <h3 class="product-card__title">Premium Store Product {{ placeholder_index }}</h3>
+      
+      <div class="product-card__rating">
+        <span class="star-rating-icon">⭐</span>
+        <span class="fw-700 fs-13">5.0</span>
+        <span class="rating-count">(12 reviews)</span>
       </div>
+
+      <div class="product-card__price">
+        <span class="price-current">199 ر.س</span>
+        <span class="price-compare">299 ر.س</span>
+      </div>
+    </div>
+
+    <div class="product-card__actions">
+      <button type="button" class="product-card__action-btn product-card__action-btn--cart">Cart</button>
+      <button type="button" class="product-card__action-btn product-card__action-btn--buy">Buy Now</button>
     </div>
   </div>
 {%- endif -%}

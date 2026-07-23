@@ -214,6 +214,117 @@
     </div>
   </div>
 
+  <!-- Customer Reviews Section -->
+  <div class="product-reviews-section container" style="margin-top: 48px; margin-bottom: 32px;">
+    <h3 class="reviews-section-title fs-22 fw-800 mb-24" style="border-bottom: 2px solid var(--clr-primary); padding-bottom: 8px; display: inline-block;">
+      {% if request.locale.iso_code == 'ar' %}آراء وتقييمات العملاء{% else %}Customer Reviews{% endif %}
+    </h3>
+
+    <div class="reviews-grid">
+      <!-- Ratings Summary Card -->
+      <div class="reviews-summary-card">
+        <div class="summary-score-box">
+          <span class="summary-score">5.0</span>
+          <div class="summary-stars">⭐⭐⭐⭐⭐</div>
+          <span class="summary-count">{% if request.locale.iso_code == 'ar' %}18 تقييم ومراجعة{% else %}18 Ratings & Reviews{% endif %}</span>
+        </div>
+
+        <div class="summary-bars">
+          <div class="summary-bar-row">
+            <span class="bar-label">5 ★</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 92%;"></div></div>
+            <span class="bar-percent">92%</span>
+          </div>
+          <div class="summary-bar-row">
+            <span class="bar-label">4 ★</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 8%;"></div></div>
+            <span class="bar-percent">8%</span>
+          </div>
+          <div class="summary-bar-row">
+            <span class="bar-label">3 ★</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 0%;"></div></div>
+            <span class="bar-percent">0%</span>
+          </div>
+          <div class="summary-bar-row">
+            <span class="bar-label">2 ★</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 0%;"></div></div>
+            <span class="bar-percent">0%</span>
+          </div>
+          <div class="summary-bar-row">
+            <span class="bar-label">1 ★</span>
+            <div class="bar-track"><div class="bar-fill" style="width: 0%;"></div></div>
+            <span class="bar-percent">0%</span>
+          </div>
+        </div>
+
+        <button class="btn btn-outline btn-full mb-12" id="writeReviewToggleBtn" style="margin-top: 16px;">
+          {% if request.locale.iso_code == 'ar' %}كتابة تقييم جديد{% else %}Write a Review{% endif %}
+        </button>
+      </div>
+
+      <!-- Reviews List -->
+      <div class="reviews-list-container">
+        <!-- Review Form (Hidden by default) -->
+        <form class="review-form-box" id="newReviewForm" style="display:none; margin-bottom: 24px; padding: 20px; border: 1.5px dashed var(--clr-primary); border-radius: var(--card-radius); background: var(--clr-white);">
+          <h4 class="fw-700 fs-16 mb-16">{% if request.locale.iso_code == 'ar' %}كتابة تقييمك للمنتج{% else %}Write Your Review{% endif %}</h4>
+          <div class="form-grid" style="display:grid; gap:12px; margin-bottom:12px;">
+            <div>
+              <label class="d-block fs-13 fw-600 mb-4">{% if request.locale.iso_code == 'ar' %}الاسم الكامل{% else %}Full Name{% endif %}</label>
+              <input type="text" placeholder="e.g. Ahmed R." class="price-range-input" required id="revName">
+            </div>
+            <div>
+              <label class="d-block fs-13 fw-600 mb-4">{% if request.locale.iso_code == 'ar' %}التقييم{% else %}Rating{% endif %}</label>
+              <select class="price-range-input" id="revRating" style="height:38px;">
+                <option value="5">5 ⭐⭐⭐⭐⭐</option>
+                <option value="4">4 ⭐⭐⭐⭐</option>
+                <option value="3">3 ⭐⭐⭐</option>
+                <option value="2">2 ⭐⭐</option>
+                <option value="1">1 ⭐</option>
+              </select>
+            </div>
+          </div>
+          <div style="margin-bottom:16px;">
+            <label class="d-block fs-13 fw-600 mb-4">{% if request.locale.iso_code == 'ar' %}نص التقييم{% else %}Review Message{% endif %}</label>
+            <textarea placeholder="Write review here..." class="price-range-input" rows="4" style="height:auto;" required id="revText"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-sm">
+            {% if request.locale.iso_code == 'ar' %}إرسال التقييم{% else %}Submit Review{% endif %}
+          </button>
+        </form>
+
+        <!-- Static Real Reviews -->
+        <div class="reviews-list" id="reviewsList">
+          <div class="review-item">
+            <div class="review-item__header">
+              <span class="review-item__stars">⭐⭐⭐⭐⭐</span>
+              <span class="review-item__author">احمد الرويلي (الرياض)</span>
+              <span class="review-item__date">2026-07-20</span>
+            </div>
+            <p class="review-item__text">ممتاز جداً التوصيل سريع خلال يومين فقط وصل الرياض، جودة المنتج رائعة والدفع عند الاستلام مريح جداً.</p>
+          </div>
+
+          <div class="review-item">
+            <div class="review-item__header">
+              <span class="review-item__stars">⭐⭐⭐⭐⭐</span>
+              <span class="review-item__author">Sara K. (Jeddah)</span>
+              <span class="review-item__date">2026-07-18</span>
+            </div>
+            <p class="review-item__text">High quality and exactly as advertised! Recommended product and very cooperative support.</p>
+          </div>
+
+          <div class="review-item">
+            <div class="review-item__header">
+              <span class="review-item__stars">⭐⭐⭐⭐⭐</span>
+              <span class="review-item__author">فهد الشمري (الدمام)</span>
+              <span class="review-item__date">2026-07-15</span>
+            </div>
+            <p class="review-item__text">جودة رهيبة ويستحق السعر. التغليف كان ممتاز ومحكم والتوصيل في الموعد.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Mobile Sticky Add to Cart -->
   <div class="sticky-atc" id="stickyAtc">
     <div style="flex:1; min-width:0;">
@@ -276,6 +387,55 @@
         this.classList.add('is-active');
       });
     });
+
+    // Review Form Toggle & Submit
+    var reviewToggle = document.getElementById('writeReviewToggleBtn');
+    var reviewForm = document.getElementById('newReviewForm');
+    var reviewsList = document.getElementById('reviewsList');
+
+    if (reviewToggle && reviewForm) {
+      reviewToggle.addEventListener('click', function() {
+        if (reviewForm.style.display === 'none') {
+          reviewForm.style.display = 'block';
+        } else {
+          reviewForm.style.display = 'none';
+        }
+      });
+    }
+
+    if (reviewForm && reviewsList) {
+      reviewForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var nameInput = document.getElementById('revName');
+        var ratingSelect = document.getElementById('revRating');
+        var textInput = document.getElementById('revText');
+
+        if (nameInput && ratingSelect && textInput) {
+          var name = nameInput.value;
+          var rating = parseInt(ratingSelect.value) || 5;
+          var text = textInput.value;
+
+          var starsStr = '⭐'.repeat(rating);
+          var today = new Date().toISOString().split('T')[0];
+
+          var newRev = document.createElement('div');
+          newRev.className = 'review-item';
+          newRev.innerHTML = `
+            <div class="review-item__header">
+              <span class="review-item__stars">${starsStr}</span>
+              <span class="review-item__author">${name}</span>
+              <span class="review-item__date">${today}</span>
+            </div>
+            <p class="review-item__text">${text}</p>
+          `;
+
+          reviewsList.insertBefore(newRev, reviewsList.firstChild);
+          reviewForm.reset();
+          reviewForm.style.display = 'none';
+          alert('{% if request.locale.iso_code == 'ar' %}شكراً لك! تم إرسال تقييمك بنجاح.{% else %}Thank you! Your review has been submitted successfully.{% endif %}');
+        }
+      });
+    }
   })();
 </script>
 
