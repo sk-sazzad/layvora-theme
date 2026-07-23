@@ -24,7 +24,7 @@
           {%- if product.compare_at_price > product.price -%}
             {%- assign discount = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
             <span class="badge badge-sale" style="position:absolute;top:16px;inset-inline-start:16px;padding:6px 14px;font-size:13px;z-index:2;">
-              -{{ discount }}% OFF
+              خصم {{ discount }}%
             </span>
           {%- endif -%}
         </div>
@@ -64,7 +64,7 @@
             <svg fill="currentColor" viewBox="0 0 20 20" style="width:18px;height:18px;color:var(--clr-accent);"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
           </div>
           <span class="rating-score">4.9</span>
-          <span class="rating-text">({% if request.locale.iso_code == 'ar' %}128 تقييم ممتاز{% else %}128 reviews{% endif %})</span>
+          <span class="rating-text">(128 تقييم ممتاز)</span>
         </div>
 
         <!-- Price -->
@@ -122,9 +122,9 @@
               <span>🛒</span>
               <span id="atcBtnText">
                 {%- if product.selected_or_first_available_variant.available -%}
-                  {% if request.locale.iso_code == 'ar' %}أضف إلى السلة{% else %}Add to Cart{% endif %}
+                  أضف إلى السلة
                 {%- else -%}
-                  {% if request.locale.iso_code == 'ar' %}نفذت الكمية{% else %}Sold Out{% endif %}
+                  نفذت الكمية
                 {%- endif -%}
               </span>
             </button>
@@ -136,16 +136,16 @@
           <div class="cod-badge">
             <span class="cod-badge__icon">💰</span>
             <div class="cod-badge__text">
-              <span class="cod-badge__title">{% if request.locale.iso_code == 'ar' %}الدفع عند الاستلام متاح{% else %}Cash on Delivery Available{% endif %}</span>
-              <span class="cod-badge__sub">{% if request.locale.iso_code == 'ar' %}ادفع نقداً عند استلام طلبك ل باب منزلك{% else %}Pay cash when your order arrives{% endif %}</span>
+              <span class="cod-badge__title">الدفع عند الاستلام متاح</span>
+              <span class="cod-badge__sub">ادفع نقداً عند استلام طلبك لباب منزلك</span>
             </div>
           </div>
 
           <div class="delivery-badge">
             <span style="font-size:20px;">🚚</span>
             <div>
-              <span style="font-size:14px;font-weight:700;display:block;">{% if request.locale.iso_code == 'ar' %}توصيل سريع خلال 2-5 أيام عمل{% else %}Fast Delivery in 2-5 Days{% endif %}</span>
-              <span style="font-size:12px;opacity:0.8;display:block;">{% if request.locale.iso_code == 'ar' %}شحن مجاني للطلبات فوق 200 ر.س{% else %}Free shipping on orders over 200 SAR{% endif %}</span>
+              <span style="font-size:14px;font-weight:700;display:block;">توصيل سريع خلال 2-5 أيام عمل</span>
+              <span style="font-size:12px;opacity:0.8;display:block;">شحن مجاني للطلبات فوق 350 ر.س</span>
             </div>
           </div>
         </div>
@@ -154,27 +154,27 @@
         <div class="trust-chips">
           <span class="trust-chip">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            {% if request.locale.iso_code == 'ar' %}منتج أصلي 100%{% else %}100% Authentic{% endif %}
+            منتج أصلي 100%
           </span>
           <span class="trust-chip">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            {% if request.locale.iso_code == 'ar' %}إرجاع مجاني خلال 7 أيام{% else %}Easy 7-Day Return{% endif %}
+            إرجاع مجاني خلال 7 أيام
           </span>
           <span class="trust-chip">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            {% if request.locale.iso_code == 'ar' %}تغليف آمن ومحمي{% else %}Secure Packaging{% endif %}
+            تغليف آمن ومحمي
           </span>
           <span class="trust-chip">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            {% if request.locale.iso_code == 'ar' %}توصيل لكافة مدن المملكة{% else %}KSA Wide Delivery{% endif %}
+            توصيل لكافة مدن المملكة
           </span>
         </div>
 
-        <!-- Collapsible Description Tabs -->
+        <!-- Collapsible Description Tabs (Arabic Only) -->
         <div class="product-tabs" id="productTabs">
           <div class="product-tab is-open">
             <div class="product-tab__header" js-tab-toggle>
-              <span>📋 {% if request.locale.iso_code == 'ar' %}وصف المنتج والتفاصيل{% else %}Description & Details{% endif %}</span>
+              <span>📋 وصف المنتج والتفاصيل</span>
               <span class="product-tab__icon">▼</span>
             </div>
             <div class="product-tab__content">
@@ -186,24 +186,24 @@
 
           <div class="product-tab">
             <div class="product-tab__header" js-tab-toggle>
-              <span>🚚 {% if request.locale.iso_code == 'ar' %}سياسة الشحن والتوصيل{% else %}Shipping & Delivery Policy{% endif %}</span>
+              <span>🚚 سياسة الشحن والتوصيل</span>
               <span class="product-tab__icon">▼</span>
             </div>
             <div class="product-tab__content">
               <div class="product-tab__body">
-                <p>{% if request.locale.iso_code == 'ar' %}نوصل طلبك إلى جميع مدن ومحافظات المملكة العربية السعودية خلال 2 إلى 5 أيام عمل. الدفع عند الاستلام متاح لجميع الطلبات.{% else %}We deliver your order to all KSA cities in 2 to 5 business days. Cash on delivery is available.{% endif %}</p>
+                <p>نوصل طلبك إلى جميع مدن ومحافظات المملكة العربية السعودية خلال 2 إلى 5 أيام عمل. الدفع عند الاستلام متاح لجميع الطلبات.</p>
               </div>
             </div>
           </div>
 
           <div class="product-tab">
             <div class="product-tab__header" js-tab-toggle>
-              <span>↩️ {% if request.locale.iso_code == 'ar' %}سياسة الإرجاع والاستبدال{% else %}Returns & Exchange Policy{% endif %}</span>
+              <span>↩️ سياسة الإرجاع والاستبدال</span>
               <span class="product-tab__icon">▼</span>
             </div>
             <div class="product-tab__content">
               <div class="product-tab__body">
-                <p>{% if request.locale.iso_code == 'ar' %}يمكنك استبدال أو إرجاع المنتج خلال 7 أيام من تاريخ استلامه بشرط أن يكون بحالته الأصلية وفي غلافه الأولي.{% else %}You can return or exchange the product within 7 days of receiving it provided it is in original condition.{% endif %}</p>
+                <p>يمكنك استبدال أو إرجاع المنتج خلال 7 أيام من تاريخ استلامه بشرط أن يكون بحالته الأصلية وفي غلافه الأولي.</p>
               </div>
             </div>
           </div>
@@ -217,7 +217,7 @@
   <!-- Customer Reviews Section -->
   <div class="product-reviews-section container" style="margin-top: 48px; margin-bottom: 32px;">
     <h3 class="reviews-section-title fs-22 fw-800 mb-24" style="border-bottom: 2px solid var(--clr-primary); padding-bottom: 8px; display: inline-block;">
-      {% if request.locale.iso_code == 'ar' %}آراء وتقييمات العملاء{% else %}Customer Reviews{% endif %}
+      آراء وتقييمات العملاء
     </h3>
 
     <div class="reviews-grid">
@@ -226,7 +226,7 @@
         <div class="summary-score-box">
           <span class="summary-score">5.0</span>
           <div class="summary-stars">⭐⭐⭐⭐⭐</div>
-          <span class="summary-count">{% if request.locale.iso_code == 'ar' %}18 تقييم ومراجعة{% else %}18 Ratings & Reviews{% endif %}</span>
+          <span class="summary-count">18 تقييم ومراجعة</span>
         </div>
 
         <div class="summary-bars">
@@ -258,7 +258,7 @@
         </div>
 
         <button class="btn btn-outline btn-full mb-12" id="writeReviewToggleBtn" style="margin-top: 16px;">
-          {% if request.locale.iso_code == 'ar' %}كتابة تقييم جديد{% else %}Write a Review{% endif %}
+          كتابة تقييم جديد
         </button>
       </div>
 
@@ -266,14 +266,14 @@
       <div class="reviews-list-container">
         <!-- Review Form (Hidden by default) -->
         <form class="review-form-box" id="newReviewForm" style="display:none; margin-bottom: 24px; padding: 20px; border: 1.5px dashed var(--clr-primary); border-radius: var(--card-radius); background: var(--clr-white);">
-          <h4 class="fw-700 fs-16 mb-16">{% if request.locale.iso_code == 'ar' %}كتابة تقييمك للمنتج{% else %}Write Your Review{% endif %}</h4>
+          <h4 class="fw-700 fs-16 mb-16">كتابة تقييمك للمنتج</h4>
           <div class="form-grid" style="display:grid; gap:12px; margin-bottom:12px;">
             <div>
-              <label class="d-block fs-13 fw-600 mb-4">{% if request.locale.iso_code == 'ar' %}الاسم الكامل{% else %}Full Name{% endif %}</label>
-              <input type="text" placeholder="e.g. Ahmed R." class="price-range-input" required id="revName">
+              <label class="d-block fs-13 fw-600 mb-4">الاسم الكامل</label>
+              <input type="text" placeholder="مثال: أحمد ر." class="price-range-input" required id="revName">
             </div>
             <div>
-              <label class="d-block fs-13 fw-600 mb-4">{% if request.locale.iso_code == 'ar' %}التقييم{% else %}Rating{% endif %}</label>
+              <label class="d-block fs-13 fw-600 mb-4">التقييم</label>
               <select class="price-range-input" id="revRating" style="height:38px;">
                 <option value="5">5 ⭐⭐⭐⭐⭐</option>
                 <option value="4">4 ⭐⭐⭐⭐</option>
@@ -284,11 +284,11 @@
             </div>
           </div>
           <div style="margin-bottom:16px;">
-            <label class="d-block fs-13 fw-600 mb-4">{% if request.locale.iso_code == 'ar' %}نص التقييم{% else %}Review Message{% endif %}</label>
-            <textarea placeholder="Write review here..." class="price-range-input" rows="4" style="height:auto;" required id="revText"></textarea>
+            <label class="d-block fs-13 fw-600 mb-4">نص التقييم</label>
+            <textarea placeholder="اكتب مراجعتك هنا..." class="price-range-input" rows="4" style="height:auto;" required id="revText"></textarea>
           </div>
           <button type="submit" class="btn btn-primary btn-sm">
-            {% if request.locale.iso_code == 'ar' %}إرسال التقييم{% else %}Submit Review{% endif %}
+            إرسال التقييم
           </button>
         </form>
 
@@ -306,10 +306,10 @@
           <div class="review-item">
             <div class="review-item__header">
               <span class="review-item__stars">⭐⭐⭐⭐⭐</span>
-              <span class="review-item__author">Sara K. (Jeddah)</span>
+              <span class="review-item__author">سارة ك. (جدة)</span>
               <span class="review-item__date">2026-07-18</span>
             </div>
-            <p class="review-item__text">High quality and exactly as advertised! Recommended product and very cooperative support.</p>
+            <p class="review-item__text">جودة عالية ومطابق للوصف تماماً! أنصح بشدة بهذا المنتج والدعم متعاون للغاية.</p>
           </div>
 
           <div class="review-item">
@@ -325,14 +325,14 @@
     </div>
   </div>
 
-  <!-- Mobile Sticky Add to Cart -->
+  <!-- Mobile Sticky Add to Cart (Arabic Only) -->
   <div class="sticky-atc" id="stickyAtc">
     <div style="flex:1; min-width:0;">
       <p style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ product.title }}</p>
       <p style="font-size:14px;font-weight:800;color:var(--clr-primary);font-family:var(--font-en);">{{ product.selected_or_first_available_variant.price | money_without_trailing_zeros }}</p>
     </div>
     <button class="btn btn-primary btn-sm js-add-to-cart" data-variant-id="{{ product.selected_or_first_available_variant.id }}" style="padding:12px 20px;">
-      🛒 {% if request.locale.iso_code == 'ar' %}أضف إلى السلة{% else %}Add to Cart{% endif %}
+      🛒 أضف إلى السلة
     </button>
   </div>
 </div>
@@ -432,7 +432,7 @@
           reviewsList.insertBefore(newRev, reviewsList.firstChild);
           reviewForm.reset();
           reviewForm.style.display = 'none';
-          alert('{% if request.locale.iso_code == 'ar' %}شكراً لك! تم إرسال تقييمك بنجاح.{% else %}Thank you! Your review has been submitted successfully.{% endif %}');
+          alert('شكراً لك! تم إرسال تقييمك بنجاح.');
         }
       });
     }

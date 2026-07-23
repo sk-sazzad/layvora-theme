@@ -1,5 +1,5 @@
 {%- comment -%}
-  Updated Layvora Product Card
+  Updated Layvora Product Card (Arabic Only)
   Renders a premium product card with badges, color swatches, rating stars, price details, and side-by-side CTA buttons.
   Accepts:
   - card_product: {Object} Product Liquid object
@@ -37,21 +37,20 @@
 
       <!-- Left Badge: Hot/Trending (Fire Icon) -->
       {%- if product.compare_at_price > product.price or product.tags contains 'HOT' or product.tags contains 'رائج' -%}
-        <span class="product-card__badge-left" title="Hot / Trending">
-          🔥 {% if request.locale.iso_code == 'ar' %}رائج{% else %}HOT{% endif %}
+        <span class="product-card__badge-left" title="رائج">
+          🔥 رائج
         </span>
       {%- endif -%}
 
-      <!-- Right Badge: "NEW" label in Red -->
+      <!-- Right Badge: "جديد" label in Red -->
       {%- if product.tags contains 'NEW' or product.tags contains 'جديد' or product.created_at -%}
-        <!-- Always show NEW badge if created recently or tagged -->
         <span class="product-card__badge-right">
-          {% if request.locale.iso_code == 'ar' %}جديد{% else %}NEW{% endif %}
+          جديد
         </span>
       {%- endif -%}
 
       <!-- Top-right corner Wishlist button (♡) -->
-      <button class="product-card__wishlist js-wishlist-btn" data-product-id="{{ product.id }}" aria-label="Add to Wishlist">
+      <button class="product-card__wishlist js-wishlist-btn" data-product-id="{{ product.id }}" aria-label="أضف للمفضلة">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
         </svg>
@@ -70,15 +69,13 @@
     <div class="product-card__colors">
       {%- if color_option != blank -%}
         {%- for value in color_option.values limit: 4 -%}
-          <!-- Render swatch dot using color names mapped to hex values -->
           {%- assign color_hex = value | split: ' ' | last | handle -%}
           <span class="color-swatch-dot" style="background-color: {{ color_hex }};" title="{{ value }}"></span>
         {%- endfor -%}
       {%- else -%}
-        <!-- Clean dummy swatches for look-and-feel of neutral options -->
-        <span class="color-swatch-dot" style="background-color: #1A1A2E;" title="Navy"></span>
-        <span class="color-swatch-dot" style="background-color: #FF6B35;" title="Orange"></span>
-        <span class="color-swatch-dot" style="background-color: #E2E2E2;" title="Silver"></span>
+        <span class="color-swatch-dot" style="background-color: #1A1A2E;" title="كحلي"></span>
+        <span class="color-swatch-dot" style="background-color: #FF6B35;" title="برتقالي"></span>
+        <span class="color-swatch-dot" style="background-color: #E2E2E2;" title="فضي"></span>
       {%- endif -%}
     </div>
 
@@ -87,7 +84,7 @@
       {%- if product.collections.first -%}
         <span class="product-card__category">{{ product.collections.first.title }}</span>
       {%- else -%}
-        <span class="product-card__category">Layvora</span>
+        <span class="product-card__category">ليقورا</span>
       {%- endif -%}
 
       <h3 class="product-card__title">
@@ -99,7 +96,7 @@
         <span class="star-rating-icon">⭐</span>
         <span class="fw-700 fs-13" style="color:var(--clr-text);">5.0</span>
         <span class="rating-count" style="margin-inline-start: 2px;">
-          {% if request.locale.iso_code == 'ar' %}(18 تقييم){% else %}(18 reviews){% endif %}
+          (18 تقييم)
         </span>
       </div>
 
@@ -119,20 +116,20 @@
           type="button"
           class="product-card__action-btn product-card__action-btn--cart js-add-to-cart"
           data-variant-id="{{ product.selected_or_first_available_variant.id }}"
-          aria-label="Add to Cart"
+          aria-label="أضف للسلة"
         >
-          {% if request.locale.iso_code == 'ar' %}سلة{% else %}Cart{% endif %}
+          أضف للسلة
         </button>
         <a
           href="{{ product.url }}"
           class="product-card__action-btn product-card__action-btn--buy"
-          aria-label="Buy Now"
+          aria-label="اشتر الآن"
         >
-          {% if request.locale.iso_code == 'ar' %}شراء{% else %}Buy Now{% endif %}
+          اشتر الآن
         </a>
       {%- else -%}
         <button class="product-card__action-btn product-card__action-btn--disabled btn-full" disabled style="grid-column: span 2;">
-          {% if request.locale.iso_code == 'ar' %}نفذت{% else %}Sold Out{% endif %}
+          نفذ المخزون
         </button>
       {%- endif -%}
     </div>
@@ -145,10 +142,10 @@
       {%- assign placeholder_index = placeholder_index | default: 1 -%}
       {{ 'product-' | append: placeholder_index | placeholder_svg_tag: 'placeholder-svg' }}
       
-      <span class="product-card__badge-left">🔥 HOT</span>
-      <span class="product-card__badge-right">NEW</span>
+      <span class="product-card__badge-left">🔥 رائج</span>
+      <span class="product-card__badge-right">جديد</span>
       
-      <button class="product-card__wishlist" aria-label="Add to Wishlist">
+      <button class="product-card__wishlist" aria-label="أضف للمفضلة">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
         </svg>
@@ -163,13 +160,13 @@
     </div>
 
     <div class="product-card__body">
-      <span class="product-card__category">Collection Category</span>
-      <h3 class="product-card__title">Premium Store Product {{ placeholder_index }}</h3>
+      <span class="product-card__category">قسم المنتج</span>
+      <h3 class="product-card__title">منتج تجريبي مميز {{ placeholder_index }}</h3>
       
       <div class="product-card__rating">
         <span class="star-rating-icon">⭐</span>
         <span class="fw-700 fs-13">5.0</span>
-        <span class="rating-count">(12 reviews)</span>
+        <span class="rating-count">(12 تقييم)</span>
       </div>
 
       <div class="product-card__price">
@@ -179,8 +176,8 @@
     </div>
 
     <div class="product-card__actions">
-      <button type="button" class="product-card__action-btn product-card__action-btn--cart">Cart</button>
-      <button type="button" class="product-card__action-btn product-card__action-btn--buy">Buy Now</button>
+      <button type="button" class="product-card__action-btn product-card__action-btn--cart">أضف للسلة</button>
+      <button type="button" class="product-card__action-btn product-card__action-btn--buy">اشتر الآن</button>
     </div>
   </div>
 {%- endif -%}

@@ -2,11 +2,11 @@
   <div class="container">
     <div class="section-header text-start mb-24" style="margin-bottom: 24px;">
       <h1 class="section-title">
-        <span class="title-ar">{% if request.locale.iso_code == 'ar' %}سلة التسوق{% else %}Shopping Cart{% endif %}</span>
+        <span class="title-ar">سلة التسوق</span>
       </h1>
       <p class="text-muted fs-14">
         {%- if cart.item_count > 0 -%}
-          {% if request.locale.iso_code == 'ar' %}لديك {{ cart.item_count }} منتجات في سلتك{% else %}You have {{ cart.item_count }} items in your cart{% endif %}
+          لديك {{ cart.item_count }} منتجات في سلتك
         {%- endif -%}
       </p>
     </div>
@@ -49,7 +49,7 @@
                     </div>
 
                     <a href="{{ item.url_to_remove }}" class="cart-item__remove">
-                      {% if request.locale.iso_code == 'ar' %}إزالة{% else %}Remove{% endif %}
+                      إزالة
                     </a>
                   </div>
                 </div>
@@ -65,23 +65,23 @@
           <!-- Order Summary Sidebar -->
           <div class="order-summary">
             <h2 class="order-summary__title">
-              {% if request.locale.iso_code == 'ar' %}ملخص الطلب{% else %}Order Summary{% endif %}
+              ملخص الطلب
             </h2>
 
             <div class="order-summary__row">
-              <span class="order-summary__label">{% if request.locale.iso_code == 'ar' %}المجموع الفرعي{% else %}Subtotal{% endif %}</span>
+              <span class="order-summary__label">المجموع الفرعي</span>
               <span class="order-summary__value">{{ cart.total_price | money_without_trailing_zeros }}</span>
             </div>
 
             <div class="order-summary__row">
-              <span class="order-summary__label">{% if request.locale.iso_code == 'ar' %}الشحن والتوصيل{% else %}Shipping{% endif %}</span>
+              <span class="order-summary__label">الشحن والتوصيل</span>
               <span class="order-summary__free">
-                {% if request.locale.iso_code == 'ar' %}شحن مجاني 🚚{% else %}Free Shipping 🚚{% endif %}
+                شحن مجاني 🚚
               </span>
             </div>
 
             <div class="order-summary__row order-summary__row--total">
-              <span class="order-summary__label">{% if request.locale.iso_code == 'ar' %}الإجمالي النهائي{% else %}Total{% endif %}</span>
+              <span class="order-summary__label">الإجمالي النهائي</span>
               <span class="order-summary__value">{{ cart.total_price | money_without_trailing_zeros }}</span>
             </div>
 
@@ -89,19 +89,19 @@
             <div class="cod-badge" style="margin-block: 16px; width: 100%;">
               <span class="cod-badge__icon">💰</span>
               <div class="cod-badge__text">
-                <span class="cod-badge__title">{% if request.locale.iso_code == 'ar' %}الدفع عند الاستلام متاح{% else %}Cash on Delivery Available{% endif %}</span>
-                <span class="cod-badge__sub">{% if request.locale.iso_code == 'ar' %}ادفع ل مندوب التوصيل عند استلام الطلب{% else %}Pay the courier upon delivery{% endif %}</span>
+                <span class="cod-badge__title">الدفع عند الاستلام متاح</span>
+                <span class="cod-badge__sub">ادفع لمندوب التوصيل عند استلام الطلب</span>
               </div>
             </div>
 
             <!-- Checkout Button -->
             <button type="submit" name="checkout" class="btn btn-primary btn-full btn-lg mb-12" style="margin-bottom: 12px;" id="checkoutBtn">
-              🔒 {% if request.locale.iso_code == 'ar' %}إتمام الشراء والدفع{% else %}Proceed to Checkout{% endif %}
+              🔒 إتمام الشراء والدفع
             </button>
 
             <!-- Continue Shopping Link -->
             <a href="{{ routes.all_products_collection_url }}" class="d-block text-center fs-14 text-muted text-decoration-underline mt-12">
-              {% if request.locale.iso_code == 'ar' %}مواصلة التسوق ←{% else %}Continue Shopping →{% endif %}
+              مواصلة التسوق ←
             </a>
           </div>
 
@@ -113,13 +113,13 @@
       <div class="no-results" style="padding: 100px 20px;">
         <div class="no-results__icon">🛒</div>
         <h2 class="no-results__title">
-          {% if request.locale.iso_code == 'ar' %}سلة التسوق فارغة حالياً{% else %}Your shopping cart is empty{% endif %}
+          سلة التسوق فارغة حالياً
         </h2>
         <p class="no-results__text">
-          {% if request.locale.iso_code == 'ar' %}استكشف أفضل العروض والمنتجات المتاحة واكتشف خياراتنا الواسعة{% else %}Explore our best deals and products{% endif %}
+          استكشف أفضل العروض والمنتجات المتاحة واكتشف خياراتنا الواسعة
         </p>
         <a href="{{ routes.all_products_collection_url }}" class="btn btn-primary btn-lg">
-          🛍️ {% if request.locale.iso_code == 'ar' %}تصفح جميع المنتجات{% else %}Start Shopping{% endif %}
+          🛍️ تصفح جميع المنتجات
         </a>
       </div>
 

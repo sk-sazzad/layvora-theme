@@ -31,20 +31,20 @@
           {{ section.settings.subtitle }}
         </p>
 
-        <!-- Countdown Timer -->
+        <!-- Countdown Timer (Arabic Only) -->
         {%- if section.settings.enable_countdown -%}
           <div class="countdown" id="promoCountdown" data-end-date="{{ section.settings.countdown_end }}">
             <div class="countdown-unit">
               <span class="countdown-value" id="cdHours">12</span>
-              <span class="countdown-label">{% if request.locale.iso_code == 'ar' %}ساعة{% else %}Hours{% endif %}</span>
+              <span class="countdown-label">ساعة</span>
             </div>
             <div class="countdown-unit">
               <span class="countdown-value" id="cdMinutes">45</span>
-              <span class="countdown-label">{% if request.locale.iso_code == 'ar' %}دقيقة{% else %}Mins{% endif %}</span>
+              <span class="countdown-label">دقيقة</span>
             </div>
             <div class="countdown-unit">
               <span class="countdown-value" id="cdSeconds">30</span>
-              <span class="countdown-label">{% if request.locale.iso_code == 'ar' %}ثانية{% else %}Secs{% endif %}</span>
+              <span class="countdown-label">ثانية</span>
             </div>
           </div>
         {%- endif -%}

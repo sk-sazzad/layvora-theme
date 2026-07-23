@@ -2,11 +2,7 @@
   <div class="container">
     <div class="section-header">
       <h2 class="section-title">
-        {%- if request.locale.iso_code == 'ar' -%}
-          <span class="title-ar">{{ section.settings.title_ar | default: 'الأكثر مبيعاً' }}</span>
-        {%- else -%}
-          <span class="title-en">{{ section.settings.title_en | default: 'Best Sellers' }}</span>
-        {%- endif -%}
+        <span class="title-ar">{{ section.settings.title_ar | default: 'الأكثر مبيعاً' }}</span>
         <span class="accent-line"></span>
       </h2>
       {%- if section.settings.subtitle != blank -%}
@@ -38,11 +34,7 @@
           class="btn btn-primary btn-lg"
           id="bestSellersViewAll"
         >
-          {%- if request.locale.iso_code == 'ar' -%}
-            {{ section.settings.view_all_text_ar | default: 'استكشف الأكثر مبيعاً 🔥' }}
-          {%- else -%}
-            {{ section.settings.view_all_text_en | default: 'Explore Best Sellers 🔥' }}
-          {%- endif -%}
+          {{ section.settings.view_all_text_ar | default: 'استكشف الأكثر مبيعاً 🔥' }}
         </a>
       </div>
     {%- endif -%}

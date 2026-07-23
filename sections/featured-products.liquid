@@ -2,11 +2,7 @@
   <div class="container">
     <div class="section-header">
       <h2 class="section-title">
-        {%- if request.locale.iso_code == 'ar' -%}
-          <span class="title-ar">{{ section.settings.title_ar | default: 'أفضل المنتجات' }}</span>
-        {%- else -%}
-          <span class="title-en">{{ section.settings.title_en | default: 'Top Products' }}</span>
-        {%- endif -%}
+        <span class="title-ar">{{ section.settings.title_ar | default: 'أفضل المنتجات' }}</span>
         <span class="accent-line"></span>
       </h2>
       {%- if section.settings.subtitle != blank -%}
@@ -38,11 +34,7 @@
           class="btn btn-outline btn-lg"
           id="featuredViewAll"
         >
-          {%- if request.locale.iso_code == 'ar' -%}
-            {{ section.settings.view_all_text_ar | default: 'عرض جميع المنتجات ←' }}
-          {%- else -%}
-            {{ section.settings.view_all_text_en | default: 'View All Products →' }}
-          {%- endif -%}
+          {{ section.settings.view_all_text_ar | default: 'عرض جميع المنتجات ←' }}
         </a>
       </div>
     {%- endif -%}

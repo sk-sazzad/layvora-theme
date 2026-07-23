@@ -1,5 +1,5 @@
 {%- comment -%}
-  Renders COD Badge
+  Renders COD Badge (Arabic Only)
   Accepts:
   - style: 'inline' | 'card' | 'compact'
 {%- endcomment -%}
@@ -10,19 +10,11 @@
   </span>
   <div class="cod-badge__text">
     <span class="cod-badge__title">
-      {%- if request.locale.iso_code == 'ar' -%}
-        {{ settings.cod_label_ar | default: 'الدفع عند الاستلام متاح' }}
-      {%- else -%}
-        {{ settings.cod_label_en | default: 'Cash on Delivery Available' }}
-      {%- endif -%}
+      {{ settings.cod_label_ar | default: 'الدفع عند الاستلام متاح' }}
     </span>
     {%- unless style == 'compact' -%}
       <span class="cod-badge__sub">
-        {%- if request.locale.iso_code == 'ar' -%}
-          ادفع نقداً عند وصول طلبك ل باب منزلك
-        {%- else -%}
-          Pay cash when your order arrives at your doorstep
-        {%- endif -%}
+        ادفع نقداً عند وصول طلبك لباب منزلك
       </span>
     {%- endunless -%}
   </div>

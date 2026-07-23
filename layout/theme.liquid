@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html
-  lang="{{ request.locale.iso_code }}"
-  dir="{% if request.locale.iso_code == 'ar' %}rtl{% else %}ltr{% endif %}"
-  class="{% if request.locale.iso_code == 'ar' %}dir-rtl{% else %}dir-ltr{% endif %}"
+  lang="ar"
+  dir="rtl"
+  class="dir-rtl"
 >
 <head>
   <meta charset="utf-8">
@@ -90,11 +90,11 @@
 
 <body
   id="{{ page_title | handle }}"
-  class="template-{{ template.name }}{% if template.suffix %}-{{ template.suffix }}{% endif %} {% if request.locale.iso_code == 'ar' %}is-rtl{% else %}is-ltr{% endif %}"
+  class="template-{{ template.name }}{% if template.suffix %}-{{ template.suffix }}{% endif %} is-rtl"
 >
 
   <a class="skip-link" href="#MainContent">
-    {% if request.locale.iso_code == 'ar' %}تخطي إلى المحتوى{% else %}Skip to content{% endif %}
+    تخطي إلى المحتوى
   </a>
 
   <!-- Announcement Bar -->
@@ -113,16 +113,16 @@
   <!-- Footer -->
   {%- section 'footer' -%}
 
-  <!-- Mobile Bottom Navigation -->
-  <nav class="mobile-bottom-nav" role="navigation" aria-label="{% if request.locale.iso_code == 'ar' %}التنقل السريع{% else %}Quick navigation{% endif %}">
+  <!-- Mobile Bottom Navigation (Arabic Only, 3 columns) -->
+  <nav class="mobile-bottom-nav" role="navigation" aria-label="التنقل السريع">
     <a href="{{ routes.root_url }}" class="mobile-nav-item {% if template.name == 'index' %}is-active{% endif %}" id="mnav-home">
       <svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      <span>{% if request.locale.iso_code == 'ar' %}الرئيسية{% else %}Home{% endif %}</span>
+      <span>الرئيسية</span>
     </a>
 
     <a href="{{ routes.search_url }}" class="mobile-nav-item {% if template.name == 'search' %}is-active{% endif %}" id="mnav-search">
       <svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <span>{% if request.locale.iso_code == 'ar' %}بحث{% else %}Search{% endif %}</span>
+      <span>البحث</span>
     </a>
 
     <a href="{{ routes.cart_url }}" class="mobile-nav-item {% if template.name == 'cart' %}is-active{% endif %}" id="mnav-cart">
@@ -132,12 +132,7 @@
           <span class="mobile-cart-badge">{{ cart.item_count }}</span>
         {%- endif -%}
       </span>
-      <span>{% if request.locale.iso_code == 'ar' %}السلة{% else %}Cart{% endif %}</span>
-    </a>
-
-    <a href="{{ routes.account_url }}" class="mobile-nav-item {% if template.name contains 'customers' %}is-active{% endif %}" id="mnav-account">
-      <svg class="mobile-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      <span>{% if request.locale.iso_code == 'ar' %}حسابي{% else %}Account{% endif %}</span>
+      <span>السلة</span>
     </a>
   </nav>
 
@@ -164,8 +159,8 @@
   <script>
     // Theme globals
     window.Layvora = window.Layvora || {};
-    window.Layvora.locale = '{{ request.locale.iso_code }}';
-    window.Layvora.isRtl = {{ request.locale.iso_code == 'ar' | json }};
+    window.Layvora.locale = 'ar';
+    window.Layvora.isRtl = true;
     window.Layvora.currency = 'SAR';
     window.Layvora.moneyFormat = '{{ shop.money_format }}';
     window.Layvora.cartUrl = '{{ routes.cart_url }}';

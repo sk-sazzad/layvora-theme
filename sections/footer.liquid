@@ -13,16 +13,12 @@
               loading="lazy"
             >
           {%- else -%}
-            <span class="footer-brand__logo-text">ليقورا — Layvora</span>
+            <span class="footer-brand__logo-text">ليقورا</span>
           {%- endif -%}
         </a>
 
         <div class="footer-brand__desc">
-          {%- if request.locale.iso_code == 'ar' -%}
-            {{ section.settings.description_ar | default: '<p>ليقورا — وجهتك الأولى للتسوق في المملكة العربية السعودية. نوفر لك أحدث المنتجات بأسعار تنافسية وتوصيل سريع والدفع عند الاستلام.</p>' }}
-          {%- else -%}
-            {{ section.settings.description_en | default: '<p>Layvora — Your premier shopping destination in KSA. We provide authentic products at competitive prices with fast delivery and cash on delivery.</p>' }}
-          {%- endif -%}
+          {{ section.settings.description | default: '<p>ليقورا — وجهتك الأولى للتسوق في المملكة العربية السعودية. نوفر لك أحدث المنتجات بأسعار تنافسية وتوصيل سريع والدفع عند الاستلام.</p>' }}
         </div>
 
         <!-- Social Media -->
@@ -55,31 +51,31 @@
 
       <!-- Column 2: Quick Links -->
       <div class="footer-col">
-        <h4 class="footer-col__title">{% if request.locale.iso_code == 'ar' %}روابط سريعة{% else %}Quick Links{% endif %}</h4>
+        <h4 class="footer-col__title">روابط سريعة</h4>
         <nav class="footer-links" aria-label="Quick links">
-          <a href="{{ routes.root_url }}" class="footer-link">› {% if request.locale.iso_code == 'ar' %}الرئيسية{% else %}Home{% endif %}</a>
-          <a href="{{ routes.all_products_collection_url }}" class="footer-link">› {% if request.locale.iso_code == 'ar' %}جميع المنتجات{% else %}All Products{% endif %}</a>
-          <a href="/collections/electronics" class="footer-link">› {% if request.locale.iso_code == 'ar' %}إلكترونيات{% else %}Electronics{% endif %}</a>
-          <a href="/collections/fashion" class="footer-link">› {% if request.locale.iso_code == 'ar' %}أزياء{% else %}Fashion{% endif %}</a>
-          <a href="/collections/deals" class="footer-link">› {% if request.locale.iso_code == 'ar' %}العروض اليومية 🔥{% else %}Daily Deals 🔥{% endif %}</a>
+          <a href="{{ routes.root_url }}" class="footer-link">› الرئيسية</a>
+          <a href="{{ routes.all_products_collection_url }}" class="footer-link">› جميع المنتجات</a>
+          <a href="/collections/electronics" class="footer-link">› إلكترونيات</a>
+          <a href="/collections/fashion" class="footer-link">› أزياء</a>
+          <a href="/collections/deals" class="footer-link">› العروض اليومية 🔥</a>
         </nav>
       </div>
 
       <!-- Column 3: Customer Support -->
       <div class="footer-col">
-        <h4 class="footer-col__title">{% if request.locale.iso_code == 'ar' %}خدمة العملاء{% else %}Customer Support{% endif %}</h4>
+        <h4 class="footer-col__title">خدمة العملاء</h4>
         <nav class="footer-links" aria-label="Customer support">
-          <a href="/pages/contact" class="footer-link">› {% if request.locale.iso_code == 'ar' %}اتصل بنا{% else %}Contact Us{% endif %}</a>
-          <a href="/pages/shipping-policy" class="footer-link">› {% if request.locale.iso_code == 'ar' %}سياسة الشحن والتوصيل{% else %}Shipping Policy{% endif %}</a>
-          <a href="/pages/refund-policy" class="footer-link">› {% if request.locale.iso_code == 'ar' %}سياسة الإرجاع والاستبدال{% else %}Refund Policy{% endif %}</a>
-          <a href="/pages/faq" class="footer-link">› {% if request.locale.iso_code == 'ar' %}الأسئلة الشائعة{% else %}FAQ{% endif %}</a>
-          <a href="/pages/terms" class="footer-link">› {% if request.locale.iso_code == 'ar' %}الشروط والأحكام{% else %}Terms & Conditions{% endif %}</a>
+          <a href="/pages/contact" class="footer-link">› اتصل بنا</a>
+          <a href="/pages/shipping-policy" class="footer-link">› سياسة الشحن والتوصيل</a>
+          <a href="/pages/refund-policy" class="footer-link">› سياسة الإرجاع والاستبدال</a>
+          <a href="/pages/faq" class="footer-link">› الأسئلة الشائعة</a>
+          <a href="/pages/terms" class="footer-link">› الشروط والأحكام</a>
         </nav>
       </div>
 
       <!-- Column 4: Contact & Payment -->
       <div class="footer-col">
-        <h4 class="footer-col__title">{% if request.locale.iso_code == 'ar' %}تواصل معنا{% else %}Contact Us{% endif %}</h4>
+        <h4 class="footer-col__title">تواصل معنا</h4>
 
         <div class="footer-contact-item">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -102,13 +98,7 @@
 
     <!-- Copyright -->
     <div class="footer-bottom">
-      <p>
-        {%- if request.locale.iso_code == 'ar' -%}
-          {{ section.settings.copyright_ar | default: '© 2026 ليقورا. جميع الحقوق محفوظة.' }}
-        {%- else -%}
-          {{ section.settings.copyright_en | default: '© 2026 Layvora. All rights reserved.' }}
-        {%- endif -%}
-      </p>
+      <p>{{ settings.footer_copyright | default: '© 2026 ليقورا. جميع الحقوق محفوظة.' }}</p>
     </div>
   </div>
 </footer>
@@ -126,27 +116,9 @@
     },
     {
       "type": "richtext",
-      "id": "description_ar",
-      "label": "Store description (Arabic)",
+      "id": "description",
+      "label": "Store description",
       "default": "<p>ليقورا — وجهتك الأولى للتسوق في المملكة العربية السعودية. منتجات أصيلة بأسعار تنافسية وتوصيل سريع.</p>"
-    },
-    {
-      "type": "richtext",
-      "id": "description_en",
-      "label": "Store description (English)",
-      "default": "<p>Layvora — Your premier shopping destination in Saudi Arabia. Authentic products, competitive prices, and fast delivery.</p>"
-    },
-    {
-      "type": "text",
-      "id": "copyright_ar",
-      "label": "Copyright text (Arabic)",
-      "default": "© 2026 ليقورا. جميع الحقوق محفوظة."
-    },
-    {
-      "type": "text",
-      "id": "copyright_en",
-      "label": "Copyright text (English)",
-      "default": "© 2026 Layvora. All rights reserved."
     }
   ]
 }

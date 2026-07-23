@@ -1,7 +1,5 @@
 /* ============================================================
-   LAYVORA THEME — theme.js
-   Frontend JS for AJAX Cart, Wishlist, Toast Alerts,
-   Product Gallery Swipe/Zoom, and Responsive Interactivity
+   LAYVORA THEME — theme.js (Arabic Only)
    ============================================================ */
 
 (function () {
@@ -57,7 +55,7 @@
     if (btnEl) {
       btnEl.disabled = true;
       btnEl.dataset.origText = btnEl.innerHTML;
-      btnEl.innerHTML = '⏳ ' + (window.Layvora.isRtl ? 'جاري الإضافة...' : 'Adding...');
+      btnEl.innerHTML = '⏳ جاري الإضافة...';
     }
 
     fetch(window.Layvora.cartAddUrl + '.js', {
@@ -76,26 +74,23 @@
         return res.json();
       })
       .then(function (item) {
-        // Fetch updated cart to get total count
         return fetch(window.Layvora.cartUrl + '.js')
           .then(function (r) { return r.json(); })
           .then(function (cart) {
             updateCartCount(cart.item_count);
-            var successMsg = window.Layvora.isRtl
-              ? 'تم إضافة "' + item.product_title + '" إلى سلتك بنجاح 🛒'
-              : '"' + item.product_title + '" added to your cart 🛒';
+            var successMsg = 'تم إضافة "' + item.product_title + '" إلى سلتك بنجاح 🛒';
             window.Layvora.showToast(successMsg, 'success');
           });
       })
       .catch(function (err) {
         console.error(err);
-        var errorMsg = window.Layvora.isRtl ? 'حدث خطأ أثناء الإضافة للسلة' : 'Error adding item to cart';
+        var errorMsg = 'حدث خطأ أثناء الإضافة للسلة';
         window.Layvora.showToast(errorMsg, 'error');
       })
       .finally(function () {
         if (btnEl) {
           btnEl.disabled = false;
-          btnEl.innerHTML = btnEl.dataset.origText || (window.Layvora.isRtl ? 'أضف إلى السلة' : 'Add to Cart');
+          btnEl.innerHTML = btnEl.dataset.origText || 'أضف للسلة';
         }
       });
   }
@@ -168,10 +163,10 @@
       var idx = wishlist.indexOf(pid);
       if (idx > -1) {
         wishlist.splice(idx, 1);
-        window.Layvora.showToast(window.Layvora.isRtl ? 'تمت الإزالة من المفضلة' : 'Removed from wishlist', 'warning');
+        window.Layvora.showToast('تمت الإزالة من المفضلة', 'warning');
       } else {
         wishlist.push(pid);
-        window.Layvora.showToast(window.Layvora.isRtl ? 'تمت الإضافة للمفضلة ❤️' : 'Added to wishlist ❤️', 'success');
+        window.Layvora.showToast('تمت الإضافة للمفضلة ❤️', 'success');
       }
       setWishlist(wishlist);
       updateWishlistButtons();

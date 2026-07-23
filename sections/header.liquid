@@ -3,7 +3,7 @@
     <div class="header-inner">
 
       <!-- Mobile Hamburger -->
-      <button class="header-hamburger" id="hamburgerBtn" aria-label="{% if request.locale.iso_code == 'ar' %}فتح القائمة{% else %}Open menu{% endif %}" aria-expanded="false" aria-controls="navDrawer">
+      <button class="header-hamburger" id="hamburgerBtn" aria-label="فتح القائمة" aria-expanded="false" aria-controls="navDrawer">
         <span></span>
         <span></span>
         <span></span>
@@ -35,7 +35,7 @@
             name="q"
             id="headerSearchInput"
             class="header-search-input"
-            placeholder="{% if request.locale.iso_code == 'ar' %}ابحث عن منتجاتك...{% else %}Search for products...{% endif %}"
+            placeholder="ابحث عن منتجاتك..."
             value="{{ search.terms | escape }}"
             autocomplete="off"
             aria-label="Search"
@@ -58,29 +58,13 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         </button>
 
-        <!-- Language Switcher -->
-        {%- form 'localization', id: 'HeaderLanguageForm', class: 'localization-form' -%}
-          <div class="lang-switcher" aria-label="Language selector">
-            {%- for language in localization.available_languages -%}
-              <button
-                type="submit"
-                name="locale_code"
-                value="{{ language.iso_code }}"
-                class="lang-btn {% if language.iso_code == localization.language.iso_code %}is-active{% endif %}"
-              >
-                {{ language.iso_code | upcase }}
-              </button>
-            {%- endfor -%}
-          </div>
-        {%- endform -%}
-
         <!-- Wishlist -->
-        <a href="/pages/wishlist" class="header-action-btn" aria-label="{% if request.locale.iso_code == 'ar' %}المفضلة{% else %}Wishlist{% endif %}">
+        <a href="/pages/wishlist" class="header-action-btn" aria-label="المفضلة">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
         </a>
 
         <!-- Cart -->
-        <a href="{{ routes.cart_url }}" class="header-action-btn" id="cartIcon" aria-label="{% if request.locale.iso_code == 'ar' %}السلة ({{ cart.item_count }}){% else %}Cart ({{ cart.item_count }}){% endif %}">
+        <a href="{{ routes.cart_url }}" class="header-action-btn" id="cartIcon" aria-label="السلة ({{ cart.item_count }})">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
           {%- if cart.item_count > 0 -%}
             <span class="header-cart-count" id="cartCount">{{ cart.item_count }}</span>
@@ -93,8 +77,8 @@
     </div>
   </div>
 
-  <!-- Category Navigation Bar -->
-  <nav class="category-bar" aria-label="{% if request.locale.iso_code == 'ar' %}الفئات{% else %}Categories{% endif %}">
+  <!-- Category Navigation Bar (Arabic Only) -->
+  <nav class="category-bar" aria-label="الفئات">
     <div class="category-bar__inner">
 
       {%- for link in section.settings.category_menu.links -%}
@@ -103,17 +87,17 @@
         </a>
       {%- else -%}
         <a href="{{ routes.root_url }}" class="category-bar__item {% if template.name == 'index' %}is-active{% endif %}">
-          {% if request.locale.iso_code == 'ar' %}الرئيسية{% else %}Home{% endif %}
+          الرئيسية
         </a>
         <a href="{{ routes.all_products_collection_url }}" class="category-bar__item {% if request.path == routes.all_products_collection_url %}is-active{% endif %}">
-          {% if request.locale.iso_code == 'ar' %}جميع المنتجات{% else %}All Products{% endif %}
+          جميع المنتجات
         </a>
-        <a href="/collections/electronics" class="category-bar__item">{% if request.locale.iso_code == 'ar' %}إلكترونيات{% else %}Electronics{% endif %}</a>
-        <a href="/collections/fashion" class="category-bar__item">{% if request.locale.iso_code == 'ar' %}أزياء{% else %}Fashion{% endif %}</a>
-        <a href="/collections/beauty" class="category-bar__item">{% if request.locale.iso_code == 'ar' %}جمال{% else %}Beauty{% endif %}</a>
-        <a href="/collections/home-kitchen" class="category-bar__item">{% if request.locale.iso_code == 'ar' %}المنزل والمطبخ{% else %}Home & Kitchen{% endif %}</a>
+        <a href="/collections/electronics" class="category-bar__item">إلكترونيات</a>
+        <a href="/collections/fashion" class="category-bar__item">أزياء</a>
+        <a href="/collections/beauty" class="category-bar__item">جمال</a>
+        <a href="/collections/home-kitchen" class="category-bar__item">المنزل والمطبخ</a>
         <a href="/collections/deals" class="category-bar__item deals-item">
-          {% if request.locale.iso_code == 'ar' %}العروض والخصومات{% else %}Hot Deals{% endif %}
+          العروض والخصومات
         </a>
       {%- endfor -%}
 
@@ -121,47 +105,47 @@
   </nav>
 </header>
 
-<!-- Mobile Nav Drawer -->
+<!-- Mobile Nav Drawer (Arabic Only) -->
 <div class="nav-drawer" id="navDrawer" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Navigation menu">
   <div class="nav-drawer__overlay" id="navOverlay"></div>
   <div class="nav-drawer__panel" id="navPanel">
     <div class="nav-drawer__header">
-      <span class="fw-700 fs-16">{% if request.locale.iso_code == 'ar' %}القائمة{% else %}Menu{% endif %}</span>
+      <span class="fw-700 fs-16">القائمة</span>
       <button class="nav-drawer__close" id="drawerClose" aria-label="Close menu">✕</button>
     </div>
 
     <nav class="nav-drawer__nav">
       <a href="{{ routes.root_url }}" class="nav-drawer__link">
-        {% if request.locale.iso_code == 'ar' %}الرئيسية{% else %}Home{% endif %}
+        الرئيسية
       </a>
       <a href="{{ routes.all_products_collection_url }}" class="nav-drawer__link">
-        {% if request.locale.iso_code == 'ar' %}جميع المنتجات{% else %}All Products{% endif %}
+        جميع المنتجات
       </a>
       <a href="/collections/electronics" class="nav-drawer__link">
-        {% if request.locale.iso_code == 'ar' %}إلكترونيات{% else %}Electronics{% endif %}
+        إلكترونيات
       </a>
       <a href="/collections/fashion" class="nav-drawer__link">
-        {% if request.locale.iso_code == 'ar' %}أزياء{% else %}Fashion{% endif %}
+        أزياء
       </a>
       <a href="/collections/beauty" class="nav-drawer__link">
-        {% if request.locale.iso_code == 'ar' %}جمال وعناية{% else %}Beauty{% endif %}
+        جمال وعناية
       </a>
       <a href="/collections/home-kitchen" class="nav-drawer__link">
-        {% if request.locale.iso_code == 'ar' %}المنزل والمطبخ{% else %}Home & Kitchen{% endif %}
+        المنزل والمطبخ
       </a>
       <a href="/collections/deals" class="nav-drawer__link" style="color: var(--clr-primary); font-weight: 700;">
-        {% if request.locale.iso_code == 'ar' %}العروض والتخفيضات{% else %}Deals & Discounts{% endif %}
+        العروض والتخفيضات
       </a>
 
       <div style="border-top: 1px solid var(--clr-border); margin-top: 8px; padding-top: 8px;">
         <a href="{{ routes.cart_url }}" class="nav-drawer__link">
-          {% if request.locale.iso_code == 'ar' %}سلة التسوق{% else %}Shopping Cart{% endif %}
+          سلة التسوق
           {%- if cart.item_count > 0 -%}
             <span class="badge badge-primary" style="margin-inline-start: auto; background: var(--clr-primary); color: white; font-size: 11px; padding: 2px 8px; border-radius: 20px;">{{ cart.item_count }}</span>
           {%- endif -%}
         </a>
         <a href="{{ routes.search_url }}" class="nav-drawer__link">
-          {% if request.locale.iso_code == 'ar' %}البحث{% else %}Search{% endif %}
+          البحث
         </a>
       </div>
     </nav>
@@ -172,15 +156,15 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px;color:var(--clr-success);"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/><circle cx="12" cy="14" r="2"/></svg>
         </span>
         <div class="cod-badge__text">
-          <span class="cod-badge__title">{% if request.locale.iso_code == 'ar' %}الدفع عند الاستلام{% else %}Cash on Delivery{% endif %}</span>
-          <span class="cod-badge__sub">{% if request.locale.iso_code == 'ar' %}متاح لجميع الطلبات{% else %}Available for all orders{% endif %}</span>
+          <span class="cod-badge__title">الدفع عند الاستلام</span>
+          <span class="cod-badge__sub">متاح لجميع الطلبات</span>
         </div>
       </div>
       {%- if settings.whatsapp_enabled -%}
         {%- assign wa_msg = settings.whatsapp_message_ar | url_encode -%}
         <a href="https://wa.me/{{ settings.whatsapp_number }}?text={{ wa_msg }}" target="_blank" class="btn btn-success btn-full" style="border-radius: 10px;">
           <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-          {% if request.locale.iso_code == 'ar' %}تواصل عبر واتساب{% else %}WhatsApp Support{% endif %}
+          تواصل عبر واتساب
         </a>
       {%- endif -%}
     </div>

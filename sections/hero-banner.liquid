@@ -40,56 +40,36 @@
         <div class="container">
           <div class="hero-slide__content">
 
-            {%- if request.locale.iso_code == 'ar' -%}
-              {%- if block.settings.badge_ar != blank -%}
-                <span class="hero-badge">{{ block.settings.badge_ar }}</span>
-              {%- endif -%}
-              {%- if block.settings.heading_ar != blank -%}
-                <h2 class="hero-title">{{ block.settings.heading_ar }}</h2>
-              {%- endif -%}
-              {%- if block.settings.subtitle_ar != blank -%}
-                <p class="hero-subtitle">{{ block.settings.subtitle_ar }}</p>
-              {%- endif -%}
-            {%- else -%}
-              {%- if block.settings.badge_en != blank -%}
-                <span class="hero-badge">{{ block.settings.badge_en }}</span>
-              {%- endif -%}
-              {%- if block.settings.heading_en != blank -%}
-                <h2 class="hero-title">{{ block.settings.heading_en }}</h2>
-              {%- endif -%}
-              {%- if block.settings.subtitle_en != blank -%}
-                <p class="hero-subtitle">{{ block.settings.subtitle_en }}</p>
-              {%- endif -%}
+            {%- if block.settings.badge != blank -%}
+              <span class="hero-badge">{{ block.settings.badge }}</span>
+            {%- endif -%}
+
+            {%- if block.settings.heading_ar != blank -%}
+              <h2 class="hero-title">{{ block.settings.heading_ar }}</h2>
+            {%- endif -%}
+
+            {%- if block.settings.subtitle != blank -%}
+              <p class="hero-subtitle">{{ block.settings.subtitle }}</p>
             {%- endif -%}
 
             <div class="hero-actions">
-              {%- assign btn1_text = block.settings.btn1_text_en -%}
-              {%- if request.locale.iso_code == 'ar' -%}
-                {%- assign btn1_text = block.settings.btn1_text_ar -%}
-              {%- endif -%}
-
-              {%- if btn1_text != blank -%}
+              {%- if block.settings.btn1_text != blank -%}
                 <a
                   href="{{ block.settings.btn1_url | default: routes.all_products_collection_url }}"
                   class="btn btn-primary btn-lg"
                   id="hero-btn1-{{ forloop.index }}"
                 >
-                  {{ btn1_text }}
+                  {{ block.settings.btn1_text }}
                 </a>
               {%- endif -%}
 
-              {%- assign btn2_text = block.settings.btn2_text_en -%}
-              {%- if request.locale.iso_code == 'ar' -%}
-                {%- assign btn2_text = block.settings.btn2_text_ar -%}
-              {%- endif -%}
-
-              {%- if btn2_text != blank -%}
+              {%- if block.settings.btn2_text != blank -%}
                 <a
                   href="{{ block.settings.btn2_url | default: '/collections/deals' }}"
                   class="btn btn-outline-white btn-lg"
                   id="hero-btn2-{{ forloop.index }}"
                 >
-                  {{ btn2_text }}
+                  {{ block.settings.btn2_text }}
                 </a>
               {%- endif -%}
             </div>
@@ -105,16 +85,15 @@
         <div class="hero-slide__overlay" style="background: rgba(0,0,0,0.2);"></div>
         <div class="container">
           <div class="hero-slide__content">
-            <span class="hero-badge">🔥 العروض الحصرية | Exclusive Deals</span>
+            <span class="hero-badge">🔥 عروض حصرية ومميزة</span>
             <h1 class="hero-title">تسوق بأفضل الأسعار</h1>
-            <p class="hero-title-en">Shop the Best Deals in Saudi Arabia</p>
-            <p class="hero-subtitle">منتجات أصيلة بأسعار تنافسية | Authentic products at competitive prices</p>
+            <p class="hero-subtitle">منتجات أصيلة 100% بأسعار تنافسية وجودة مضمونة</p>
             <div class="hero-actions">
               <a href="{{ routes.all_products_collection_url }}" class="btn btn-primary btn-lg" id="hero-default-btn1">
-                {% if request.locale.iso_code == 'ar' %}تسوق الآن{% else %}Shop Now{% endif %}
+                تسوق الآن
               </a>
               <a href="/collections/deals" class="btn btn-outline-white btn-lg" id="hero-default-btn2">
-                {% if request.locale.iso_code == 'ar' %}عروض اليوم{% else %}Today's Deals{% endif %}
+                عروض اليوم
               </a>
             </div>
           </div>
@@ -297,15 +276,9 @@
         },
         {
           "type": "text",
-          "id": "badge_ar",
-          "label": "Badge (Arabic)",
-          "default": "عروض حصرية"
-        },
-        {
-          "type": "text",
-          "id": "badge_en",
-          "label": "Badge (English)",
-          "default": "Exclusive Deals"
+          "id": "badge",
+          "label": "Badge text",
+          "default": "🔥 عروض حصرية ومميزة"
         },
         {
           "type": "text",
@@ -317,31 +290,19 @@
           "type": "text",
           "id": "heading_en",
           "label": "Heading (English)",
-          "default": "Shop the Best Deals"
+          "default": ""
         },
         {
           "type": "text",
-          "id": "subtitle_ar",
-          "label": "Subtitle (Arabic)",
+          "id": "subtitle",
+          "label": "Subtitle",
           "default": "منتجات أصيلة بأسعار تنافسية في المملكة العربية السعودية"
         },
         {
           "type": "text",
-          "id": "subtitle_en",
-          "label": "Subtitle (English)",
-          "default": "Authentic products at competitive prices in KSA"
-        },
-        {
-          "type": "text",
-          "id": "btn1_text_ar",
-          "label": "Button 1 text (Arabic)",
+          "id": "btn1_text",
+          "label": "Button 1 text",
           "default": "تسوق الآن"
-        },
-        {
-          "type": "text",
-          "id": "btn1_text_en",
-          "label": "Button 1 text (English)",
-          "default": "Shop Now"
         },
         {
           "type": "url",
@@ -350,15 +311,9 @@
         },
         {
           "type": "text",
-          "id": "btn2_text_ar",
-          "label": "Button 2 text (Arabic)",
+          "id": "btn2_text",
+          "label": "Button 2 text",
           "default": "عروض اليوم"
-        },
-        {
-          "type": "text",
-          "id": "btn2_text_en",
-          "label": "Button 2 text (English)",
-          "default": "View Deals"
         },
         {
           "type": "url",
@@ -376,45 +331,30 @@
           "type": "slide",
           "settings": {
             "heading_ar": "تسوق بأفضل الأسعار",
-            "heading_en": "Shop the Best Deals in Saudi Arabia",
-            "badge_ar": "عروض حصرية",
-            "badge_en": "Exclusive Deals",
-            "subtitle_ar": "منتجات أصيلة بأسعار تنافسية في المملكة العربية السعودية",
-            "subtitle_en": "Authentic products at competitive prices in KSA",
-            "btn1_text_ar": "تسوق الآن",
-            "btn1_text_en": "Shop Now",
-            "btn2_text_ar": "عروض اليوم",
-            "btn2_text_en": "View Deals"
+            "heading_en": "",
+            "badge": "🔥 عروض حصرية ومميزة",
+            "btn1_text": "تسوق الآن",
+            "btn2_text": "عروض اليوم"
           }
         },
         {
           "type": "slide",
           "settings": {
             "heading_ar": "إلكترونيات بأسعار لا تُصدق",
-            "heading_en": "Electronics at Unbeatable Prices",
-            "badge_ar": "جديد",
-            "badge_en": "New Arrivals",
-            "subtitle_ar": "أحدث الجوالات والملحقات بضمان الجودة",
-            "subtitle_en": "Latest smartphones and accessories with warranty",
-            "btn1_text_ar": "تسوق الإلكترونيات",
-            "btn1_text_en": "Shop Electronics",
-            "btn2_text_ar": "اكتشف المزيد",
-            "btn2_text_en": "Discover More"
+            "heading_en": "",
+            "badge": "📱 جديد وحصري",
+            "btn1_text": "تسوق الإلكترونيات",
+            "btn2_text": "اكتشف المزيد"
           }
         },
         {
           "type": "slide",
           "settings": {
             "heading_ar": "أزياء راقية لكل المناسبات",
-            "heading_en": "Premium Fashion for Every Occasion",
-            "badge_ar": "أزياء",
-            "badge_en": "Fashion",
-            "subtitle_ar": "أرقى الملابس والإكسسوارات الرجالية والنسائية",
-            "subtitle_en": "Finest clothing and accessories for men and women",
-            "btn1_text_ar": "تسوق الأزياء",
-            "btn1_text_en": "Shop Fashion",
-            "btn2_text_ar": "عروض اليوم",
-            "btn2_text_en": "Today's Deals"
+            "heading_en": "",
+            "badge": "👗 أحدث الصيحات",
+            "btn1_text": "تسوق الأزياء",
+            "btn2_text": "عروض اليوم"
           }
         }
       ]

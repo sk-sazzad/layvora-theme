@@ -2,11 +2,7 @@
   <div class="container">
     <div class="section-header">
       <h2 class="section-title">
-        {%- if request.locale.iso_code == 'ar' -%}
-          <span class="title-ar">{{ section.settings.title_ar | default: 'لماذا تختار ليقورا؟' }}</span>
-        {%- else -%}
-          <span class="title-en">{{ section.settings.title_en | default: 'Why Choose Layvora?' }}</span>
-        {%- endif -%}
+        <span class="title-ar">{{ section.settings.title_ar | default: 'لماذا تختار ليقورا؟' }}</span>
         <span class="accent-line"></span>
       </h2>
     </div>
@@ -18,76 +14,60 @@
             {{ block.settings.emoji }}
           </div>
           <h3 class="why-us-card__title">
-            {%- if request.locale.iso_code == 'ar' -%}
-              <span class="title-ar">{{ block.settings.title_ar }}</span>
-            {%- else -%}
-              <span class="title-en">{{ block.settings.title_en }}</span>
-            {%- endif -%}
+            <span class="title-ar">{{ block.settings.title_ar }}</span>
           </h3>
           <p class="why-us-card__desc">
-            {%- if request.locale.iso_code == 'ar' -%}
-              {{ block.settings.desc_ar }}
-            {%- else -%}
-              {{ block.settings.desc_en }}
-            {%- endif -%}
+            {{ block.settings.desc_ar }}
           </p>
         </div>
       {%- else -%}
 
-        <!-- Default Why Us blocks -->
+        <!-- Default Why Us blocks (Arabic-only, Premium SVGs) -->
         <div class="why-us-card">
-          <div class="why-us-card__icon">🚀</div>
+          <div class="why-us-card__icon" style="display:flex;align-items:center;justify-content:center;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:36px;height:36px;color:var(--clr-primary);"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
           <h3 class="why-us-card__title">
-            {%- if request.locale.iso_code == 'ar' -%}
-              <span class="title-ar">توصيل سريع للغاية</span>
-            {%- else -%}
-              <span class="title-en">Fast Delivery</span>
-            {%- endif -%}
+            <span class="title-ar">توصيل سريع للغاية</span>
           </h3>
           <p class="why-us-card__desc">
-            {% if request.locale.iso_code == 'ar' %}توصيل مباشر إلى باب منزلك في كافة مدن المملكة خلال 2 إلى 5 أيام عمل فقط.{% else %}Direct delivery to your doorstep across all Saudi cities in 2 to 5 business days.{% endif %}
+            توصيل مباشر إلى باب منزلك في كافة مدن المملكة خلال 2 إلى 5 أيام عمل فقط.
           </p>
         </div>
 
         <div class="why-us-card">
-          <div class="why-us-card__icon">✨</div>
+          <div class="why-us-card__icon" style="display:flex;align-items:center;justify-content:center;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:36px;height:36px;color:var(--clr-primary);"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
           <h3 class="why-us-card__title">
-            {%- if request.locale.iso_code == 'ar' -%}
-              <span class="title-ar">منتجات أصيلة 100%</span>
-            {%- else -%}
-              <span class="title-en">100% Authentic Products</span>
-            {%- endif -%}
+            <span class="title-ar">منتجات أصيلة 100%</span>
           </h3>
           <p class="why-us-card__desc">
-            {% if request.locale.iso_code == 'ar' %}نضمن لك الجودة والأصالة العالية لجميع منتجاتنا مع ضمان الشراء الآمن.{% else %}We guarantee high quality and authenticity for all our products with purchase safety.{% endif %}
+            نضمن لك الجودة والأصالة العالية لجميع منتجاتنا مع ضمان الشراء الآمن.
           </p>
         </div>
 
         <div class="why-us-card">
-          <div class="why-us-card__icon">💰</div>
+          <div class="why-us-card__icon" style="display:flex;align-items:center;justify-content:center;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:36px;height:36px;color:var(--clr-primary);"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/><circle cx="12" cy="14" r="2"/></svg>
+          </div>
           <h3 class="why-us-card__title">
-            {%- if request.locale.iso_code == 'ar' -%}
-              <span class="title-ar">الدفع عند الاستلام</span>
-            {%- else -%}
-              <span class="title-en">Cash on Delivery</span>
-            {%- endif -%}
+            <span class="title-ar">الدفع عند الاستلام</span>
           </h3>
           <p class="why-us-card__desc">
-            {% if request.locale.iso_code == 'ar' %}ادفع بسهولة وأمان عند وصول شحنتك بيدك دون الحاجة لبطاقة ائتمان.{% else %}Pay easily and securely upon arrival of your package without needing a credit card.{% endif %}
+            ادفع بسهولة وأمان عند وصول شحنتك بيدك دون الحاجة لبطاقة ائتمان.
           </p>
         </div>
 
         <div class="why-us-card">
-          <div class="why-us-card__icon">↩️</div>
+          <div class="why-us-card__icon" style="display:flex;align-items:center;justify-content:center;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:36px;height:36px;color:var(--clr-primary);"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+          </div>
           <h3 class="why-us-card__title">
-            {%- if request.locale.iso_code == 'ar' -%}
-              <span class="title-ar">إرجاع واستبدال مرن</span>
-            {%- else -%}
-              <span class="title-en">Easy Returns</span>
-            {%- endif -%}
+            <span class="title-ar">إرجاع واستبدال مرن</span>
           </h3>
           <p class="why-us-card__desc">
-            {% if request.locale.iso_code == 'ar' %}خدمة إرجاع واستبدال بسيطة خلال 7 أيام من استلام المنتج لراحتك التامة.{% else %}Simple return and exchange service within 7 days of receiving the item for your peace of mind.{% endif %}
+            خدمة إرجاع واستبدال بسيطة خلال 7 أيام من استلام المنتج لراحتك التامة.
           </p>
         </div>
 

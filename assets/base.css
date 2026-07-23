@@ -1814,7 +1814,7 @@ select.form-control {
   border-top: 1px solid var(--clr-border);
   box-shadow: 0 -4px 20px rgba(0,0,0,0.08);
   z-index: 80;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .mobile-nav-item {
