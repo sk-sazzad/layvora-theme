@@ -1,6 +1,6 @@
 # 🛍️ Layvora Store — Merchant Management Guide (For Fahim)
 
-Welcome Fahim! This guide explains how to manage your **Layvora** Shopify store, add/edit products, customize text and images, and run your COD checkout system without writing any code.
+Welcome Fahim! This guide explains how to manage your **Layvora** Shopify store, add/edit products, customize text and images, and manage customer orders cleanly from your Shopify Admin.
 
 ---
 
@@ -42,46 +42,18 @@ You can change all banners, announcement messages, titles, and colors directly f
 
 ---
 
-## 3. 💰 How Cash on Delivery (COD) & Draft Orders Work
+## 3. 💰 Cash on Delivery (COD) & Standard Checkout
 
-Your store features a **Custom 2-Step COD Checkout Drawer**:
+Your store uses Shopify's standard Checkout system with Cash on Delivery (COD) enabled as the payment method.
 
 ### Customer Experience:
-1. When a customer clicks **"⚡ Order Now — Cash on Delivery"** or **"Buy Now"**, a popup drawer slides in from the right.
-2. **Step 1**: Customer enters Name, Saudi Phone (`+9665XXXXXXXX`), selects City, and types Address.
-3. **Step 2**: Customer reviews the summary (Subtotal, Shipping SAR 30 or **Free Shipping over SAR 350**, Discount, and Total).
-4. Customer clicks **"Place Order ✓"**.
-
-### Viewing Orders in Shopify Admin:
-- Orders submitted via the COD form land directly in your Shopify Admin under **Orders** / **Draft Orders** with the customer's full address, phone number, city, and item details.
-- Simply click **Mark as Paid** or **Create Order** when you ship and collect cash upon delivery!
+1. Customer browsing the store clicks **"أضف إلى السلة | Add to Cart"**.
+2. Customer goes to the Cart / Checkout page.
+3. Customer enters their delivery details and selects **Cash on Delivery (الدفع عند الاستلام)** as their payment option.
+4. The order appears immediately in your Shopify Admin under **Orders**.
 
 ---
 
-## 4. ⚙️ Running the Backend Proxy Server (`backend/server.js`)
-
-If you want to proxy Draft Orders via your Node.js backend:
-
-1. Open terminal in `backend/` directory.
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Create a `.env` file with your credentials (never share or commit your secret key publicly):
-   ```env
-   SHOPIFY_STORE_DOMAIN=layvoraa.myshopify.com
-   SHOPIFY_CLIENT_ID=6cb09598e7a52fc716fe8cb6e1f1723c
-   SHOPIFY_CLIENT_SECRET=YOUR_SHOPIFY_CLIENT_SECRET
-   SHOPIFY_ADMIN_API_TOKEN=YOUR_ADMIN_API_TOKEN
-   PORT=3000
-   ```
-4. Start the server:
-   ```bash
-   node server.js
-   ```
-
----
-
-## 5. 📱 Contact & Support
+## 4. 📱 Contact & Support
 - **Store URL:** [layvoraa.myshopify.com](https://layvoraa.myshopify.com)
 - **GitHub Repository:** [sk-sazzad/layvora-theme](https://github.com/sk-sazzad/layvora-theme)
