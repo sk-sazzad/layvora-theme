@@ -262,7 +262,7 @@
     });
   }
 
-  // Submit Order to Shopify Draft Orders API Proxy Endpoint
+  // Submit Order — saves customer info as cart attributes then redirects to Shopify checkout
   function submitOrder() {
     var spinner = document.getElementById('codBtnSpinner');
     var btnText = document.getElementById('codBtnText');
@@ -271,64 +271,53 @@
     if (spinner) spinner.classList.remove('d-none');
     if (btnText) btnText.textContent = window.Layvora.isRtl ? 'جاري إرسال الطلب...' : 'Submitting Order...';
 
-    var payload = {
-      fullName: currentOrderData.customer.fullName,
-      phone: currentOrderData.customer.phone,
-      city: currentOrderData.customer.city,
-      address: currentOrderData.customer.address,
-      couponCode: currentOrderData.couponCode,
-      discountAmount: currentOrderData.discount,
-      shippingPrice: currentOrderData.shipping,
-      totalPrice: currentOrderData.total,
-      items: currentOrderData.items.map(function (item) {
-        return {
-          variantId: item.variant_id,
-          quantity: item.quantity,
-          price: item.price
-        };
-      })
+    var c = currentOrderData.customer;
+    var noteLines = [
+      'الاسم | Name: ' + c.fullName,
+      'الجوال | Phone: ' + c.phone,
+      'المدينة | City: ' + c.city,
+      'العنوان | Address: ' + c.address
+    ];
+    if (currentOrderData.couponCode) {
+      noteLines.push('كود الخصم | Coupon: ' + currentOrderData.couponCode);
+    }
+
+    var cartUpdatePayload = {
+      note: noteLines.join('\n'),
+      attributes: {
+        'COD_FullName': c.fullName,
+        'COD_Phone': c.phone,
+        'COD_City': c.city,
+        'COD_Address': c.address,
+        'COD_CouponCode': currentOrderData.couponCode || '',
+        'COD_Discount': currentOrderData.discount.toFixed(2),
+        'COD_Shipping': currentOrderData.shipping.toFixed(2),
+        'COD_Total': currentOrderData.total.toFixed(2),
+        'Payment_Method': 'Cash on Delivery (COD)'
+      }
     };
 
-    fetch(window.Layvora.codEndpoint || '/apps/layvora-cod/api/place-order', {
+    fetch('/cart/update.js', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(payload)
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(cartUpdatePayload)
     })
       .then(function (res) {
-        return res.json().then(function (data) {
-          if (!res.ok || !data.success) {
-            throw new Error(data.message || 'Order creation failed');
-          }
-          return data;
-        });
+        if (!res.ok) throw new Error('Cart update failed');
+        return res.json();
       })
-      .then(function (resData) {
-        // Success
-        var successOrderNo = document.getElementById('codSuccessOrderNo');
-        if (successOrderNo) successOrderNo.textContent = resData.orderNumber || ('#LV-' + Math.floor(1000 + Math.random() * 9000));
-        showStep(stepSuccess);
-
-        // Clear cart
-        fetch(window.Layvora.cartUrl + '/clear.js', { method: 'POST' })
-          .then(function () {
-            var cartBadge = document.querySelectorAll('#cartCount, .mobile-cart-badge');
-            cartBadge.forEach(function (b) { b.textContent = '0'; b.style.display = 'none'; });
-          });
+      .then(function () {
+        window.location.href = '/checkout';
       })
       .catch(function (err) {
-        console.error('COD Order Error:', err);
-        // Direct Fallback Simulation if standalone store endpoint is not yet connected
-        var fallbackOrderNo = '#LV-' + Math.floor(1000 + Math.random() * 9000);
-        var successOrderNo = document.getElementById('codSuccessOrderNo');
-        if (successOrderNo) successOrderNo.textContent = fallbackOrderNo;
-        showStep(stepSuccess);
-      })
-      .finally(function () {
+        console.error('COD Checkout Error:', err);
         placeOrderBtn.disabled = false;
         if (spinner) spinner.classList.add('d-none');
         if (btnText) btnText.textContent = window.Layvora.isRtl ? 'تأكيد وسداد عند الاستلام ✓' : 'Place Order (Cash on Delivery) ✓';
+
+        var errorEl = document.getElementById('codErrorMsg');
+        if (errorEl) errorEl.textContent = window.Layvora.isRtl ? 'حدث خطأ، يرجى التحقق من الاتصال والمحاولة مرة أخرى' : 'Something went wrong. Please check your connection and try again.';
+        showStep(stepError);
       });
   }
 

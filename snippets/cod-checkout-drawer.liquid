@@ -202,9 +202,13 @@
         <button type="button" class="btn btn-primary btn-lg btn-full" id="codPlaceOrderBtn">
           <span id="codBtnSpinner" class="cod-spinner d-none"></span>
           <span id="codBtnText">
-            {% if request.locale.iso_code == 'ar' %}تأكيد وسداد عند الاستلام ✓{% else %}Place Order (Cash on Delivery) ✓{% endif %}
+            {% if request.locale.iso_code == 'ar' %}تأكيد والانتقال للدفع ✓{% else %}Confirm & Proceed to Checkout ✓{% endif %}
           </span>
         </button>
+
+        <p class="fs-12 text-muted text-center mt-8">
+          {% if request.locale.iso_code == 'ar' %}سيتم توجيهك لصفحة الدفع عند الاستلام{% else %}You will be redirected to the payment page{% endif %}
+        </p>
       </div>
 
 
