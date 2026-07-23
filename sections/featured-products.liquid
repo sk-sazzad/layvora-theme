@@ -12,6 +12,9 @@
     </div>
 
     {%- assign collection = section.settings.collection -%}
+    {%- if collection == blank -%}
+      {%- assign collection = collections['all'] -%}
+    {%- endif -%}
 
     <div class="product-grid" id="featuredProductGrid">
       {%- if collection != blank and collection.products_count > 0 -%}
@@ -20,7 +23,7 @@
         {%- endfor -%}
       {%- else -%}
         {%- for i in (1..section.settings.products_to_show) -%}
-          {% render 'card-product', card_product: nil %}
+          {% render 'card-product', card_product: nil, placeholder_index: i %}
         {%- endfor -%}
       {%- endif -%}
     </div>
