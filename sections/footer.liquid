@@ -92,17 +92,7 @@
           <span>{{ settings.footer_email | default: 'support@layvora.com' }}</span>
         </div>
 
-        <!-- Payment Badges -->
-        <p style="font-size: 13px; font-weight: 700; color: white; margin-top: 20px; margin-bottom: 8px;">
-          {% if request.locale.iso_code == 'ar' %}طرق الدفع المتاحة:{% else %}Payment Methods:{% endif %}
-        </p>
-        <div class="payment-methods">
-          <span class="payment-badge"><span class="payment-badge-icon">💰</span> COD</span>
-          <span class="payment-badge"><span class="payment-badge-icon">💳</span> Visa</span>
-          <span class="payment-badge"><span class="payment-badge-icon">💳</span> Mada</span>
-          <span class="payment-badge"><span class="payment-badge-icon">💳</span> Mastercard</span>
-          <span class="payment-badge"><span class="payment-badge-icon"></span> Apple Pay</span>
-        </div>
+
 
       </div>
 

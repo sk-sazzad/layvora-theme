@@ -60,13 +60,13 @@
 
         <!-- Language Switcher -->
         {%- form 'localization', id: 'HeaderLanguageForm', class: 'localization-form' -%}
-          <input type="hidden" name="locale_code" id="HeaderLanguageCode" value="{{ localization.language.iso_code }}">
           <div class="lang-switcher" aria-label="Language selector">
             {%- for language in localization.available_languages -%}
               <button
-                type="button"
-                class="lang-btn {% if language.iso_code == localization.language.iso_code %}is-active{% endif %} js-lang-btn"
-                data-value="{{ language.iso_code }}"
+                type="submit"
+                name="locale_code"
+                value="{{ language.iso_code }}"
+                class="lang-btn {% if language.iso_code == localization.language.iso_code %}is-active{% endif %}"
               >
                 {{ language.iso_code | upcase }}
               </button>
@@ -102,25 +102,23 @@
   <nav class="category-bar" aria-label="{% if request.locale.iso_code == 'ar' %}الفئات{% else %}Categories{% endif %}">
     <div class="category-bar__inner">
 
-      <a href="{{ routes.root_url }}" class="category-bar__item {% if template.name == 'index' %}is-active{% endif %}">
-        {% if request.locale.iso_code == 'ar' %}الرئيسية{% else %}Home{% endif %}
-      </a>
-
-      <a href="{{ routes.all_products_collection_url }}" class="category-bar__item {% if request.path == routes.all_products_collection_url %}is-active{% endif %}">
-        {% if request.locale.iso_code == 'ar' %}جميع المنتجات{% else %}All Products{% endif %}
-      </a>
-
       {%- for link in section.settings.category_menu.links -%}
         <a href="{{ link.url }}" class="category-bar__item {% if link.active %}is-active{% endif %}">
           {{ link.title }}
         </a>
       {%- else -%}
+        <a href="{{ routes.root_url }}" class="category-bar__item {% if template.name == 'index' %}is-active{% endif %}">
+          {% if request.locale.iso_code == 'ar' %}الرئيسية{% else %}Home{% endif %}
+        </a>
+        <a href="{{ routes.all_products_collection_url }}" class="category-bar__item {% if request.path == routes.all_products_collection_url %}is-active{% endif %}">
+          {% if request.locale.iso_code == 'ar' %}جميع المنتجات{% else %}All Products{% endif %}
+        </a>
         <a href="/collections/electronics" class="category-bar__item">{% if request.locale.iso_code == 'ar' %}إلكترونيات{% else %}Electronics{% endif %}</a>
         <a href="/collections/fashion" class="category-bar__item">{% if request.locale.iso_code == 'ar' %}أزياء{% else %}Fashion{% endif %}</a>
         <a href="/collections/beauty" class="category-bar__item">{% if request.locale.iso_code == 'ar' %}جمال{% else %}Beauty{% endif %}</a>
         <a href="/collections/home-kitchen" class="category-bar__item">{% if request.locale.iso_code == 'ar' %}المنزل والمطبخ{% else %}Home & Kitchen{% endif %}</a>
         <a href="/collections/deals" class="category-bar__item deals-item">
-          {% if request.locale.iso_code == 'ar' %}العروض 🔥{% else %}Deals 🔥{% endif %}
+          {% if request.locale.iso_code == 'ar' %}عروض 🔥{% else %}Deals 🔥{% endif %}
         </a>
       {%- endfor -%}
 
@@ -307,20 +305,6 @@
         if (!e.target.closest('#headerSearch')) {
           predictiveSearch.classList.remove('is-visible');
         }
-      });
-    }
-
-    // Language Switcher click submission
-    var langBtns = document.querySelectorAll('.js-lang-btn');
-    var langFormInput = document.getElementById('HeaderLanguageCode');
-    var langForm = document.getElementById('HeaderLanguageForm');
-
-    if (langBtns && langFormInput && langForm) {
-      langBtns.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          langFormInput.value = this.getAttribute('data-value');
-          langForm.submit();
-        });
       });
     }
   })();
