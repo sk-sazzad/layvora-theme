@@ -2,8 +2,11 @@
   <div class="container">
     <div class="section-header">
       <h2 class="section-title">
-        <span class="title-ar">{{ section.settings.title_ar | default: 'لماذا تختار ليقورا؟' }}</span>
-        <span class="title-en">{{ section.settings.title_en | default: 'Why Choose Layvora?' }}</span>
+        {%- if request.locale.iso_code == 'ar' -%}
+          <span class="title-ar">{{ section.settings.title_ar | default: 'لماذا تختار ليقورا؟' }}</span>
+        {%- else -%}
+          <span class="title-en">{{ section.settings.title_en | default: 'Why Choose Layvora?' }}</span>
+        {%- endif -%}
         <span class="accent-line"></span>
       </h2>
     </div>
@@ -15,8 +18,11 @@
             {{ block.settings.emoji }}
           </div>
           <h3 class="why-us-card__title">
-            <span class="title-ar">{{ block.settings.title_ar }}</span>
-            <span class="title-en">{{ block.settings.title_en }}</span>
+            {%- if request.locale.iso_code == 'ar' -%}
+              <span class="title-ar">{{ block.settings.title_ar }}</span>
+            {%- else -%}
+              <span class="title-en">{{ block.settings.title_en }}</span>
+            {%- endif -%}
           </h3>
           <p class="why-us-card__desc">
             {%- if request.locale.iso_code == 'ar' -%}
@@ -32,8 +38,11 @@
         <div class="why-us-card">
           <div class="why-us-card__icon">🚀</div>
           <h3 class="why-us-card__title">
-            <span class="title-ar">توصيل سريع للغاية</span>
-            <span class="title-en">Fast Delivery</span>
+            {%- if request.locale.iso_code == 'ar' -%}
+              <span class="title-ar">توصيل سريع للغاية</span>
+            {%- else -%}
+              <span class="title-en">Fast Delivery</span>
+            {%- endif -%}
           </h3>
           <p class="why-us-card__desc">
             {% if request.locale.iso_code == 'ar' %}توصيل مباشر إلى باب منزلك في كافة مدن المملكة خلال 2 إلى 5 أيام عمل فقط.{% else %}Direct delivery to your doorstep across all Saudi cities in 2 to 5 business days.{% endif %}
@@ -43,8 +52,11 @@
         <div class="why-us-card">
           <div class="why-us-card__icon">✨</div>
           <h3 class="why-us-card__title">
-            <span class="title-ar">منتجات أصيلة 100%</span>
-            <span class="title-en">100% Authentic Products</span>
+            {%- if request.locale.iso_code == 'ar' -%}
+              <span class="title-ar">منتجات أصيلة 100%</span>
+            {%- else -%}
+              <span class="title-en">100% Authentic Products</span>
+            {%- endif -%}
           </h3>
           <p class="why-us-card__desc">
             {% if request.locale.iso_code == 'ar' %}نضمن لك الجودة والأصالة العالية لجميع منتجاتنا مع ضمان الشراء الآمن.{% else %}We guarantee high quality and authenticity for all our products with purchase safety.{% endif %}
@@ -54,8 +66,11 @@
         <div class="why-us-card">
           <div class="why-us-card__icon">💰</div>
           <h3 class="why-us-card__title">
-            <span class="title-ar">الدفع عند الاستلام</span>
-            <span class="title-en">Cash on Delivery</span>
+            {%- if request.locale.iso_code == 'ar' -%}
+              <span class="title-ar">الدفع عند الاستلام</span>
+            {%- else -%}
+              <span class="title-en">Cash on Delivery</span>
+            {%- endif -%}
           </h3>
           <p class="why-us-card__desc">
             {% if request.locale.iso_code == 'ar' %}ادفع بسهولة وأمان عند وصول شحنتك بيدك دون الحاجة لبطاقة ائتمان.{% else %}Pay easily and securely upon arrival of your package without needing a credit card.{% endif %}
@@ -65,8 +80,11 @@
         <div class="why-us-card">
           <div class="why-us-card__icon">↩️</div>
           <h3 class="why-us-card__title">
-            <span class="title-ar">إرجاع واستبدال مرن</span>
-            <span class="title-en">Easy Returns</span>
+            {%- if request.locale.iso_code == 'ar' -%}
+              <span class="title-ar">إرجاع واستبدال مرن</span>
+            {%- else -%}
+              <span class="title-en">Easy Returns</span>
+            {%- endif -%}
           </h3>
           <p class="why-us-card__desc">
             {% if request.locale.iso_code == 'ar' %}خدمة إرجاع واستبدال بسيطة خلال 7 أيام من استلام المنتج لراحتك التامة.{% else %}Simple return and exchange service within 7 days of receiving the item for your peace of mind.{% endif %}
