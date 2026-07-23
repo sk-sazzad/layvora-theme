@@ -2,11 +2,8 @@
   <div class="container">
     <div class="section-header">
       <h2 class="section-title">
-        {%- if request.locale.iso_code == 'ar' -%}
-          <span class="title-ar">{{ section.settings.title_ar | default: 'أفضل المنتجات' }}</span>
-        {%- else -%}
-          <span class="title-en">{{ section.settings.title_en | default: 'Top Products' }}</span>
-        {%- endif -%}
+        <span class="title-ar">{{ section.settings.title_ar | default: 'أفضل المنتجات' }}</span>
+        <span class="title-en">{{ section.settings.title_en | default: 'Top Products' }}</span>
         <span class="accent-line"></span>
       </h2>
       {%- if section.settings.subtitle != blank -%}

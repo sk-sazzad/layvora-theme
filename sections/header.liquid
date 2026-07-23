@@ -58,14 +58,26 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         </button>
 
-
+        <!-- Language Switcher -->
+        {%- form 'localization', id: 'HeaderLanguageForm', class: 'localization-form' -%}
+          <div class="lang-switcher" aria-label="Language selector">
+            {%- for language in localization.available_languages -%}
+              <button
+                type="submit"
+                name="locale_code"
+                value="{{ language.iso_code }}"
+                class="lang-btn {% if language.iso_code == localization.language.iso_code %}is-active{% endif %}"
+              >
+                {{ language.iso_code | upcase }}
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endform -%}
 
         <!-- Wishlist -->
         <a href="/pages/wishlist" class="header-action-btn" aria-label="{% if request.locale.iso_code == 'ar' %}المفضلة{% else %}Wishlist{% endif %}">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
         </a>
-
-
 
         <!-- Cart -->
         <a href="{{ routes.cart_url }}" class="header-action-btn" id="cartIcon" aria-label="{% if request.locale.iso_code == 'ar' %}السلة ({{ cart.item_count }}){% else %}Cart ({{ cart.item_count }}){% endif %}">
@@ -142,9 +154,6 @@
       </a>
 
       <div style="border-top: 1px solid var(--clr-border); margin-top: 8px; padding-top: 8px;">
-        <a href="/pages/wishlist" class="nav-drawer__link">
-          {% if request.locale.iso_code == 'ar' %}المفضلة{% else %}Wishlist{% endif %}
-        </a>
         <a href="{{ routes.cart_url }}" class="nav-drawer__link">
           {% if request.locale.iso_code == 'ar' %}سلة التسوق{% else %}Shopping Cart{% endif %}
           {%- if cart.item_count > 0 -%}
