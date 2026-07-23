@@ -160,6 +160,9 @@
     </a>
   {%- endif -%}
 
+  <!-- COD Checkout Drawer Popup -->
+  {%- render 'cod-checkout-drawer' -%}
+
   <!-- Scripts -->
   <script>
     // Theme globals
@@ -175,8 +178,10 @@
     window.Layvora.rootUrl = '{{ routes.root_url }}';
     window.Layvora.predictiveSearchUrl = '{{ routes.predictive_search_url }}';
     window.Layvora.itemCount = {{ cart.item_count }};
+    window.Layvora.codEndpoint = 'https://layvoraa.myshopify.com/apps/layvora-cod/api/place-order';
   </script>
   <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'cod-checkout.js' | asset_url }}" defer="defer"></script>
 
 </body>
 </html>

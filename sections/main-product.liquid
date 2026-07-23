@@ -105,7 +105,7 @@
           {%- endunless -%}
 
           <!-- Quantity + Add to Cart Row -->
-          <div class="product-atc-row">
+          <div class="product-atc-row mb-12" style="margin-bottom: 12px;">
             <div class="quantity-input">
               <button type="button" class="quantity-btn" id="qtyMinus" aria-label="Decrease quantity">-</button>
               <input type="number" name="quantity" value="1" min="1" max="99" id="qtyInput" class="quantity-value" aria-label="Quantity">
@@ -129,6 +129,18 @@
               </span>
             </button>
           </div>
+
+          <!-- Instant 1-Click COD Buy Now Button -->
+          {%- if product.selected_or_first_available_variant.available -%}
+            <button
+              type="button"
+              class="btn btn-gold btn-lg btn-full mb-20 js-open-cod-checkout"
+              id="buyNowBtn"
+              style="padding: 16px; font-size: 17px;"
+            >
+              ⚡ {% if request.locale.iso_code == 'ar' %}اطلب الآن — الدفع عند الاستلام{% else %}Order Now — Cash on Delivery{% endif %}
+            </button>
+          {%- endif -%}
         {%- endform -%}
 
         <!-- COD & Delivery Badges -->
