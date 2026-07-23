@@ -59,22 +59,20 @@
         </button>
 
         <!-- Language Switcher -->
-        <div class="lang-switcher" aria-label="Language selector">
-          {%- for locale in shop.published_locales -%}
-            <a
-              href="{{ locale.root_url }}"
-              class="lang-btn {% if locale.iso_code == request.locale.iso_code %}is-active{% endif %}"
-              hreflang="{{ locale.iso_code }}"
-              aria-label="Switch to {{ locale.name }}"
-            >
-              {{ locale.iso_code | upcase }}
-            </a>
-          {%- endfor -%}
-          {%- if shop.published_locales.size <= 1 -%}
-            <button class="lang-btn is-active" aria-current="true">عر</button>
-            <a href="#" class="lang-btn" lang="en">EN</a>
-          {%- endif -%}
-        </div>
+        {%- form 'localization', id: 'HeaderLanguageForm', class: 'localization-form' -%}
+          <input type="hidden" name="locale_code" id="HeaderLanguageCode" value="{{ localization.language.iso_code }}">
+          <div class="lang-switcher" aria-label="Language selector">
+            {%- for language in localization.available_languages -%}
+              <button
+                type="button"
+                class="lang-btn {% if language.iso_code == localization.language.iso_code %}is-active{% endif %} js-lang-btn"
+                data-value="{{ language.iso_code }}"
+              >
+                {{ language.iso_code | upcase }}
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endform -%}
 
         <!-- Wishlist -->
         <a href="/pages/wishlist" class="header-action-btn" aria-label="{% if request.locale.iso_code == 'ar' %}المفضلة{% else %}Wishlist{% endif %}">
@@ -309,6 +307,20 @@
         if (!e.target.closest('#headerSearch')) {
           predictiveSearch.classList.remove('is-visible');
         }
+      });
+    }
+
+    // Language Switcher click submission
+    var langBtns = document.querySelectorAll('.js-lang-btn');
+    var langFormInput = document.getElementById('HeaderLanguageCode');
+    var langForm = document.getElementById('HeaderLanguageForm');
+
+    if (langBtns && langFormInput && langForm) {
+      langBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          langFormInput.value = this.getAttribute('data-value');
+          langForm.submit();
+        });
       });
     }
   })();
