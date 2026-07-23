@@ -154,8 +154,8 @@
     });
     currentOrderData.subtotal = subtotal;
 
-    // Free shipping threshold (200 SAR)
-    if (subtotal >= 200) {
+    // Free shipping threshold (350 SAR as specified in Fahim's brief)
+    if (subtotal >= 350) {
       currentOrderData.shipping = 0;
     } else {
       currentOrderData.shipping = 30;
