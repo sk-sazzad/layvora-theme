@@ -5,7 +5,9 @@
 {%- endcomment -%}
 
 <div class="cod-badge {% if style == 'compact' %}cod-badge--compact{% endif %}" role="status">
-  <span class="cod-badge__icon">💰</span>
+  <span class="cod-badge__icon" style="display:flex;align-items:center;justify-content:center;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px;color:var(--clr-success);"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/><circle cx="12" cy="14" r="2"/></svg>
+  </span>
   <div class="cod-badge__text">
     <span class="cod-badge__title">
       {%- if request.locale.iso_code == 'ar' -%}

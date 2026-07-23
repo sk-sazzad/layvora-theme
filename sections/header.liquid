@@ -118,7 +118,7 @@
         <a href="/collections/beauty" class="category-bar__item">{% if request.locale.iso_code == 'ar' %}جمال{% else %}Beauty{% endif %}</a>
         <a href="/collections/home-kitchen" class="category-bar__item">{% if request.locale.iso_code == 'ar' %}المنزل والمطبخ{% else %}Home & Kitchen{% endif %}</a>
         <a href="/collections/deals" class="category-bar__item deals-item">
-          {% if request.locale.iso_code == 'ar' %}عروض 🔥{% else %}Deals 🔥{% endif %}
+          {% if request.locale.iso_code == 'ar' %}العروض والخصومات{% else %}Hot Deals{% endif %}
         </a>
       {%- endfor -%}
 
@@ -137,46 +137,48 @@
 
     <nav class="nav-drawer__nav">
       <a href="{{ routes.root_url }}" class="nav-drawer__link">
-        🏠 {% if request.locale.iso_code == 'ar' %}الرئيسية{% else %}Home{% endif %}
+        {% if request.locale.iso_code == 'ar' %}الرئيسية{% else %}Home{% endif %}
       </a>
       <a href="{{ routes.all_products_collection_url }}" class="nav-drawer__link">
-        🛍️ {% if request.locale.iso_code == 'ar' %}جميع المنتجات{% else %}All Products{% endif %}
+        {% if request.locale.iso_code == 'ar' %}جميع المنتجات{% else %}All Products{% endif %}
       </a>
       <a href="/collections/electronics" class="nav-drawer__link">
-        📱 {% if request.locale.iso_code == 'ar' %}إلكترونيات{% else %}Electronics{% endif %}
+        {% if request.locale.iso_code == 'ar' %}إلكترونيات{% else %}Electronics{% endif %}
       </a>
       <a href="/collections/fashion" class="nav-drawer__link">
-        👗 {% if request.locale.iso_code == 'ar' %}أزياء{% else %}Fashion{% endif %}
+        {% if request.locale.iso_code == 'ar' %}أزياء{% else %}Fashion{% endif %}
       </a>
       <a href="/collections/beauty" class="nav-drawer__link">
-        💄 {% if request.locale.iso_code == 'ar' %}جمال وعناية{% else %}Beauty{% endif %}
+        {% if request.locale.iso_code == 'ar' %}جمال وعناية{% else %}Beauty{% endif %}
       </a>
       <a href="/collections/home-kitchen" class="nav-drawer__link">
-        🏡 {% if request.locale.iso_code == 'ar' %}المنزل والمطبخ{% else %}Home & Kitchen{% endif %}
+        {% if request.locale.iso_code == 'ar' %}المنزل والمطبخ{% else %}Home & Kitchen{% endif %}
       </a>
       <a href="/collections/deals" class="nav-drawer__link" style="color: var(--clr-primary); font-weight: 700;">
-        🔥 {% if request.locale.iso_code == 'ar' %}العروض والتخفيضات{% else %}Deals & Discounts{% endif %}
+        {% if request.locale.iso_code == 'ar' %}العروض والتخفيضات{% else %}Deals & Discounts{% endif %}
       </a>
 
       <div style="border-top: 1px solid var(--clr-border); margin-top: 8px; padding-top: 8px;">
         <a href="{{ routes.account_url }}" class="nav-drawer__link">
-          👤 {% if request.locale.iso_code == 'ar' %}حسابي{% else %}My Account{% endif %}
+          {% if request.locale.iso_code == 'ar' %}حسابي{% else %}My Account{% endif %}
         </a>
         <a href="{{ routes.cart_url }}" class="nav-drawer__link">
-          🛒 {% if request.locale.iso_code == 'ar' %}سلة التسوق{% else %}Shopping Cart{% endif %}
+          {% if request.locale.iso_code == 'ar' %}سلة التسوق{% else %}Shopping Cart{% endif %}
           {%- if cart.item_count > 0 -%}
             <span class="badge badge-primary" style="margin-inline-start: auto; background: var(--clr-primary); color: white; font-size: 11px; padding: 2px 8px; border-radius: 20px;">{{ cart.item_count }}</span>
           {%- endif -%}
         </a>
         <a href="{{ routes.search_url }}" class="nav-drawer__link">
-          🔍 {% if request.locale.iso_code == 'ar' %}البحث{% else %}Search{% endif %}
+          {% if request.locale.iso_code == 'ar' %}البحث{% else %}Search{% endif %}
         </a>
       </div>
     </nav>
 
     <div class="nav-drawer__footer">
       <div class="cod-badge" style="margin-bottom: 12px;">
-        <span class="cod-badge__icon">💰</span>
+        <span class="cod-badge__icon" style="display:flex;align-items:center;justify-content:center;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:20px;height:20px;color:var(--clr-success);"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/><circle cx="12" cy="14" r="2"/></svg>
+        </span>
         <div class="cod-badge__text">
           <span class="cod-badge__title">{% if request.locale.iso_code == 'ar' %}الدفع عند الاستلام{% else %}Cash on Delivery{% endif %}</span>
           <span class="cod-badge__sub">{% if request.locale.iso_code == 'ar' %}متاح لجميع الطلبات{% else %}Available for all orders{% endif %}</span>
