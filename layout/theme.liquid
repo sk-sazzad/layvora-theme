@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html
-  lang="{{ request.locale.iso_code }}"
-  dir="{% if request.locale.iso_code == 'ar' %}rtl{% else %}ltr{% endif %}"
-  class="{% if request.locale.iso_code == 'ar' %}dir-rtl{% else %}dir-ltr{% endif %}"
+  lang="ar"
+  dir="rtl"
+  class="dir-rtl"
 >
 <head>
   <meta charset="utf-8">
@@ -90,7 +90,7 @@
 
 <body
   id="{{ page_title | handle }}"
-  class="template-{{ template.name }}{% if template.suffix %}-{{ template.suffix }}{% endif %} {% if request.locale.iso_code == 'ar' %}is-rtl{% else %}is-ltr{% endif %}"
+  class="template-{{ template.name }}{% if template.suffix %}-{{ template.suffix }}{% endif %} is-rtl"
 >
 
   <a class="skip-link" href="#MainContent">

@@ -58,21 +58,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         </button>
 
-        <!-- Language Switcher -->
-        {%- form 'localization', id: 'HeaderLanguageForm', class: 'localization-form' -%}
-          <div class="lang-switcher" aria-label="Language selector">
-            {%- for language in localization.available_languages -%}
-              <button
-                type="submit"
-                name="locale_code"
-                value="{{ language.iso_code }}"
-                class="lang-btn {% if language.iso_code == localization.language.iso_code %}is-active{% endif %}"
-              >
-                {{ language.iso_code | upcase }}
-              </button>
-            {%- endfor -%}
-          </div>
-        {%- endform -%}
+
 
         <!-- Wishlist -->
         <a href="/pages/wishlist" class="header-action-btn" aria-label="{% if request.locale.iso_code == 'ar' %}المفضلة{% else %}Wishlist{% endif %}">
