@@ -2675,7 +2675,29 @@ select.form-control {
   .footer-grid > :first-child { grid-column: 1 / -1; }
 }
 
-@media (max-width: 768px) {
+/* Desktop Navigation (768px and above) */
+@media (min-width: 768px) {
+  .header-hamburger {
+    display: none !important;
+  }
+  .nav-drawer {
+    display: none !important;
+  }
+  .mobile-bottom-nav {
+    display: none !important;
+  }
+  .mobile-search-toggle {
+    display: none !important;
+  }
+  .header-search {
+    display: block !important;
+  }
+  .category-bar {
+    display: block !important;
+  }
+}
+
+@media (max-width: 767px) {
   :root {
     --header-height: 58px;
     --announcement-height: 36px;
@@ -2692,7 +2714,8 @@ select.form-control {
   /* Header adjustments */
   .header-search { display: none; }
   .header-search.is-open { display: block; position: fixed; top: var(--header-height); left: 0; right: 0; background: var(--clr-white); padding: 12px 16px; z-index: 95; border-bottom: 1px solid var(--clr-border); }
-  .header-hamburger { display: flex; }
+  .header-hamburger { display: flex !important; }
+  .nav-drawer { display: block; }
   .header-logo img { height: 36px; }
 
   /* Product card mobile */
